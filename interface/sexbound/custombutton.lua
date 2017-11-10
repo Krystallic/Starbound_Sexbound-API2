@@ -3,37 +3,35 @@ require "/scripts/sexbound/util.lua"
 CustomButton = {}
 CustomButton.__index = CustomButton
 
+--- Instantiantes a new instance.
+-- @param button
 function CustomButton.new(...)
   local self = setmetatable({}, CustomButton)
   self:init(...)
   return self
 end
 
+--- Initializes this instance.
+-- @param button
 function CustomButton:init(button)
   self.button = button
 
+  self.button.vertCount = 0
+  
+  self.debug = {
+    boundingBoxColor = "yellow",
+    boundingBoxLineWidth = 2.0,
+    polyColor = "red",
+    polyLineWidth = 2.0
+  }
+  
   -- Assumes at least one pair of coordinates is given.
   self.button.xmin = self.button.poly[1][1]
   self.button.ymin = self.button.poly[1][2]
   self.button.xmax = self.button.xmin
   self.button.ymax = self.button.ymin
   
-  self.button.vertCount = 0
-  
-  self.debug = {
-    defaultBoundingBoxAltColor = "blue",
-    defaultBoundingBoxColor = "yellow",
-    boundingBoxLineWidth = 2.0,
-    defaultPolyAltColor = "white",
-    defaultPolyColor = "red",
-    polyLineWidth = 2.0
-  }
-  
-  self.debug.boundingBoxColor = self.debug.defaultBoundingBoxColor
-  self.debug.boundingBoxAltColor = self.debug.defaultBoundingBoxAltColor
-  self.debug.polyAltColor = self.debug.defaultPolyAltColor
-  self.debug.polyColor = self.debug.defaultPolyColor
-  
+  -- Precisely calculate the minimum and maximum verts.
   for _,v in ipairs(self.button.poly) do
     self.button.xmin = math.min(self.button.xmin, v[1])
     self.button.xmax = math.max(self.button.xmax, v[1])
@@ -61,35 +59,10 @@ function CustomButton:init(button)
   end
 end
 
-function CustomButton:drawDebug(canvas)
-  -- Draw bounding box
-  for i,v in ipairs(self.button.boundingBox) do
-    local j = util.wrap(i + 1, 1, 4)
-    
-    canvas:drawLine(v, self.button.boundingBox[j], self.debug.boundingBoxColor, self.debug.boundingBoxLineWidth)
-  end
+--- 
 
-  -- Draw poly
-  for i,v in ipairs(self.button.poly) do
-    local j = util.wrap(i + 1, 1, self.button.vertCount)
-    
-    canvas:drawLine(v, self.button.poly[j], self.debug.polyColor, self.debug.polyLineWidth)
-  end
-end
-
-function CustomButton:image()
-  return self.button.image
-end
-
-function CustomButton:imagePosition()
-  return self.button.imagePosition
-end
-
-function CustomButton:action()
-  local methodName = self.button.clickAction.method
-  local methodArgs = self.button.clickAction.args
-  
-  return _ENV[methodName](methodArgs)
+function CustomButton:boundingBox()
+  return self.button.boundingBox
 end
 
 function CustomButton:boundingBoxContains(point)
@@ -108,6 +81,59 @@ function CustomButton:boundingBoxContains(point)
   self.debug.boundingBoxColor = self.debug.boundingBoxAltColor
   
   return true
+end
+
+function CustomButton:callAction()
+  local methodName = self.button.clickAction.method
+  local methodArgs = self.button.clickAction.args
+  
+  return _ENV[methodName](methodArgs)
+end
+
+function CustomButton:drawBoundingBox(canvas, color)
+  local color = color or self.debug.boundingBoxColor
+
+  for i,v in ipairs(self.button.boundingBox) do
+    local j = util.wrap(i + 1, 1, 4)
+    
+    canvas:drawLine(v, self.button.boundingBox[j], color, self.debug.boundingBoxLineWidth)
+    --world.debugLine(v, self.button.boundingBox[j], color)
+  end
+end
+
+function CustomButton:drawPoly(canvas, color)
+  local color = color or self.debug.polyColor
+
+  for i,v in ipairs(self.button.poly) do
+    local j = util.wrap(i + 1, 1, self.button.vertCount)
+    
+    canvas:drawLine(v, self.button.poly[j], color, self.debug.polyLineWidth)
+    --world.debugLine(v, self.button.poly[j], color)
+  end
+end
+
+function CustomButton:hoverImage()
+  return self.button.hoverImage
+end
+
+function CustomButton:image()
+  return self.button.image
+end
+
+function CustomButton:imagePosition()
+  return self.button.imagePosition
+end
+
+function CustomButton:name()
+  return self.button.name
+end
+
+function CustomButton:playSound()
+  widget.playSound(self.button.clickSound)
+end
+
+function CustomButton:poly()
+  return self.button.poly
 end
 
 function CustomButton:polyContains(point)
@@ -130,16 +156,4 @@ function CustomButton:polyContains(point)
   end
   
   return c;
-end
-
-function CustomButton:name()
-  return self.button.name
-end
-
-function CustomButton:playSound()
-  widget.playSound(self.button.clickSound)
-end
-
-function CustomButton:poly()
-  return self.button.poly
 end

@@ -1,5 +1,5 @@
-require "/scripts/sexbound/api.lua"
-require "/scripts/sexbound/nodecontroller.lua"
+require "/scripts/sexbound.lua"
+require "/scripts/sexbound/controller/node.lua"
 
 function init()
   -- Check if mindControl is in storage before setting it.

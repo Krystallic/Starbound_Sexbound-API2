@@ -35,11 +35,16 @@ end
 
 -- Hook - update
 function update(dt)
+  local mousePosition = self.canvas:mousePosition()
+
+  -- Dismiss this pane when player is no longer lounging.
   if not player.isLounging() then pane.dismiss() end
 
+  -- Clear the canvas
   self.canvas:clear()
   
-  if rect.contains({0,0,200,200}, self.canvas:mousePosition()) then
+  -- Update the fadeIn and fadeOut effect.
+  if rect.contains({0,0,200,200}, mousePosition) then
     self.timer.fadeOut = 0
     canvasFadeIn(dt)
   else
@@ -55,11 +60,26 @@ function update(dt)
   
   for _,v in ipairs(self.buttons) do
     if self.debug then
-      v:boundingBoxContains(self.canvas:mousePosition())
+      v:drawPoly(self.canvas)
+      v:drawBoundingBox(self.canvas)
+    end
+
+    if v:boundingBoxContains(mousePosition) then
+      if self.debug then v:drawBoundingBox(self.canvas, "blue") end
     
-      v:drawDebug(self.canvas)
+      if v:polyContains(mousePosition) then
+        -- Draw hover image
+        if v:hoverImage() then
+          if self.debug then v:drawPoly(self.canvas, "white") end
+          
+          self.canvas:drawImage(v:hoverImage(), {100,100}, 1.0, {255,255,255,128}, true)
+        end
+      end
+    else
+      
     end
     
+    -- Draw button image
     if v:image() then
       self.canvas:drawImage(v:image(), v:imagePosition(), 1.0, self.positionWidget.colorButtons, true)
     end
@@ -99,7 +119,7 @@ function canvasClickEvent(position, button, isButtonDown)
         if isButtonDown then
           v:playSound()
           
-          return v:action()
+          return v:callAction()
         end
       end
     end

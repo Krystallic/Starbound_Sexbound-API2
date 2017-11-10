@@ -1,4 +1,4 @@
-require "/scripts/sexbound/nodecontroller.lua"
+require "/scripts/sexbound/controller/node.lua"
 
 function init()
   NodeController.init()
