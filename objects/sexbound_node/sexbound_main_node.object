@@ -1,0 +1,125 @@
+{
+  "objectName" : "sexbound_main_node",
+  "colonyTags" : ["misc"],
+  "printable" : false,
+  "rarity" : "Common",
+  "description" : "A main node used by the Sexbound API.",
+  "shortdescription" : "Sexbound Main (Node)",
+  "race" : "generic",
+  "category" : "furniture",
+  "price" : 1,
+  
+  "interactive" : true,
+  "smashable" : true,
+  
+  "objectType" : "loungeable",
+  "sitFlipDirection" : false,
+  "sitPosition" : [4, 20],
+  "sitOrientation" : "lay",
+  "sitAngle" : 0,
+  
+  "sitStatusEffects" : [
+    "sexbound_sex"
+  ],
+  
+  "zlevel" : 0,
+  
+  "inventoryIcon" : "sexbound_node.png",
+  
+  "orientations" : [
+    {
+      "dualImage" : "sexbound_node.png:default.1",
+
+      "imagePosition" : [0, 0],
+      "frames" : 1,
+      "animationCycle" : 1.0,
+      
+      "renderLayer" : "player",
+      
+      "spaceScan" : 0.1,
+      
+      "anchors" : [ "bottom" ]
+    }
+  ],
+  
+  "scripts" : ["sexbound_main_node.lua"],
+  
+  "animation" : "/artwork/humanoid/twoactors.animation",
+  
+  "sexboundConfig" : {
+    "requiredVersion" : "2.0.0",
+    
+    "position" : [
+      {
+        "name" : "From Behind",
+        
+        "allowClimax" : true,
+        "allowMoan"   : true,
+        "allowEmote"  : true,
+        
+        "animationState"       : "position1",
+        "climaxAnimationState" : "position1-climax",
+        "resetAnimationState"  : "position1-reset",
+        
+        "maxAllowedActors" : 2,
+        
+        "possiblePregnancy" : [false, true],
+        
+        "flipBody" : [false, false],
+        "flipHead" : [false, false],
+        
+        "minTempo" : 2,
+        "maxTempo" : [3, 5],
+        "sustainedInterval" : [20, 30]
+      },
+      
+      {
+        "name" : "Doggy",
+        
+        "allowClimax" : true,
+        "allowMoan"   : true,
+        "allowEmote"  : true,
+        
+        "animationState"       : "position2",
+        "climaxAnimationState" : "position2-climax",
+        "resetAnimationState"  : "position2-reset",
+        
+        "maxAllowedActors" : 2,
+        
+        "possiblePregnancy" : [false, true],
+        
+        "flipBody" : [false, false],
+        "flipHead" : [false,  true],
+        
+        "minTempo" : 2,
+        "maxTempo" : [3, 5],
+        "sustainedInterval" : [20, 30]
+      },
+      
+      {
+        "name" : "Cowgirl",
+        
+        "allowClimax" : true,
+        "allowMoan"   : true,
+        "allowEmote"  : true,
+        
+        "animationState"       : "position3",
+        "climaxAnimationState" : "position3-climax",
+        "resetAnimationState"  : "position3-reset",
+        
+        "maxAllowedActors" : 2,
+        
+        "rotateHead"   : [1.5708, 0],
+        
+        "possiblePregnancy" : [false, true],
+        
+        "flipBody" : [false, false],
+        "flipHead" : [false,  true],
+        
+        "minTempo" : 2,
+        "maxTempo" : [3, 5],
+        "sustainedInterval" : [20, 30]
+      }
+    ]
+  }
+}

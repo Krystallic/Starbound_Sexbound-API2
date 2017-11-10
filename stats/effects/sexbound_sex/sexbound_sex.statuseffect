@@ -1,0 +1,10 @@
+{
+  "name" : "sexbound_sex",
+  "defaultDuration" : 999,
+
+  "effectConfig" : {},
+  
+  "scripts" : [
+    "sexbound_sex.lua"
+  ]
+}
