@@ -11,6 +11,8 @@ function init()
   
   Sexbound.Main.init()
   
+  Sexbound.Main.becomeNode()
+  
   NodeController.init()
 end
 
@@ -27,8 +29,6 @@ function update(dt)
 end
 
 function onInteraction(args)
-  Sexbound_Util.sendMessage(args.sourceId, "sexbound-lounge", {loungeId = entity.id()})
-
   return Sexbound.Main.handleInteract(args) or nil
 end
 

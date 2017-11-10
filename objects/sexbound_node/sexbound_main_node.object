@@ -46,6 +46,8 @@
   
   "animation" : "/artwork/humanoid/twoactors.animation",
   
+  "mouthPosition" : [0, 3],
+  
   "sexboundConfig" : {
     "requiredVersion" : "2.0.0",
     

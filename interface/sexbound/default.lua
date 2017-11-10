@@ -127,9 +127,9 @@ function canvasClickEvent(position, button, isButtonDown)
 end
 
 function switchPosition(args)
-  Sexbound_Util.sendMessage(player.loungingIn(), "main-switch-position", args)
+  Sexbound_Util.sendMessage(player.loungingIn(), "node-switch-position", args)
 end
 
 function switchRole(args)
-  Sexbound_Util.sendMessage(player.loungingIn(), "main-switch-role", args)
+  Sexbound_Util.sendMessage(player.loungingIn(), "node-switch-role", args)
 end

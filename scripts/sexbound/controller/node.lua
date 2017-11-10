@@ -13,24 +13,35 @@ function NodeController.destroy()
 end
 
 function NodeController.initMessageHandlers()
-  -- Relay message to the controller.
+  -- Relay "main-remove-actor" message to the controller.
   message.setHandler("node-remove-actor", function(_, _, args)
     self.controllerId = self.controllerId or config.getParameter("controllerId") or entity.id()
     
     Sexbound_Util.sendMessage(self.controllerId, "main-remove-actor", args)
   end)
   
+  -- Relay "main-setup-actor" message to the controller.
   message.setHandler("node-setup-actor", function(_, _, args)
     self.controllerId = self.controllerId or config.getParameter("controllerId") or entity.id()
   
     Sexbound_Util.sendMessage(self.controllerId, "main-setup-actor", args)
   end)
   
-  -- Relay message to the controller.
+  -- Relay "main-store-actor" message to the controller.
   message.setHandler("node-store-actor", function(_, _, args)
     self.controllerId = self.controllerId or config.getParameter("controllerId") or entity.id()
     
     Sexbound_Util.sendMessage(self.controllerId, "main-store-actor", args)
+  end)
+  
+  -- Relay "main-switch-position" message to the controller.
+  message.setHandler("node-switch-position", function(_, _, args)
+    Sexbound_Util.sendMessage(self.controllerId, "main-switch-position", args)
+  end)
+  
+  -- Relay "main-switch-role" message to the controller.
+  message.setHandler("node-switch-role", function(_, _, args)
+    Sexbound_Util.sendMessage(self.controllerId, "main-switch-role", args)
   end)
   
   -- Sync the node with the main controller.

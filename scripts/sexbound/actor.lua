@@ -1,6 +1,8 @@
 Sexbound.Actor = {}
 Sexbound.Actor.__index = Sexbound.Actor
 
+require "/scripts/sexbound/sextalk.lua"
+
 function Sexbound.Actor.new(...)
   local self = setmetatable({}, Sexbound.Actor)
   self:init(...)
@@ -15,8 +17,32 @@ function Sexbound.Actor:init(actor, storeActor)
   self.log = Sexbound.Log.new({
     moduleName = "Actor | ID: " .. actor.id
   })
-
+  
+  self.actor = {}
+  
+  self:initTimers()
+  
   self:setup(actor, storeActor)
+end
+
+function Sexbound.Actor:update(dt)
+  self:updateTimers(dt)
+  
+  if self:entityType() == "npc" then
+    self:tryToTalk()
+  end
+end
+
+--- Initializes this instance's timers.
+function Sexbound.Actor:initTimers()
+  self.timer = { emote = 0, moan = 0, talk = 0 }
+end
+
+--- Updates all timers for this instance.
+function Sexbound.Actor:updateTimers(dt)
+  self.timer.emote = self.timer.emote + dt
+  self.timer.moan  = self.timer.moan  + dt
+  self.timer.talk  = self.timer.talk  + dt
 end
 
 --- Uninitializes this instance.
@@ -25,6 +51,17 @@ function Sexbound.Actor:uninit(actorNumber)
   self:resetGlobalAnimatorTags(actorNumber)
   
   self:resetTransformations(actorNumber)
+end
+
+--- Returns this actor's entity type.
+function Sexbound.Actor:entityType()
+  return self.actor.entityType
+end
+
+function Sexbound.Actor:flipPart(actorNumber, partName)
+  if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
+    animator.scaleTransformationGroup("actor" .. actorNumber .. partName, {-1, 1}, {0, 0})
+  end
 end
 
 --- Returns the actor's id.
@@ -40,22 +77,13 @@ function Sexbound.Actor:identity(name)
   return self.actor.identity
 end
 
---- Returns the actor's storage data or a specified parameter in the actor's storage.
--- @param name
-function Sexbound.Actor:storage(name)
-  if name then return self.actor.storage[name] end
-  
-  return self.actor.storage
-end
-
---- Returns the actor's type.
-function Sexbound.Actor:entityType()
-  return self.actor.entityType
-end
-
 --- Returns all stored data.
 function Sexbound.Actor:getData()
   return self.actor
+end
+
+function Sexbound.Actor:gender()
+  return self.actor.identity.gender
 end
 
 function Sexbound.Actor:applyTransformations(actorNumber, position)
@@ -76,27 +104,6 @@ function Sexbound.Actor:applyTransformations(actorNumber, position)
   end
 end
 
-function Sexbound.Actor:translateParts(actorNumber, partName, offset)
-  local partsList = {}
-  table.insert(partsList, 1, partName)
-  
-  if (partName == "Body") then partsList = {"ArmBack", "ArmFront", "Body"} end
-  
-  if (partName == "Head") then partsList = {"FacialHair", "FacialMask", "Emote", "Hair", "Head"} end
-  
-  for _,partName in ipairs(partsList) do
-    if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
-      self:translatePart(actorNumber, partName, offset)
-    end
-  end
-end
-
-function Sexbound.Actor:translatePart(actorNumber, partName, offset)
-  animator.resetTransformationGroup("actor" .. actorNumber .. partName)
-  
-  animator.translateTransformationGroup("actor" .. actorNumber .. partName, offset)
-end
-
 function Sexbound.Actor:flipParts(actorNumber, partName)
   local partsList = {}
   table.insert(partsList, 1, partName)
@@ -112,33 +119,6 @@ function Sexbound.Actor:flipParts(actorNumber, partName)
   end)
 end
 
-function Sexbound.Actor:rotateParts(actorNumber, partName, rotation)
-  local partsList = {}
-  table.insert(partsList, 1, partName)
-  
-  if (partName == "Body") then partsList = {"ArmBack", "ArmFront", "Body"} end
-  
-  if (partName == "Head") then partsList = {"FacialHair", "FacialMask", "Emote", "Hair", "Head"} end
-  
-  util.each(partsList, function(k, v)
-    if (animator.hasTransformationGroup("actor" .. actorNumber .. v)) then
-      self:rotatePart(actorNumber, v, rotation)
-    end
-  end)
-end
-
-function Sexbound.Actor:rotatePart(actorNumber, partName, rotation)
-  if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
-    animator.rotateTransformationGroup("actor" .. actorNumber .. partName, rotation)
-  end
-end
-
-function Sexbound.Actor:flipPart(actorNumber, partName)
-  if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
-    animator.scaleTransformationGroup("actor" .. actorNumber .. partName, {-1, 1}, {0, 0})
-  end
-end
-
 --- Resets an specified actor.
 -- @param actorNumber
 -- @param animationName
@@ -150,6 +130,11 @@ function Sexbound.Actor:reset(actorNumber, position)
   self:resetTransformations(actorNumber)
   
   self:applyTransformations(actorNumber, position)
+  
+  -- Refresh sextalk dialog pool.
+  if self.sextalk and Sexbound.Main.getActorCount() > 1 then
+    self.sextalk:refreshDialogPool()
+  end
   
   -- Set the directives.
   local directives = {
@@ -268,13 +253,34 @@ function Sexbound.Actor:resetTransformations(actorNumber)
   end
 end
 
+function Sexbound.Actor:rotatePart(actorNumber, partName, rotation)
+  if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
+    animator.rotateTransformationGroup("actor" .. actorNumber .. partName, rotation)
+  end
+end
+
+function Sexbound.Actor:rotateParts(actorNumber, partName, rotation)
+  local partsList = {}
+  table.insert(partsList, 1, partName)
+  
+  if (partName == "Body") then partsList = {"ArmBack", "ArmFront", "Body"} end
+  
+  if (partName == "Head") then partsList = {"FacialHair", "FacialMask", "Emote", "Hair", "Head"} end
+  
+  util.each(partsList, function(k, v)
+    if (animator.hasTransformationGroup("actor" .. actorNumber .. v)) then
+      self:rotatePart(actorNumber, v, rotation)
+    end
+  end)
+end
+
 --- Setup new actor.
 -- @param actor
 -- @param storeActor 
 function Sexbound.Actor:setup(actor, storeActor)
   -- Store actor data.
-  self.actor = actor
-
+  self.actor = util.mergeTable(self.actor, actor)
+  
   -- Ensure required identity parameters have a value.
   self.actor.identity.hairFolder       = self:identity("hairFolder")       or self:identity("hairGroup")
   self.actor.identity.facialHairFolder = self:identity("facialHairFolder") or self:identity("facialHairGroup")
@@ -285,6 +291,58 @@ function Sexbound.Actor:setup(actor, storeActor)
   
   -- Permenantly store actor in this entity.
   if storeActor then storage.actor = self.actor end
+  
+  -- Use sex talk for NPCs
+  if self:entityType() == "npc" then
+    self.sextalk = Sexbound.SexTalk.new( self )
+  end
+end
+
+--- Returns the actor's storage data or a specified parameter in the actor's storage.
+-- @param name
+function Sexbound.Actor:storage(name)
+  if name then return self.actor.storage[name] end
+  
+  return self.actor.storage
+end
+
+function Sexbound.Actor:talk()
+  if self.sextalk and Sexbound.Main.getActorCount() > 1 then
+    self.sextalk:sayRandom()
+  end
+end
+
+function Sexbound.Actor:species()
+  return self.actor.identity.species
+end
+
+function Sexbound.Actor:translatePart(actorNumber, partName, offset)
+  animator.resetTransformationGroup("actor" .. actorNumber .. partName)
+  
+  animator.translateTransformationGroup("actor" .. actorNumber .. partName, offset)
+end
+
+function Sexbound.Actor:translateParts(actorNumber, partName, offset)
+  local partsList = {}
+  table.insert(partsList, 1, partName)
+  
+  if (partName == "Body") then partsList = {"ArmBack", "ArmFront", "Body"} end
+  
+  if (partName == "Head") then partsList = {"FacialHair", "FacialMask", "Emote", "Hair", "Head"} end
+  
+  for _,partName in ipairs(partsList) do
+    if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
+      self:translatePart(actorNumber, partName, offset)
+    end
+  end
+end
+
+function Sexbound.Actor:tryToTalk()
+  if self.timer.talk >= 15 then
+    self:talk()
+    
+    self.timer.talk = 0
+  end
 end
 
 --- Processes gender value.

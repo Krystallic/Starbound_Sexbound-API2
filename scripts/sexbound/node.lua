@@ -4,17 +4,26 @@ Sexbound.Node = {}
 Sexbound.Node.__index = Sexbound.Node
 
 function Sexbound.Node.new(...)
-  local self = setmetatable({nodeName = "sexbound_node_node", node = {controllerId = entity.id()}, isOccupied = false}, Sexbound.Node)
+  local self = setmetatable({nodeName = "sexbound_node_node", node = {controllerId = entity.id()}}, Sexbound.Node)
   self:init(...)
   return self
 end
 
-function Sexbound.Node:init(tilePosition)
+--- Initializes this instance.
+function Sexbound.Node:init(tilePosition, placeObject)
+  tilePosition = tilePosition or {0,0}
+
   self.node.tilePosition = vec2.floor(vec2.add(entity.position(), tilePosition))
 
-  self:create(self.node.tilePosition)
+  if placeObject then
+    self:create(self.node.tilePosition)
+  else
+    self.node.id = self.node.controllerId
+  end
 end
 
+--- Attempt to place a new sexbound node object at specified tile position.
+-- @param tilePosition
 function Sexbound.Node:create(tilePosition)
   local params = {
     controllerId = self.node.controllerId
@@ -31,6 +40,7 @@ function Sexbound.Node:create(tilePosition)
   end
 end
 
+--- Returns the entityId for this node.
 function Sexbound.Node:id()
   if not self.node.id then
     local objectNodeId = world.objectAt(self.node.tilePosition)
@@ -43,14 +53,18 @@ function Sexbound.Node:id()
   return self.node.id
 end
 
+--- Sends "sexbound_lounge" message to interacting entity (player).
+-- @param entityId
 function Sexbound.Node:lounge(entityId)
   Sexbound_Util.sendMessage(entityId, "sexbound-lounge", {loungeId = self:id()})
 end
 
+--- Returns whether or not this node is occupied.
 function Sexbound.Node:occupied()
-  return self.isOccupied
+  return world.loungeableOccupied(self:id())
 end
 
+--- Uninitializes this instance.
 function Sexbound.Node:uninit()
   if self:id() then
     Sexbound_Util.sendMessage(self:id(), "node-uninit")
