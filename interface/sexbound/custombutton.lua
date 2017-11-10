@@ -59,12 +59,13 @@ function CustomButton:init(button)
   end
 end
 
---- 
-
+--- Returns the coordinates of the bounding box.
 function CustomButton:boundingBox()
   return self.button.boundingBox
 end
 
+--- Returns whether or not this instance's bounding box contains the specified point.
+-- @param point
 function CustomButton:boundingBoxContains(point)
   local cond = {
     point[1] < self.button.xmin,
@@ -83,6 +84,7 @@ function CustomButton:boundingBoxContains(point)
   return true
 end
 
+--- Calls the instance method. Returns the method's result.
 function CustomButton:callAction()
   local methodName = self.button.clickAction.method
   local methodArgs = self.button.clickAction.args
@@ -90,6 +92,9 @@ function CustomButton:callAction()
   return _ENV[methodName](methodArgs)
 end
 
+--- Draws the bounding box to the specified canvas.
+-- @param canvas CanvasWidget
+-- @param color[opt] i.e. red, green, blue..
 function CustomButton:drawBoundingBox(canvas, color)
   local color = color or self.debug.boundingBoxColor
 
@@ -101,6 +106,9 @@ function CustomButton:drawBoundingBox(canvas, color)
   end
 end
 
+--- Draws the poly to the specified canvas.
+-- @param canvas
+-- @param color[opt] i.e. red, green, blue..
 function CustomButton:drawPoly(canvas, color)
   local color = color or self.debug.polyColor
 
