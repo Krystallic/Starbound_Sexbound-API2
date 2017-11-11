@@ -72,6 +72,9 @@
         
         "minTempo" : 2,
         "maxTempo" : [3, 5],
+        
+        "mouthPosition" : [[0,0],[1.25,2.5]],
+        
         "sustainedInterval" : [20, 30]
       },
       
@@ -95,6 +98,9 @@
         
         "minTempo" : 2,
         "maxTempo" : [3, 5],
+        
+        "mouthPosition" : [[0,0],[1.25,1.5]],
+        
         "sustainedInterval" : [20, 30]
       },
       
@@ -120,6 +126,9 @@
         
         "minTempo" : 2,
         "maxTempo" : [3, 5],
+        
+        "mouthPosition" : [[0,0],[0,2.25]],
+        
         "sustainedInterval" : [20, 30]
       }
     ]

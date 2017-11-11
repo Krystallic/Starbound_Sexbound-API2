@@ -11,80 +11,30 @@ function Sexbound.SexTalk.new(...)
 end
 
 --- Initialize this instance.
-function Sexbound.SexTalk:init(actor)
-  self.parent = actor
+-- @param parent instance
+function Sexbound.SexTalk:init(parent)
+  self.parent = parent
   
+  -- Initialize log
   self.log = Sexbound.Log.new({
     moduleName = "SexTalk"
   })
   
-  self.sextalk = {}
-  self.sextalk.config = root.assetJson(Sexbound.Main.getParameter("sextalk.config"))
-  self.sextalk.history = {}
-  self.sextalk.currentMessage = "*Silent*"
-end
-
-function Sexbound.SexTalk:refreshDialogPool()
-  local animationState = animator.animationState("sex")
-  
-  local targetActor = self:targetRandomActor()
-
-  if not self.sextalk.config[animationState] or not self.sextalk.config[animationState][self.sextalk.role] then return end
-    
-  local roleRoot = self.sextalk.config[animationState][self.sextalk.role]
-  
-  self.sextalk.dialogPool = {}
-
-  local match = {
-    {"default", self.parent:species()},
-    {"default", self.parent:gender()},
-    {"default", targetActor.identity.species},
-    {"default", targetActor.identity.gender}
+  -- Initialize sextalk data
+  self.sextalk = {
+    config = root.assetJson(Sexbound.Main.getParameter("sextalk.config")),
+    history = {}
   }
-  
-  local permutations = {
-    {1,1,1,1},{1,1,1,2},{1,1,2,1},{1,1,2,2},
-    {1,2,1,1},{1,2,1,2},{1,2,2,1},{1,2,2,2},
-    {2,1,1,1},{2,1,1,2},{2,1,2,1},{2,1,2,2},
-    {2,2,1,1},{2,2,1,2},{2,2,2,1},{2,2,2,2}
-  }
-  
-  for _,v in ipairs(permutations) do
-    dialog = roleRoot
-    dialog = dialog[match[1][v[1]]] or {}
-    dialog = dialog[match[2][v[2]]] or {}
-    dialog = dialog[match[3][v[3]]] or {}
-    dialog = dialog[match[4][v[4]]] or {}
-    
-    if dialog.default and not isEmpty(dialog.default) then
-      self.sextalk.dialogPool = util.mergeLists(self.sextalk.dialogPool, dialog.default)
-    end
-  end
-
-  return self.sextalk.dialogPool
 end
 
-function Sexbound.SexTalk:targetRandomActor()
-  local actorData = {}
-  
-  self.sextalk.role = 1
-  
-  -- Populate actor data with all actors that are not the parent actor.
-  for i,actor in ipairs(Sexbound.Main.getActors()) do
-    if self.parent:id() ~= actor:id() then
-      table.insert(actorData, actor:getData())
-    else
-      -- Set the role to the parent actor's index in the actors list.
-      self.sextalk.role = i
-    end
-  end
-  
-  self.sextalk.targetActor = util.randomChoice(actorData)
-  
-  return self.sextalk.targetActor
-end
+--- Returns a random dialog message from the dialog pool.
+-- @return a string
+function Sexbound.SexTalk:outputRandomMessage()
+  -- Get current dialog pool or refresh it
+  self.sextalk.dialogPool = self.sextalk.dialogPool or self:refreshDialogPool()
 
-function Sexbound.SexTalk:randomMessage()
+  if not self.sextalk.dialogPool or isEmpty(self.sextalk.dialogPool) then return nil end
+
   local maxRetry = 10
   local maxHistoryLength = 3
   
@@ -118,14 +68,86 @@ function Sexbound.SexTalk:randomMessage()
   return message
 end
 
-function Sexbound.SexTalk:sayRandom()
-  self.sextalk.dialogPool = self.sextalk.dialogPool or self:refreshDialogPool()
+--- Refreshes the dialog pool where messages are choosen.
+function Sexbound.SexTalk:refreshDialogPool()
+  local animationState = animator.animationState("sex")
   
-  if self.sextalk.dialogPool and not isEmpty(self.sextalk.dialogPool) then
-    self.sextalk.currentMessage = self:randomMessage()
+  local targetActor = self:targetRandomActor()
+
+  if not self.sextalk.config[animationState] or not self.sextalk.config[animationState][self.sextalk.role] then return end
+    
+  local roleRoot = self.sextalk.config[animationState][self.sextalk.role]
   
-    if type(self.sextalk.currentMessage) == "string" then
-      object.say(self.sextalk.currentMessage)
+  self.sextalk.dialogPool = {}
+
+  -- Predefined list of match elements to use when searching for dialog.
+  local match = {
+    {"default", self.parent:species()},
+    {"default", self.parent:gender()},
+    {"default", targetActor.identity.species},
+    {"default", targetActor.identity.gender}
+  }
+  
+  -- Predefined list of permutations 1 = "default" and 2 = a specific species / gender.
+  local permutations = {
+    {1,1,1,1},{1,1,1,2},{1,1,2,1},{1,1,2,2},
+    {1,2,1,1},{1,2,1,2},{1,2,2,1},{1,2,2,2},
+    {2,1,1,1},{2,1,1,2},{2,1,2,1},{2,1,2,2},
+    {2,2,1,1},{2,2,1,2},{2,2,2,1},{2,2,2,2}
+  }
+  
+  for _,v in ipairs(permutations) do
+    dialog = roleRoot
+    dialog = dialog[match[1][v[1]]] or {}
+    dialog = dialog[match[2][v[2]]] or {}
+    dialog = dialog[match[3][v[3]]] or {}
+    dialog = dialog[match[4][v[4]]] or {}
+    
+    if dialog.default and not isEmpty(dialog.default) then
+      self.sextalk.dialogPool = util.mergeLists(self.sextalk.dialogPool, dialog.default)
     end
   end
+
+  return self.sextalk.dialogPool
+end
+
+--- Commands the object to say a random message.
+function Sexbound.SexTalk:sayRandom()
+  self.sextalk.currentMessage = self:outputRandomMessage() or self.sextalk.currentMessage
+
+  local position = Sexbound.Main.currentPosition()
+  
+  local mouthPosition = position.mouthPosition[self.sextalk.role] or {0, 3}
+  
+  self.log:info(mouthPosition)
+  
+  if type(self.sextalk.currentMessage) == "string" then
+    object.say(self.sextalk.currentMessage, nil, {mouthPosition = mouthPosition})
+  else
+    self.log:warn("Object was given non-string data to say.")
+  end
+end
+
+--- Sets a random actor as the target for a future message.
+function Sexbound.SexTalk:targetRandomActor()
+  local actorData = {}
+  
+  -- Default the role to 1
+  self.sextalk.role = 1
+  
+  -- Populate actor data with all actors that are not the parent actor.
+  for i,actor in ipairs(Sexbound.Main.getActors()) do
+    if self.parent:id() ~= actor:id() then
+      table.insert(actorData, actor:getData())
+    else
+      -- Set the role to the parent actor's index in the actors list.
+      self.sextalk.role = i
+    end
+  end
+  
+  if type(actorData) == "table" then
+    self.sextalk.targetActor = util.randomChoice(actorData)
+  end
+  
+  return self.sextalk.targetActor or nil
 end

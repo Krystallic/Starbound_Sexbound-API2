@@ -18,9 +18,9 @@ function Sexbound.Actor:init(actor, storeActor)
     moduleName = "Actor | ID: " .. actor.id
   })
   
-  self.actor = {}
-  
-  self:initTimers()
+  self.actor = {
+    config = Sexbound.Main.getParameter("actor")
+  }
   
   self:setup(actor, storeActor)
 end
@@ -117,6 +117,10 @@ function Sexbound.Actor:flipParts(actorNumber, partName)
       self:flipPart(actorNumber, v)
     end
   end)
+end
+
+function Sexbound.Actor:refreshTalkCooldown()
+  self.actor.talkCooldown = util.randomChoice(self.actor.config.defaultTalkCooldown)
 end
 
 --- Resets an specified actor.
@@ -281,6 +285,12 @@ function Sexbound.Actor:setup(actor, storeActor)
   -- Store actor data.
   self.actor = util.mergeTable(self.actor, actor)
   
+  -- Init timers for this actor.
+  self:initTimers()
+  
+  -- Refresh this actors talk cooldown (timeout).
+  self:refreshTalkCooldown()
+  
   -- Ensure required identity parameters have a value.
   self.actor.identity.hairFolder       = self:identity("hairFolder")       or self:identity("hairGroup")
   self.actor.identity.facialHairFolder = self:identity("facialHairFolder") or self:identity("facialHairGroup")
@@ -298,6 +308,12 @@ function Sexbound.Actor:setup(actor, storeActor)
   end
 end
 
+--- Returns the species value.
+-- @return a string
+function Sexbound.Actor:species()
+  return self.actor.identity.species
+end
+
 --- Returns the actor's storage data or a specified parameter in the actor's storage.
 -- @param name
 function Sexbound.Actor:storage(name)
@@ -310,10 +326,6 @@ function Sexbound.Actor:talk()
   if self.sextalk and Sexbound.Main.getActorCount() > 1 then
     self.sextalk:sayRandom()
   end
-end
-
-function Sexbound.Actor:species()
-  return self.actor.identity.species
 end
 
 function Sexbound.Actor:translatePart(actorNumber, partName, offset)
@@ -338,10 +350,14 @@ function Sexbound.Actor:translateParts(actorNumber, partName, offset)
 end
 
 function Sexbound.Actor:tryToTalk()
-  if self.timer.talk >= 15 then
+  if self.timer.talk >= self.actor.talkCooldown then
     self:talk()
     
+    -- Reset the talk timer
     self.timer.talk = 0
+    
+    -- Refresh the talk cooldown
+    self:refreshTalkCooldown()
   end
 end
 
