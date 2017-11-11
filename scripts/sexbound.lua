@@ -382,7 +382,7 @@ function Sexbound.Main.switchPosition( index )
     self.sexboundData.positions.sex.positionIndex = util.wrap(index, 1, self.sexboundData.positions.sex.positionCount)
     
     -- Set new animation state to match the position.
-    animator.setAnimationState("sex", self.sexboundData.positions.sex[self.sexboundData.positions.sex.positionIndex]:getData().animationState)
+    animator.setAnimationState("main", self.sexboundData.positions.sex[self.sexboundData.positions.sex.positionIndex]:getData().animationState)
     
     -- Reset all actors.
     Sexbound.Main.resetActors()

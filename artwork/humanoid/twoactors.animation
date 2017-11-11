@@ -45,7 +45,7 @@
 
   "animatedParts" : {
     "stateTypes" : {
-      "sex" : {
+      "main" : {
         "properties" :{},
         "default" : "idle",
         "states" : {
@@ -62,7 +62,7 @@
             "cycle"  : 1,
             "mode"   : "loop",
             "properties" : {
-              "immediateSoundRangeMultiplier" : 0.8
+              "immediateSoundRangeMultiplier" : 0.2
             },
             "frameProperties" : {
               "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
@@ -93,7 +93,7 @@
             "cycle"  : 1,
             "mode"   : "loop",
             "properties" : {
-              "immediateSoundRangeMultiplier" : 0.8
+              "immediateSoundRangeMultiplier" : 0.2
             },
             "frameProperties" : {
               "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
@@ -124,7 +124,7 @@
             "cycle"  : 1,
             "mode"   : "loop",
             "properties" : {
-              "immediateSoundRangeMultiplier" : 0.8
+              "immediateSoundRangeMultiplier" : 0.2
             },
             "frameProperties" : {
               "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
@@ -150,6 +150,58 @@
             "mode"   : "loop"
           }
         }
+      },
+      
+      "actor1Emote" : {
+        "default" : "none",
+        "states" : {
+          "none" : {},
+          
+          "blabber" : {
+            "frames" : 2,
+            "cycle"  : 2,
+            "mode"   : "loop"
+          },
+          
+          "happy" : {
+            "frames" : 2,
+            "cycle"  : 5,
+            "mode"   : "transition",
+            "transition" : "happyEnd"
+          },
+          
+          "happyEnd" : {
+            "frames" : 1,
+            "cycle" : 1,
+            "mode" : "loop"
+          }
+        }
+      },
+      
+      "actor2Emote" : {
+        "default" : "none",
+        "states" : {
+          "none" : {},
+          
+          "blabber" : {
+            "frames" : 2,
+            "cycle"  : 2,
+            "mode"   : "loop"
+          },
+          
+          "happy" : {
+            "frames" : 2,
+            "cycle"  : 5,
+            "mode"   : "transition",
+            "transition" : "happyEnd"
+          },
+          
+          "happyEnd" : {
+            "frames" : 1,
+            "cycle" : 1,
+            "mode" : "loop"
+          }
+        }
       }
     },
     
@@ -161,7 +213,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "/objects/sexbound_node/sexbound_node.png:default.1"
@@ -188,7 +240,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor1-body>.1<actor1-bodyDirectives><actor1-hairDirectives>"
@@ -269,7 +321,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor1-arm-front>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
@@ -342,7 +394,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor1-head>"
@@ -427,7 +479,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor1-hair>"
@@ -499,7 +551,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor1-facial-hair>"
@@ -571,7 +623,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor1-facial-mask>"
@@ -643,64 +695,22 @@
         },
         
         "partStates" : {
-          "sex" : {
-            "idle" : {
+          "actor1Emote" : {
+            "blabber" : {
               "properties" : {
-                "image" : "<part-actor1-emote>"
+                "image" : "/humanoid/<actor1-species>/emote.png:blabber.<frame>"
+              }
+            },
+          
+            "happy" : {
+              "properties" : {
+                "image" : "/humanoid/<actor1-species>/emote.png:happy.<frame>"
               }
             },
             
-            "position1" : {
+            "happyEnd" : {
               "properties" : {
-                "image" : "<part-actor1-emote>"
-              }
-            },
-            
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-emote>"
-              }
-            },
-            
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-emote>"
-              }
-            },
-            
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor1-emote>"
-              }
-            },
-            
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-emote>"
-              }
-            },
-            
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-emote>"
-              }
-            },
-            
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor1-emote>"
-              }
-            },
-            
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-emote>"
-              }
-            },
-            
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-emote>"
+                "image" : "/humanoid/<actor1-species>/emote.png:happy.2"
               }
             }
           }
@@ -715,7 +725,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor1-arm-back>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
@@ -787,7 +797,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "position1-climax" : {
               "properties" : {
                 "image" : "<part-actor1-climax>.<frame>"
@@ -838,7 +848,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor2-body>.1<actor2-bodyDirectives><actor2-hairDirectives>"
@@ -919,7 +929,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor2-arm-front>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
@@ -992,7 +1002,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor2-head>"
@@ -1080,7 +1090,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor2-hair>"
@@ -1152,7 +1162,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor2-facial-hair>"
@@ -1224,7 +1234,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor2-facial-mask>"
@@ -1296,64 +1306,22 @@
         },
         
         "partStates" : {
-          "sex" : {
-            "idle" : {
+          "actor2Emote" : {
+            "blabber" : {
               "properties" : {
-                "image" : "<part-actor2-emote>"
+                "image" : "/humanoid/<actor2-species>/emote.png:blabber.<frame>"
+              }
+            },
+          
+            "happy" : {
+              "properties" : {
+                "image" : "/humanoid/<actor2-species>/emote.png:happy.<frame>"
               }
             },
             
-            "position1" : {
+            "happyEnd" : {
               "properties" : {
-                "image" : "<part-actor2-emote>"
-              }
-            },
-            
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-emote>"
-              }
-            },
-            
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-emote>"
-              }
-            },
-            
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor2-emote>"
-              }
-            },
-            
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-emote>"
-              }
-            },
-            
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-emote>"
-              }
-            },
-            
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor2-emote>"
-              }
-            },
-            
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-emote>"
-              }
-            },
-            
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-emote>"
+                "image" : "/humanoid/<actor2-species>/emote.png:happy.2"
               }
             }
           }
@@ -1368,7 +1336,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "idle" : {
               "properties" : {
                 "image" : "<part-actor2-arm-back>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
@@ -1440,7 +1408,7 @@
         },
         
         "partStates" : {
-          "sex" : {
+          "main" : {
             "position1-climax" : {
               "properties" : {
                 "image" : "<part-actor2-climax>.<frame>"

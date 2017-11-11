@@ -70,7 +70,7 @@ end
 
 --- Refreshes the dialog pool where messages are choosen.
 function Sexbound.SexTalk:refreshDialogPool()
-  local animationState = animator.animationState("sex")
+  local animationState = animator.animationState("main")
   
   local targetActor = self:targetRandomActor()
 

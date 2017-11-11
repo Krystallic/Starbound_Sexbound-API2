@@ -40,7 +40,7 @@ end
 function idleState.enteringState(stateData)
   stateData.log:info("Entering the idle state.")
   
-  animator.setAnimationState("sex", Sexbound.Main.getParameter("animationStateIdle"), true)
+  animator.setAnimationState("main", Sexbound.Main.getParameter("animationStateIdle"), true)
   
   Sexbound.Main.resetActors()
 end
@@ -78,10 +78,10 @@ function sexState.enteringState(stateData)
   local position = Sexbound.Main.currentPosition():getData()
   
   if position.animationState then
-    animator.setAnimationState("sex", position.animationState, true)
+    animator.setAnimationState("main", position.animationState, true)
   else
     -- Set the default state animation for the sexState state. Start new animation.
-    animator.setAnimationState("sex", Sexbound.Main.getParameter("animationStateSex"), true)
+    animator.setAnimationState("main", Sexbound.Main.getParameter("animationStateSex"), true)
   end
   
   Sexbound.Main.resetActors()
@@ -124,7 +124,7 @@ end
 function climaxState.enteringState(stateData)
   stateData.log:info("Entering the climax state.")
   
-  animator.setAnimationState("sex", Sexbound.Main.getParameter("animationStateClimax"), true)
+  animator.setAnimationState("main", Sexbound.Main.getParameter("animationStateClimax"), true)
 end
 
 function climaxState.update(dt, stateData)
@@ -163,7 +163,7 @@ end
 function exitState.enteringState(stateData)
   stateData.log:info("Entering the exit state.")
   
-  animator.setAnimationState("sex", Sexbound.Main.getParameter("animationStateExit"), true)
+  animator.setAnimationState("main", Sexbound.Main.getParameter("animationStateExit"), true)
 end
 
 function exitState.update(dt, stateData)

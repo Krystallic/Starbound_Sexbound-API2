@@ -3,6 +3,7 @@
 Sexbound.Actor = {}
 Sexbound.Actor.__index = Sexbound.Actor
 
+require "/scripts/sexbound/emote.lua"
 require "/scripts/sexbound/sextalk.lua"
 
 function Sexbound.Actor.new(...)
@@ -33,6 +34,8 @@ end
 -- @param dt
 function Sexbound.Actor:update(dt)
   self:updateTimers(dt)
+  
+  self.emote:update(dt)
   
   if self:entityType() == "npc" then
     self:tryToTalk()
@@ -114,7 +117,6 @@ function Sexbound.Actor:applyTransformations(actorNumber, position)
   end
 end
 
-
 function Sexbound.Actor:refreshTalkCooldown()
   self.actor.talkCooldown = util.randomChoice(self.actor.config.defaultTalkCooldown)
 end
@@ -124,6 +126,9 @@ end
 -- @param animationName
 function Sexbound.Actor:reset(actorNumber, position)
   local defaultPath = "/artwork/humanoid/default.png:default"
+  
+  -- Set the actor's role.
+  self.actor.role = "actor" .. actorNumber
   
   self:resetGlobalAnimatorTags(actorNumber)
   
@@ -155,9 +160,8 @@ function Sexbound.Actor:reset(actorNumber, position)
   -- Set reference to actor's stored pregnancy.
   local pregnantConfig = self:storage("pregnant") or nil
   
-  -- Set the actor's role.
-  local role = "actor" .. actorNumber
-
+  local role = self.actor.role
+  
   -- Set moan based on actor 2 gender
   --if actor.data.count == 2 and actorNumber == 2 then 
     --sex.setMoanGender(gender)
@@ -253,6 +257,10 @@ function Sexbound.Actor:resetTransformations(actorNumber)
   end
 end
 
+function Sexbound.Actor:role()
+  return self.actor.role
+end
+
 function Sexbound.Actor:rotatePart(actorNumber, partName, rotation)
   if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
     animator.rotateTransformationGroup("actor" .. actorNumber .. partName, rotation)
@@ -306,6 +314,8 @@ function Sexbound.Actor:setup(actor, storeActor)
   if Sexbound.Main.getParameter("sextalk.enabled") and self:entityType() == "npc" then
     self.sextalk = Sexbound.SexTalk.new( self )
   end
+  
+  self.emote = Sexbound.Emote.new( self )
 end
 
 -- Returns a validated facial hair folder name.
@@ -356,6 +366,8 @@ end
 function Sexbound.Actor:talk()
   if self.sextalk and Sexbound.Main.getActorCount() > 1 then
     self.sextalk:sayRandom()
+    
+    self.emote:showBlabber()
   end
 end
 
