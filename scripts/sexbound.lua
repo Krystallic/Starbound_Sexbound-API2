@@ -36,6 +36,9 @@ function Sexbound.Main.init()
   self.sexboundData.nodes = {}
   self.sexboundData.nodeCount = 0
   
+  -- Initialize moan sound effects
+  Sexbound.Main.initMoanSoundEffects()
+  
   -- Initialize positions
   Sexbound.Main.initPositions()
   
@@ -138,6 +141,31 @@ function Sexbound.Main.initMessageHandlers()
   message.setHandler("main-sync-ui", function(_, _, args)
   
   end)
+end
+
+-- Initializes the moan sound effects.
+function Sexbound.Main.initMoanSoundEffects()
+  if (animator.hasSound("femalemoan")) then
+    self.femaleMoans = {
+      "/sfx/sexbound/moans/femalemoan1.ogg",
+      "/sfx/sexbound/moans/femalemoan2.ogg",
+      "/sfx/sexbound/moans/femalemoan3.ogg",
+      "/sfx/sexbound/moans/femalemoan4.ogg",
+      "/sfx/sexbound/moans/femalemoan5.ogg"
+    }
+  
+    animator.setSoundPool("femalemoan", self.femaleMoans)
+  end
+  
+  if (animator.hasSound("malemoan")) then
+    self.maleMoans = {
+      "/sfx/sexbound/moans/malemoan1.ogg",
+      "/sfx/sexbound/moans/malemoan2.ogg",
+      "/sfx/sexbound/moans/malemoan3.ogg"
+    }
+    
+    animator.setSoundPool("malemoan", self.maleMoans)
+  end
 end
 
 --- Adjusts the animation rate of the animator.
@@ -243,6 +271,8 @@ function Sexbound.Main.removeActor(actorId)
   
   for i,actor in ipairs(self.sexboundData.actors) do
     if actor:id() == actorId then
+      actor:uninit()
+      
       table.remove(self.sexboundData.actors, i)
       
       self.sexboundData.actorCount = self.sexboundData.actorCount - 1

@@ -56,11 +56,12 @@ function Sexbound.Actor:updateTimers(dt)
 end
 
 --- Uninitializes this instance.
--- @param actorNumber
-function Sexbound.Actor:uninit(actorNumber)
-  self:resetGlobalAnimatorTags(actorNumber)
+function Sexbound.Actor:uninit()
+  self:resetGlobalAnimatorTags(self.actor.actorNumber)
   
-  self:resetTransformations(actorNumber)
+  self:resetTransformations(self.actor.actorNumber)
+  
+  self.emote:uninit()
 end
 
 --- Returns this actor's entity type.
@@ -100,8 +101,6 @@ function Sexbound.Actor:gender()
 end
 
 function Sexbound.Actor:applyTransformations(actorNumber, position)
-  self.log:info(position)
-  
   for i,partName in ipairs({"Body", "Climax", "Head"}) do
     if position["offset" .. partName] ~= nil then
       self:translateParts(actorNumber, partName, position["offset" .. partName][actorNumber])
@@ -129,6 +128,10 @@ function Sexbound.Actor:reset(actorNumber, position)
   
   -- Set the actor's role.
   self.actor.role = "actor" .. actorNumber
+  
+  self.actor.actorNumber = actorNumber
+  
+  self.emote:reset()
   
   self:resetGlobalAnimatorTags(actorNumber)
   
@@ -219,17 +222,17 @@ function Sexbound.Actor:reset(actorNumber, position)
     parts.hair = defaultPath
   end
   
-  self.log:info(parts)
+  animator.setGlobalTag(role .. "-gender", gender)
+  animator.setGlobalTag(role .. "-species", species)
   
-  animator.setGlobalTag("part-" .. role .. "-body",        parts.body)
-  animator.setGlobalTag("part-" .. role .. "-climax",      parts.climax)
-  --animator.setGlobalTag("part-" .. role .. "-emote",       parts.emote)
-  animator.setGlobalTag("part-" .. role .. "-head",        parts.head)
-  animator.setGlobalTag("part-" .. role .. "-arm-front",   parts.armFront)
-  animator.setGlobalTag("part-" .. role .. "-arm-back",    parts.armBack)
+  animator.setGlobalTag("part-" .. role .. "-body", parts.body)
+  animator.setGlobalTag("part-" .. role .. "-climax", parts.climax)
+  animator.setGlobalTag("part-" .. role .. "-head", parts.head)
+  animator.setGlobalTag("part-" .. role .. "-arm-front", parts.armFront)
+  animator.setGlobalTag("part-" .. role .. "-arm-back", parts.armBack)
   animator.setGlobalTag("part-" .. role .. "-facial-hair", parts.facialHair)
   animator.setGlobalTag("part-" .. role .. "-facial-mask", parts.facialMask)
-  animator.setGlobalTag("part-" .. role .. "-hair",        parts.hair)
+  animator.setGlobalTag("part-" .. role .. "-hair", parts.hair)
   
   animator.setGlobalTag(role .. "-bodyDirectives",   directives.body)
   animator.setGlobalTag(role .. "-hairDirectives",   directives.hair)
@@ -242,7 +245,6 @@ function Sexbound.Actor:resetGlobalAnimatorTags(actorNumber)
   animator.setGlobalTag("part-" .. role .. "-arm-back", default)
   animator.setGlobalTag("part-" .. role .. "-arm-front", default)
   animator.setGlobalTag("part-" .. role .. "-body", default)
-  animator.setGlobalTag("part-" .. role .. "-emote", default)
   animator.setGlobalTag("part-" .. role .. "-head", default)
   animator.setGlobalTag("part-" .. role .. "-hair", default)
   animator.setGlobalTag("part-" .. role .. "-facial-hair", default)
@@ -250,7 +252,7 @@ function Sexbound.Actor:resetGlobalAnimatorTags(actorNumber)
 end
 
 function Sexbound.Actor:resetTransformations(actorNumber)
-  for _,v in ipairs({"ArmBack", "ArmFront", "Body", "Climax", "Emote", "FacialHair", "FacialMask", "Hair", "Head"}) do
+  for _,v in ipairs({"Body", "Head"}) do
     if animator.hasTransformationGroup("actor" .. actorNumber .. v) then
       animator.resetTransformationGroup("actor" .. actorNumber .. v)
     end

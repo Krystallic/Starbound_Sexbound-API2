@@ -159,13 +159,13 @@
           
           "blabber" : {
             "frames" : 2,
-            "cycle"  : 2,
+            "cycle"  : 1.5,
             "mode"   : "loop"
           },
           
           "happy" : {
             "frames" : 2,
-            "cycle"  : 5,
+            "cycle"  : 1.5,
             "mode"   : "transition",
             "transition" : "happyEnd"
           },
@@ -174,6 +174,44 @@
             "frames" : 1,
             "cycle" : 1,
             "mode" : "loop"
+          },
+          
+          "laugh" : {
+            "frames" : 2,
+            "cycle"  : 1.5,
+            "mode"   : "loop"
+          },
+          
+          "oh" : {
+            "frames" : 2,
+            "cycle"  : 1.5,
+            "mode"   : "transition",
+            "transition" : "ohEnd"
+          },
+          
+          "ohEnd" : {
+            "frames" : 1,
+            "cycle" : 1,
+            "mode" : "loop"
+          },
+          
+          "oooh" : {
+            "frames" : 3,
+            "cycle"  : 1.5,
+            "mode"   : "transition",
+            "transition" : "ooohEnd"
+          },
+          
+          "ooohEnd" : {
+            "frames" : 1,
+            "cycle" : 1,
+            "mode" : "loop"
+          },
+          
+          "sad" : {
+            "frames" : 5,
+            "cycle"  : 1.5,
+            "mode"   : "loop"
           }
         }
       },
@@ -185,13 +223,13 @@
           
           "blabber" : {
             "frames" : 2,
-            "cycle"  : 2,
+            "cycle"  : 1.5,
             "mode"   : "loop"
           },
           
           "happy" : {
             "frames" : 2,
-            "cycle"  : 5,
+            "cycle"  : 1.5,
             "mode"   : "transition",
             "transition" : "happyEnd"
           },
@@ -200,6 +238,44 @@
             "frames" : 1,
             "cycle" : 1,
             "mode" : "loop"
+          },
+          
+          "laugh" : {
+            "frames" : 2,
+            "cycle"  : 1.5,
+            "mode"   : "loop"
+          },
+          
+          "oh" : {
+            "frames" : 2,
+            "cycle"  : 1.5,
+            "mode"   : "transition",
+            "transition" : "ohEnd"
+          },
+          
+          "ohEnd" : {
+            "frames" : 1,
+            "cycle" : 1,
+            "mode" : "loop"
+          },
+          
+          "oooh" : {
+            "frames" : 3,
+            "cycle"  : 1.5,
+            "mode"   : "transition",
+            "transition" : "ooohEnd"
+          },
+          
+          "ooohEnd" : {
+            "frames" : 1,
+            "cycle" : 1,
+            "mode" : "loop"
+          },
+          
+          "sad" : {
+            "frames" : 5,
+            "cycle"  : 1.5,
+            "mode"   : "loop"
           }
         }
       }
@@ -711,6 +787,42 @@
             "happyEnd" : {
               "properties" : {
                 "image" : "/humanoid/<actor1-species>/emote.png:happy.2"
+              }
+            },
+            
+            "laugh" : {
+              "properties" : {
+                "image" : "/humanoid/<actor1-species>/emote.png:happy.<frame>"
+              }
+            },
+            
+            "oh" : {
+              "properties" : {
+                "image" : "/humanoid/<actor1-species>/emote.png:oh.<frame>"
+              }
+            },
+            
+            "ohEnd" : {
+              "properties" : {
+                "image" : "/humanoid/<actor1-species>/emote.png:oh.2"
+              }
+            },
+            
+            "oooh" : {
+              "properties" : {
+                "image" : "/humanoid/<actor1-species>/emote.png:oooh.<frame>"
+              }
+            },
+            
+            "ooohEnd" : {
+              "properties" : {
+                "image" : "/humanoid/<actor1-species>/emote.png:oooh.3"
+              }
+            },
+            
+            "sad" : {
+              "properties" : {
+                "image" : "/humanoid/<actor1-species>/emote.png:sad.<frame>"
               }
             }
           }
@@ -1322,6 +1434,42 @@
             "happyEnd" : {
               "properties" : {
                 "image" : "/humanoid/<actor2-species>/emote.png:happy.2"
+              }
+            },
+            
+            "laugh" : {
+              "properties" : {
+                "image" : "/humanoid/<actor2-species>/emote.png:happy.<frame>"
+              }
+            },
+            
+            "oh" : {
+              "properties" : {
+                "image" : "/humanoid/<actor2-species>/emote.png:oh.<frame>"
+              }
+            },
+            
+            "ohEnd" : {
+              "properties" : {
+                "image" : "/humanoid/<actor2-species>/emote.png:oh.2"
+              }
+            },
+            
+            "oooh" : {
+              "properties" : {
+                "image" : "/humanoid/<actor2-species>/emote.png:oooh.<frame>"
+              }
+            },
+            
+            "ooohEnd" : {
+              "properties" : {
+                "image" : "/humanoid/<actor2-species>/emote.png:oooh.3"
+              }
+            },
+            
+            "sad" : {
+              "properties" : {
+                "image" : "/humanoid/<actor2-species>/emote.png:sad.<frame>"
               }
             }
           }
