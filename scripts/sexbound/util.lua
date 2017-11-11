@@ -19,6 +19,16 @@ Sexbound_Util.deepdump = function(tbl)
   sb.logInfo("------------------")
 end
 
+--- Searches for entity with the specified uniqueId.
+-- @param uniqueId
+Sexbound_Util.findEntityWithUid = function(uniqueId)
+  if world.findUniqueEntity(uniqueId):result() then return true end
+  return false
+end
+
+
+--[ Messaging ]---------------------------------------------------------------------[ Messaging ]--#
+
 ---Creates and stores a new message.
 -- @param message reference name of the message.
 Sexbound_Util.resetMessenger = function(message)

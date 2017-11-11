@@ -1,3 +1,6 @@
+--- Main Module.
+-- @module Sexbound.Main
+
 Sexbound = {}
 Sexbound.Main = {}
 
@@ -153,16 +156,22 @@ function Sexbound.Main.respawnNPC()
       storage.npc.storage.pregnant = storage.pregnant
     end
     
+    -- Message the actor's respawner that it is turning back into an NPC.
+    if storage.actor.storage.respawner then
+      world.sendEntityMessage(storage.actor.storage.respawner, "transform-into-npc", {uniqueId = storage.actor.uniqueId})
+    end
+    
+    -- Initialize parameters to send to spawned NPC.
     local parameters = {
-      statusControllerSettings = {
-        statusProperties = {
-          sexboundPrevStorage = storage.actor.storage
+      scriptConfig = {
+        sexbound = {
+          previousStorage = storage.actor.storage
         }
       }
     }
     
+    -- Restore actor's unique ID.
     if (storage.actor.uniqueId and not world.findUniqueEntity(storage.actor.uniqueId):result()) then
-      parameters.scriptConfig = {}
       parameters.scriptConfig.uniqueId = storage.actor.uniqueId
     end
     

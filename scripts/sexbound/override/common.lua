@@ -1,3 +1,6 @@
+--- Sexbound_Common Module.
+-- @module Sexbound_Common
+
 Sexbound_Common = {}
 
 -- Override the init hook

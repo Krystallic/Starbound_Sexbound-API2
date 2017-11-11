@@ -115,14 +115,8 @@ end
 function Sexbound.SexTalk:sayRandom()
   self.sextalk.currentMessage = self:outputRandomMessage() or self.sextalk.currentMessage
 
-  local position = Sexbound.Main.currentPosition()
-  
-  local mouthPosition = position.mouthPosition[self.sextalk.role] or {0, 3}
-  
-  self.log:info(mouthPosition)
-  
   if type(self.sextalk.currentMessage) == "string" then
-    object.say(self.sextalk.currentMessage, nil, {mouthPosition = mouthPosition})
+    object.say(self.sextalk.currentMessage)
   else
     self.log:warn("Object was given non-string data to say.")
   end

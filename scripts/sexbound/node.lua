@@ -1,5 +1,5 @@
 --- Node Module.
--- @module Node
+-- @module Sexbound.Node
 Sexbound.Node = {}
 Sexbound.Node.__index = Sexbound.Node
 

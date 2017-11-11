@@ -1,3 +1,5 @@
+--- Actor Module.
+-- @module Sexbound.Actor
 Sexbound.Actor = {}
 Sexbound.Actor.__index = Sexbound.Actor
 
@@ -18,13 +20,17 @@ function Sexbound.Actor:init(actor, storeActor)
     moduleName = "Actor | ID: " .. actor.id
   })
   
+  -- Initialize the actor data object.
   self.actor = {
     config = Sexbound.Main.getParameter("actor")
   }
   
+  -- Setup the actor.
   self:setup(actor, storeActor)
 end
 
+--- Updates this instance.
+-- @param dt
 function Sexbound.Actor:update(dt)
   self:updateTimers(dt)
   
@@ -33,12 +39,13 @@ function Sexbound.Actor:update(dt)
   end
 end
 
---- Initializes this instance's timers.
+--- Initializes the timers for this instance.
 function Sexbound.Actor:initTimers()
   self.timer = { emote = 0, moan = 0, talk = 0 }
 end
 
 --- Updates all timers for this instance.
+-- @param dt
 function Sexbound.Actor:updateTimers(dt)
   self.timer.emote = self.timer.emote + dt
   self.timer.moan  = self.timer.moan  + dt
@@ -58,6 +65,9 @@ function Sexbound.Actor:entityType()
   return self.actor.entityType
 end
 
+--- Flips a specified part in the animator.
+-- @param actorNumber
+-- @param partName
 function Sexbound.Actor:flipPart(actorNumber, partName)
   if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
     animator.scaleTransformationGroup("actor" .. actorNumber .. partName, {-1, 1}, {0, 0})
@@ -99,25 +109,11 @@ function Sexbound.Actor:applyTransformations(actorNumber, position)
     end
       
     if position["flip" .. partName] ~= nil and position["flip" .. partName][actorNumber] == true then
-      self:flipParts(actorNumber, partName)
+      self:flipPart(actorNumber, partName)
     end
   end
 end
 
-function Sexbound.Actor:flipParts(actorNumber, partName)
-  local partsList = {}
-  table.insert(partsList, 1, partName)
-  
-  if (partName == "Body") then partsList = {"ArmBack", "ArmFront", "Body"} end
-  
-  if (partName == "Head") then partsList = {"FacialHair", "FacialMask", "Emote", "Hair", "Head"} end
-  
-  util.each(partsList, function(k, v)
-    if (animator.hasTransformationGroup("actor" .. actorNumber .. v)) then
-      self:flipPart(actorNumber, v)
-    end
-  end)
-end
 
 function Sexbound.Actor:refreshTalkCooldown()
   self.actor.talkCooldown = util.randomChoice(self.actor.config.defaultTalkCooldown)
@@ -291,21 +287,55 @@ function Sexbound.Actor:setup(actor, storeActor)
   -- Refresh this actors talk cooldown (timeout).
   self:refreshTalkCooldown()
   
-  -- Ensure required identity parameters have a value.
-  self.actor.identity.hairFolder       = self:identity("hairFolder")       or self:identity("hairGroup")
-  self.actor.identity.facialHairFolder = self:identity("facialHairFolder") or self:identity("facialHairGroup")
-  self.actor.identity.facialMaskFolder = self:identity("facialMaskFolder") or self:identity("facialMaskGroup")
-  self.actor.identity.hairType         = self:identity("hairType")         or "1"
-  self.actor.identity.facialHairType   = self:identity("facialHairType")   or "1"
-  self.actor.identity.facialMaskType   = self:identity("facialMaskType")   or "1"
+  -- Initialize hair identities.
+  self.actor.identity.hairFolder = self:hairFolder()
+  self.actor.identity.hairType = self:hairType()
   
+  -- Initialize facial hair identities.
+  self.actor.identity.facialHairFolder = self:facialHairFolder()
+  self.actor.identity.facialHairType = self:facialHairType()
+  
+  -- Initialize facial mask identities.
+  self.actor.identity.facialMaskFolder = self:facialMaskFolder()
+  self.actor.identity.facialMaskType = self:facialMaskType()
+
   -- Permenantly store actor in this entity.
   if storeActor then storage.actor = self.actor end
-  
+
   -- Use sex talk for NPCs
-  if self:entityType() == "npc" then
+  if Sexbound.Main.getParameter("sextalk.enabled") and self:entityType() == "npc" then
     self.sextalk = Sexbound.SexTalk.new( self )
   end
+end
+
+-- Returns a validated facial hair folder name.
+function Sexbound.Actor:facialHairFolder()
+  return self:identity("facialHairFolder") or self:identity("facialHairGroup") or ""
+end
+
+-- Returns a validated facial hair type.
+function Sexbound.Actor:facialHairType()
+  return self:identity("facialHairType") or "1"
+end
+
+-- Returns a validated facial mask folder name.
+function Sexbound.Actor:facialMaskFolder()
+  return self:identity("facialMaskFolder") or self:identity("facialMaskGroup") or ""
+end
+
+-- Returns a validated facial mask type.
+function Sexbound.Actor:facialMaskType()
+  return self:identity("facialMaskType") or "1"
+end
+
+-- Returns a validated hair folder name.
+function Sexbound.Actor:hairFolder()
+  return self.actor.identity.hairFolder or self:identity("hairGroup") or "hair"
+end
+
+-- Returns a validated hair type.
+function Sexbound.Actor:hairType()
+  return self:identity("hairType") or "1"
 end
 
 --- Returns the species value.
@@ -322,6 +352,7 @@ function Sexbound.Actor:storage(name)
   return self.actor.storage
 end
 
+--- Commands the actor to talk.
 function Sexbound.Actor:talk()
   if self.sextalk and Sexbound.Main.getActorCount() > 1 then
     self.sextalk:sayRandom()
