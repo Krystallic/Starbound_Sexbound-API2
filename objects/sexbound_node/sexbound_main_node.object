@@ -51,86 +51,88 @@
   "sexboundConfig" : {
     "requiredVersion" : "2.0.0",
     
-    "position" : [
-      {
-        "name" : "From Behind",
+    "position" : {
+      "sex" : [
+        {
+          "name" : "From Behind",
+          
+          "allowClimax" : true,
+          "allowMoan"   : true,
+          "allowEmote"  : true,
+          
+          "animationState"       : "position1",
+          "climaxAnimationState" : "position1-climax",
+          "resetAnimationState"  : "position1-reset",
+          
+          "maxAllowedActors" : 2,
+          
+          "possiblePregnancy" : [false, true],
+          
+          "flipBody" : [false, false],
+          "flipHead" : [false, false],
+          
+          "minTempo" : 2,
+          "maxTempo" : [3, 5],
+          
+          "mouthPosition" : [[0,0],[1.25,2.5]],
+          
+          "sustainedInterval" : [20, 30]
+        },
         
-        "allowClimax" : true,
-        "allowMoan"   : true,
-        "allowEmote"  : true,
+        {
+          "name" : "Doggy",
+          
+          "allowClimax" : true,
+          "allowMoan"   : true,
+          "allowEmote"  : true,
+          
+          "animationState"       : "position2",
+          "climaxAnimationState" : "position2-climax",
+          "resetAnimationState"  : "position2-reset",
+          
+          "maxAllowedActors" : 2,
+          
+          "possiblePregnancy" : [false, true],
+          
+          "flipBody" : [false, false],
+          "flipHead" : [false,  true],
+          
+          "minTempo" : 2,
+          "maxTempo" : [3, 5],
+          
+          "mouthPosition" : [[0,0],[1.25,1.5]],
+          
+          "sustainedInterval" : [20, 30]
+        },
         
-        "animationState"       : "position1",
-        "climaxAnimationState" : "position1-climax",
-        "resetAnimationState"  : "position1-reset",
-        
-        "maxAllowedActors" : 2,
-        
-        "possiblePregnancy" : [false, true],
-        
-        "flipBody" : [false, false],
-        "flipHead" : [false, false],
-        
-        "minTempo" : 2,
-        "maxTempo" : [3, 5],
-        
-        "mouthPosition" : [[0,0],[1.25,2.5]],
-        
-        "sustainedInterval" : [20, 30]
-      },
-      
-      {
-        "name" : "Doggy",
-        
-        "allowClimax" : true,
-        "allowMoan"   : true,
-        "allowEmote"  : true,
-        
-        "animationState"       : "position2",
-        "climaxAnimationState" : "position2-climax",
-        "resetAnimationState"  : "position2-reset",
-        
-        "maxAllowedActors" : 2,
-        
-        "possiblePregnancy" : [false, true],
-        
-        "flipBody" : [false, false],
-        "flipHead" : [false,  true],
-        
-        "minTempo" : 2,
-        "maxTempo" : [3, 5],
-        
-        "mouthPosition" : [[0,0],[1.25,1.5]],
-        
-        "sustainedInterval" : [20, 30]
-      },
-      
-      {
-        "name" : "Cowgirl",
-        
-        "allowClimax" : true,
-        "allowMoan"   : true,
-        "allowEmote"  : true,
-        
-        "animationState"       : "position3",
-        "climaxAnimationState" : "position3-climax",
-        "resetAnimationState"  : "position3-reset",
-        
-        "maxAllowedActors" : 2,
-        
-        "rotateHead"   : [1.5708, 0],
-        
-        "possiblePregnancy" : [false, true],
-        
-        "flipBody" : [false, false],
-        "flipHead" : [false,  true],
-        
-        "minTempo" : 2,
-        "maxTempo" : [3, 5],
-        
-        "mouthPosition" : [[0,0],[0,2.25]],
-        
-        "sustainedInterval" : [20, 30]
-      }
-    ]
+        {
+          "name" : "Cowgirl",
+          
+          "allowClimax" : true,
+          "allowMoan"   : true,
+          "allowEmote"  : true,
+          
+          "animationState"       : "position3",
+          "climaxAnimationState" : "position3-climax",
+          "resetAnimationState"  : "position3-reset",
+          
+          "maxAllowedActors" : 2,
+          
+          "rotateHead"   : [1.5708, 0],
+          
+          "possiblePregnancy" : [false, true],
+          
+          "flipBody" : [false, false],
+          "flipHead" : [false,  true],
+          
+          "minTempo" : 2,
+          "maxTempo" : [3, 5],
+          
+          "mouthPosition" : [[0,0],[0,2.25]],
+          
+          "sustainedInterval" : [20, 30]
+        }
+      ]
+    }
   }
 }

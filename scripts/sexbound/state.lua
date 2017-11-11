@@ -75,9 +75,9 @@ end
 function sexState.enteringState(stateData)
   stateData.log:info("Entering the sex state.")
   
-  local position = Sexbound.Main.currentPosition()
+  local position = Sexbound.Main.currentPosition():getData()
   
-  if position.animationState then 
+  if position.animationState then
     animator.setAnimationState("sex", position.animationState, true)
   else
     -- Set the default state animation for the sexState state. Start new animation.

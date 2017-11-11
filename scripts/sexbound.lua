@@ -29,14 +29,12 @@ function Sexbound.Main.init()
   self.sexboundData.actors = {}
   self.sexboundData.actorCount = 0
   
+  -- Initialize the animation rate
+  self.sexboundData.animationRate = 1
+  
   -- Initialize empty table for nodes
   self.sexboundData.nodes = {}
   self.sexboundData.nodeCount = 0
-  
-  -- Initialize empty table for positions
-  self.sexboundData.positions = {}
-  self.sexboundData.positionCount = 0
-  self.sexboundData.positionIndex = 1
   
   -- Initialize positions
   Sexbound.Main.initPositions()
@@ -68,6 +66,10 @@ end
 function Sexbound.Main.update(dt)
   Sexbound.Main.updateActors(dt)
 
+  if Sexbound.Main.isHavingSex() then
+    Sexbound.Main.adjustTempo(dt)
+  end
+  
   -- Update the state machine
   self.stateMachine:update(dt)
 end
@@ -136,6 +138,32 @@ function Sexbound.Main.initMessageHandlers()
   message.setHandler("main-sync-ui", function(_, _, args)
   
   end)
+end
+
+--- Adjusts the animation rate of the animator.
+-- @param dt
+function Sexbound.Main.adjustTempo(dt)
+  local position = Sexbound.Main.currentPosition()
+
+  self.sexboundData.animationRate = self.sexboundData.animationRate + (position:maxTempo() / (position:sustainedInterval() / dt))
+
+  self.sexboundData.animationRate = util.clamp(self.sexboundData.animationRate, position:minTempo(), position:maxTempo())
+
+  -- Set the animator's animation rate
+  animator.setAnimationRate(self.sexboundData.animationRate)
+  
+  -- Calculate the climax points
+  --self.climaxPoints.current = self.climaxPoints.current + ((position.maxTempo * 1) * dt)
+  
+  --self.climaxPoints.current = helper.clamp(self.climaxPoints.current, self.climaxPoints.min, self.climaxPoints.max)
+  
+  if (self.sexboundData.animationRate >= position:maxTempo()) then
+    self.sexboundData.animationRate = position:minTempo()
+    
+    position:nextMaxTempo()
+      
+    position:nextSustainedInterval()
+  end
 end
 
 --- Attempts to spawn a stored actor.
@@ -229,7 +257,7 @@ end
 --- Resets all actors.
 function Sexbound.Main.resetActors()
   for i,actor in ipairs(self.sexboundData.actors) do
-    actor:reset(i, Sexbound.Main.currentPosition())
+    actor:reset(i, Sexbound.Main.currentPosition():getData())
   end
 end
 
@@ -291,52 +319,80 @@ end
 
 --- Initializes the defined positions.
 function Sexbound.Main.initPositions()
-  for _,v in ipairs(Sexbound.Main.getParameter("position")) do
-    table.insert(self.sexboundData.positions, Sexbound.Position.new(v))
+  self.sexboundData.positions = {}
+  
+  -- Initialize idle positions.
+  self.sexboundData.positions.idle = {}
+  self.sexboundData.positions.idle.positionCount = 0
+  self.sexboundData.positions.idle.positionIndex = 1
+  
+  for _,v in ipairs(Sexbound.Main.getParameter("position.idle")) do
+    table.insert(self.sexboundData.positions.idle, Sexbound.Position.new(v))
     
-    self.sexboundData.positionCount = self.sexboundData.positionCount + 1
+    self.sexboundData.positions.idle.positionCount = self.sexboundData.positions.idle.positionCount + 1
+  end
+  
+  -- Initialize sex positions.
+  self.sexboundData.positions.sex = {}
+  self.sexboundData.positions.sex.positionCount = 0
+  self.sexboundData.positions.sex.positionIndex = 1
+  
+  for _,v in ipairs(Sexbound.Main.getParameter("position.sex")) do
+    table.insert(self.sexboundData.positions.sex, Sexbound.Position.new(v))
+    
+    self.sexboundData.positions.sex.positionCount = self.sexboundData.positions.sex.positionCount + 1
   end
 end
 
 --- Returns a reference to the current position.
 function Sexbound.Main.currentPosition()
-  -- If having sex is true, then return a position.
-  if self.sexboundData.status.havingSex then
-    return self.sexboundData.positions[self.sexboundData.positionIndex]:getData()
+  if Sexbound.Main.isHavingSex() then
+    return self.sexboundData.positions.sex[self.sexboundData.positions.sex.positionIndex]
+  else
+    return self.sexboundData.positions.idle[self.sexboundData.positions.idle.positionIndex]
   end
-  
-  -- if not having sex then return idle position.
-  return {animationState = Sexbound.Main.getParameter("animationStateIdle")}
 end
 
 --- Changes to the next position and returns it.
 function Sexbound.Main.nextPosition()
-  self.sexboundData.positionIndex = self.sexboundData.positionIndex + 1
-  
-  return Sexbound.Main.switchPosition(self.sexboundData.positionIndex)
+  if Sexbound.Main.isHavingSex() then
+    self.sexboundData.positions.sex.positionIndex = self.sexboundData.positions.sex.positionIndex + 1
+    return Sexbound.Main.switchPosition(self.sexboundData.positions.sex.positionIndex)
+  else
+    self.sexboundData.positions.idle.positionIndex = self.sexboundData.positions.idle.positionIndex + 1
+    return Sexbound.Main.switchPosition(self.sexboundData.positions.idle.positionIndex)
+  end
 end
 
 --- Changes to the previous position and returns it.
 function Sexbound.Main.previousPosition()
-  self.sexboundData.positionIndex = self.sexboundData.positionIndex - 1
-  
-  return self.sexboundData.positions[self.sexboundData.positionIndex]:getData()
+  if Sexbound.Main.isHavingSex() then
+    self.sexboundData.positions.sex.positionIndex = self.sexboundData.positions.sex.positionIndex - 1
+    return Sexbound.Main.switchPosition(self.sexboundData.positions.sex.positionIndex)
+  else
+    self.sexboundData.positions.idle.positionIndex = self.sexboundData.positions.idle.positionIndex - 1
+    return Sexbound.Main.switchPosition(self.sexboundData.positions.idle.positionIndex)
+  end
 end
 
 --- Switches to the specified position.
 -- @param index
 function Sexbound.Main.switchPosition( index )
   if Sexbound.Main.isHavingSex() and not Sexbound.Main.isClimaxing() and not Sexbound.Main.isReseting() then
-    self.sexboundData.positionIndex = util.wrap(index, 1, self.sexboundData.positionCount)
+    self.sexboundData.positions.sex.positionIndex = util.wrap(index, 1, self.sexboundData.positions.sex.positionCount)
     
     -- Set new animation state to match the position.
-    animator.setAnimationState("sex", Sexbound.Main.currentPosition().animationState)
+    animator.setAnimationState("sex", self.sexboundData.positions.sex[self.sexboundData.positions.sex.positionIndex]:getData().animationState)
     
     -- Reset all actors.
     Sexbound.Main.resetActors()
+    
+    return self.sexboundData.positions.sex[self.sexboundData.positions.sex.positionIndex]:getData()
   end
   
-  return self.sexboundData.positions[self.sexboundData.positionIndex]:getData()
+  if not Sexbound.Main.isHavingSex() and not Sexbound.Main.isClimaxing() and not Sexbound.Main.isReseting() then
+    return self.sexboundData.positions.idle[self.sexboundData.positions.idle.positionIndex]:getData()
+  end
 end
 
 

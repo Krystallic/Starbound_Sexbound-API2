@@ -65,7 +65,7 @@
               "immediateSoundRangeMultiplier" : 0.8
             },
             "frameProperties" : {
-              "immediateSound" : ["", "", "", "/sfx/sexbound/hits/splat.ogg"]
+              "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
@@ -96,7 +96,7 @@
               "immediateSoundRangeMultiplier" : 0.8
             },
             "frameProperties" : {
-              "immediateSound" : ["", "", "", "/sfx/sexbound/hits/splat.ogg"]
+              "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
@@ -127,7 +127,7 @@
               "immediateSoundRangeMultiplier" : 0.8
             },
             "frameProperties" : {
-              "immediateSound" : ["", "", "", "/sfx/sexbound/hits/splat.ogg"]
+              "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
