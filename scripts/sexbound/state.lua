@@ -124,7 +124,17 @@ end
 function climaxState.enteringState(stateData)
   stateData.log:info("Entering the climax state.")
   
-  animator.setAnimationState("main", Sexbound.Main.getParameter("animationStateClimax"), true)
+  local position = Sexbound.Main.currentPosition():getData()
+  
+  local animationState = position.climaxAnimationState or Sexbound.Main.getParameter("animationStateClimax")
+  
+  if not pcall(function()
+    animator.setAnimationState("main", animationState, true)
+  end) then
+    stateData.log:error("The animator could not enter the animation state : " .. animationState)
+  end
+  
+  animator.setAnimationRate(1)
 end
 
 function climaxState.update(dt, stateData)

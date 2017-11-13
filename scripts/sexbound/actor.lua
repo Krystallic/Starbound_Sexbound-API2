@@ -3,6 +3,7 @@
 Sexbound.Actor = {}
 Sexbound.Actor.__index = Sexbound.Actor
 
+require "/scripts/sexbound/climax.lua"
 require "/scripts/sexbound/emote.lua"
 require "/scripts/sexbound/sextalk.lua"
 
@@ -34,6 +35,8 @@ end
 -- @param dt
 function Sexbound.Actor:update(dt)
   self:updateTimers(dt)
+  
+  self.climax:update(dt)
   
   self.emote:update(dt)
   
@@ -69,6 +72,16 @@ function Sexbound.Actor:entityType()
   return self.actor.entityType
 end
 
+--- Returns this actor's climax points.
+function Sexbound.Actor:climaxPoints()
+  return self.climax:getPoints() or 0
+end
+
+--- Returns this actor's max climax points.
+function Sexbound.Actor:maxClimaxPoints()
+  return self.climax:getMaxPoints() or 0
+end
+
 --- Flips a specified part in the animator.
 -- @param actorNumber
 -- @param partName
@@ -94,6 +107,10 @@ end
 --- Returns all stored data.
 function Sexbound.Actor:getData()
   return self.actor
+end
+
+function Sexbound.Actor:getClimax()
+  return self.climax
 end
 
 function Sexbound.Actor:gender()
@@ -147,11 +164,12 @@ function Sexbound.Actor:reset(actorNumber, position)
   -- Set the directives.
   local directives = {
     body = self:identity("bodyDirectives") or "",
+    emote = self:identity("emoteDirectives") or "",
     hair = self:identity("hairDirectives") or "",
     facialHair = self:identity("facialHairDirectives") or "",
     facialMask = self:identity("facialMaskDirectives") or ""
   }
-  
+
   -- Validate and set the actor's gender.
   local gender  = self:validateGender(self.actor.identity.gender)
   
@@ -234,8 +252,9 @@ function Sexbound.Actor:reset(actorNumber, position)
   animator.setGlobalTag("part-" .. role .. "-facial-mask", parts.facialMask)
   animator.setGlobalTag("part-" .. role .. "-hair", parts.hair)
   
-  animator.setGlobalTag(role .. "-bodyDirectives",   directives.body)
-  animator.setGlobalTag(role .. "-hairDirectives",   directives.hair)
+  animator.setGlobalTag(role .. "-bodyDirectives", directives.body)
+  animator.setGlobalTag(role .. "-emoteDirectives", directives.emote)
+  animator.setGlobalTag(role .. "-hairDirectives", directives.hair)
 end
 
 function Sexbound.Actor:resetGlobalAnimatorTags(actorNumber)
@@ -249,6 +268,10 @@ function Sexbound.Actor:resetGlobalAnimatorTags(actorNumber)
   animator.setGlobalTag("part-" .. role .. "-hair", default)
   animator.setGlobalTag("part-" .. role .. "-facial-hair", default)
   animator.setGlobalTag("part-" .. role .. "-facial-mask", default)
+  
+  animator.setGlobalTag(role .. "-bodyDirectives", default)
+  animator.setGlobalTag(role .. "-emoteDirectives", default)
+  animator.setGlobalTag(role .. "-hairDirectives", default)
 end
 
 function Sexbound.Actor:resetTransformations(actorNumber)
@@ -257,6 +280,10 @@ function Sexbound.Actor:resetTransformations(actorNumber)
       animator.resetTransformationGroup("actor" .. actorNumber .. v)
     end
   end
+end
+
+function Sexbound.Actor:actorNumber()
+  return self.actor.actorNumber
 end
 
 function Sexbound.Actor:role()
@@ -317,7 +344,11 @@ function Sexbound.Actor:setup(actor, storeActor)
     self.sextalk = Sexbound.SexTalk.new( self )
   end
   
-  self.emote = Sexbound.Emote.new( self )
+  -- Initialize new climax module and specify this actor as the parent.
+  self.climax = Sexbound.Climax.new(self)
+  
+  -- Initialize new emote module and specify this actor as the parent.
+  self.emote = Sexbound.Emote.new(self)
 end
 
 -- Returns a validated facial hair folder name.

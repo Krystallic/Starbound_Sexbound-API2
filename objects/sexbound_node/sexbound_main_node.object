@@ -65,6 +65,8 @@
           "climaxAnimationState" : "position1-climax",
           "resetAnimationState"  : "position1-reset",
           
+          "pleasureMultiplier" : [1.2, 1.2],
+          
           "maxAllowedActors" : 2,
           
           "possiblePregnancy" : [false, true],
@@ -91,6 +93,8 @@
           "climaxAnimationState" : "position2-climax",
           "resetAnimationState"  : "position2-reset",
           
+          "pleasureMultiplier" : [1.5, 1.5],
+          
           "maxAllowedActors" : 2,
           
           "possiblePregnancy" : [false, true],
@@ -116,6 +120,8 @@
           "animationState"       : "position3",
           "climaxAnimationState" : "position3-climax",
           "resetAnimationState"  : "position3-reset",
+          
+          "pleasureMultiplier" : [2.0, 2.0],
           
           "maxAllowedActors" : 2,
           

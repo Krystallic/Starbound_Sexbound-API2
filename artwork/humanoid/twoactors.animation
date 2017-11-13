@@ -23,6 +23,7 @@
     "actor1-species"          : "human",
     "actor1-gender"           : "female",
     "actor1-bodyDirectives"   : "",
+    "actor1-emoteDirectives"  : "",
     "actor1-hairDirectives"   : "",
     "actor1-hairFolder"       : "hair",
     "actor1-hairType"         : "fem1",
@@ -34,6 +35,7 @@
     "actor2-species"          : "human",
     "actor2-gender"           : "female",
     "actor2-bodyDirectives"   : "",
+    "actor2-emoteDirectives"  : "",
     "actor2-hairDirectives"   : "",
     "actor2-hairFolder"       : "hair",
     "actor2-hairType"         : "fem1",
@@ -774,55 +776,55 @@
           "actor1Emote" : {
             "blabber" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:blabber.<frame>"
+                "image" : "/humanoid/<actor1-species>/emote.png:blabber.<frame><actor1-emoteDirectives>"
               }
             },
           
             "happy" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:happy.<frame>"
+                "image" : "/humanoid/<actor1-species>/emote.png:happy.<frame><actor1-emoteDirectives>"
               }
             },
             
             "happyEnd" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:happy.2"
+                "image" : "/humanoid/<actor1-species>/emote.png:happy.2<actor1-emoteDirectives>"
               }
             },
             
             "laugh" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:happy.<frame>"
+                "image" : "/humanoid/<actor1-species>/emote.png:happy.<frame><actor1-emoteDirectives>"
               }
             },
             
             "oh" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:oh.<frame>"
+                "image" : "/humanoid/<actor1-species>/emote.png:oh.<frame><actor1-emoteDirectives>"
               }
             },
             
             "ohEnd" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:oh.2"
+                "image" : "/humanoid/<actor1-species>/emote.png:oh.2<actor1-emoteDirectives>"
               }
             },
             
             "oooh" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:oooh.<frame>"
+                "image" : "/humanoid/<actor1-species>/emote.png:oooh.<frame><actor1-emoteDirectives>"
               }
             },
             
             "ooohEnd" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:oooh.3"
+                "image" : "/humanoid/<actor1-species>/emote.png:oooh.3<actor1-emoteDirectives>"
               }
             },
             
             "sad" : {
               "properties" : {
-                "image" : "/humanoid/<actor1-species>/emote.png:sad.<frame>"
+                "image" : "/humanoid/<actor1-species>/emote.png:sad.<frame><actor1-emoteDirectives>"
               }
             }
           }
@@ -1421,55 +1423,55 @@
           "actor2Emote" : {
             "blabber" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:blabber.<frame>"
+                "image" : "/humanoid/<actor2-species>/emote.png:blabber.<frame><actor2-emoteDirectives>"
               }
             },
           
             "happy" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:happy.<frame>"
+                "image" : "/humanoid/<actor2-species>/emote.png:happy.<frame><actor2-emoteDirectives>"
               }
             },
             
             "happyEnd" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:happy.2"
+                "image" : "/humanoid/<actor2-species>/emote.png:happy.2<actor2-emoteDirectives>"
               }
             },
             
             "laugh" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:happy.<frame>"
+                "image" : "/humanoid/<actor2-species>/emote.png:happy.<frame><actor2-emoteDirectives>"
               }
             },
             
             "oh" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:oh.<frame>"
+                "image" : "/humanoid/<actor2-species>/emote.png:oh.<frame><actor2-emoteDirectives>"
               }
             },
             
             "ohEnd" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:oh.2"
+                "image" : "/humanoid/<actor2-species>/emote.png:oh.2<actor2-emoteDirectives>"
               }
             },
             
             "oooh" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:oooh.<frame>"
+                "image" : "/humanoid/<actor2-species>/emote.png:oooh.<frame><actor2-emoteDirectives>"
               }
             },
             
             "ooohEnd" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:oooh.3"
+                "image" : "/humanoid/<actor2-species>/emote.png:oooh.3<actor2-emoteDirectives>"
               }
             },
             
             "sad" : {
               "properties" : {
-                "image" : "/humanoid/<actor2-species>/emote.png:sad.<frame>"
+                "image" : "/humanoid/<actor2-species>/emote.png:sad.<frame><actor2-emoteDirectives>"
               }
             }
           }

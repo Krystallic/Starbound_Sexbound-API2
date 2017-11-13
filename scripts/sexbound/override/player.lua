@@ -30,7 +30,7 @@ Sexbound_Player.initMessageHandlers = function()
     player.lounge(args.loungeId, anchor)
     
     -- Show the Sexbound UI.
-    self.sexbound.ui:show()
+    self.sexbound.ui:showUI(args.controllerId)
   end)
 end
 

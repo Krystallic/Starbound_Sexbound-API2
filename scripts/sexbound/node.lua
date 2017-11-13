@@ -56,7 +56,7 @@ end
 --- Sends "sexbound_lounge" message to interacting entity (player).
 -- @param entityId
 function Sexbound.Node:lounge(entityId)
-  Sexbound_Util.sendMessage(entityId, "sexbound-lounge", {loungeId = self:id()})
+  Sexbound_Util.sendMessage(entityId, "sexbound-lounge", {controllerId = entity.id(), loungeId = self:id()})
 end
 
 --- Returns whether or not this node is occupied.

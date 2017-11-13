@@ -85,9 +85,13 @@ function CustomButton:boundingBoxContains(point)
 end
 
 --- Calls the instance method. Returns the method's result.
-function CustomButton:callAction()
+function CustomButton:callAction(callback)
   local methodName = self.button.clickAction.method
   local methodArgs = self.button.clickAction.args
+  
+  if callback then
+    return callback(methodName, methodArgs)
+  end
   
   return _ENV[methodName](methodArgs)
 end

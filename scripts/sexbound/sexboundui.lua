@@ -13,8 +13,10 @@ function SexboundUI:init()
 
 end
 
-function SexboundUI:show()
+function SexboundUI:showUI(controllerId)
   local config = root.assetJson( "/interface/sexbound/default.config" )
   
-  player.interact("ScriptPane", config, player.id())
+  config.config.controllerId = controllerId 
+  
+  player.interact("ScriptPane", config)
 end

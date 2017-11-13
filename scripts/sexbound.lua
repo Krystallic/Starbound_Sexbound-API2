@@ -118,19 +118,26 @@ end
 
 --- Initializes the message handlers.
 function Sexbound.Main.initMessageHandlers()
-  message.setHandler("main-remove-actor", function(_, _, args)
+  message.setHandler("main-climax", function(_,_,args)
+    if Sexbound.Main.isHavingSex() then
+      -- Invoke specified actor to begin climaxing.
+      self.sexboundData.actors[args.actorId]:getClimax():beginClimax()
+    end
+  end)
+
+  message.setHandler("main-remove-actor", function(_,_,args)
     Sexbound.Main.removeActor(args)
   end)
 
-  message.setHandler("main-setup-actor", function(_, _, args)
+  message.setHandler("main-setup-actor", function(_,_,args)
     Sexbound.Main.addActor(args, false)
   end)
   
-  message.setHandler("main-store-actor", function(_, _, args)
+  message.setHandler("main-store-actor", function(_,_,args)
     Sexbound.Main.addActor(args, true)
   end)
   
-  message.setHandler("main-switch-position", function(_, _, args)
+  message.setHandler("main-switch-position", function(_,_,args)
     Sexbound.Main.switchPosition( args.positionId )
   end)
   
@@ -138,8 +145,17 @@ function Sexbound.Main.initMessageHandlers()
     Sexbound.Main.switchRole()
   end)
   
-  message.setHandler("main-sync-ui", function(_, _, args)
-  
+  message.setHandler("main-sync-ui", function(_,_,args)
+    local data = {}
+    data.actors = {}
+    
+    for i,actor in ipairs(self.sexboundData.actors) do
+      data.actors[i] = {}
+      data.actors[i].climaxPoints = actor:climaxPoints()
+      data.actors[i].maxClimaxPoints = actor:maxClimaxPoints()
+    end
+    
+    return data
   end)
 end
 
@@ -447,4 +463,9 @@ end
 --- Returns whether or not this object is reseting.
 function Sexbound.Main.isReseting()
   return Sexbound.Main.getStatus("reseting")
+end
+
+--- Sets the specified status name as the specified boolean value.
+function Sexbound.Main.setStatus(statusName, value)
+  self.sexboundData.status[statusName] = value 
 end
