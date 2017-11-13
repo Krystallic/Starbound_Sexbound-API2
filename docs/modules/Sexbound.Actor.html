@@ -1,0 +1,505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Sexbound API v2</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Sexbound.Main.html">Sexbound.Main</a></li>
+  <li><strong>Sexbound.Actor</strong></li>
+  <li><a href="../modules/Sexbound.Climax.html">Sexbound.Climax</a></li>
+  <li><a href="../modules/Sexbound.Emote.html">Sexbound.Emote</a></li>
+  <li><a href="../modules/Log.html">Log</a></li>
+  <li><a href="../modules/Sexbound.Moan.html">Sexbound.Moan</a></li>
+  <li><a href="../modules/Sexbound.Node.html">Sexbound.Node</a></li>
+  <li><a href="../modules/Sexbound_Common.html">Sexbound_Common</a></li>
+  <li><a href="../modules/Sexbound_NPC.html">Sexbound_NPC</a></li>
+  <li><a href="../modules/Position.html">Position</a></li>
+  <li><a href="../modules/SexTalk.html">SexTalk</a></li>
+  <li><a href="../modules/Util.html">Util</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>Sexbound.Actor</code></h1>
+<p>Actor Module.</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:init">Sexbound.Actor:init (actor, storeActor)</a></td>
+	<td class="summary">Initialize this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:update">Sexbound.Actor:update (dt)</a></td>
+	<td class="summary">Updates this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:initTimers">Sexbound.Actor:initTimers ()</a></td>
+	<td class="summary">Initializes the timers for this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:updateTimers">Sexbound.Actor:updateTimers (dt)</a></td>
+	<td class="summary">Updates all timers for this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:uninit">Sexbound.Actor:uninit ()</a></td>
+	<td class="summary">Uninitializes this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:entityType">Sexbound.Actor:entityType ()</a></td>
+	<td class="summary">Returns this actor's entity type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:climaxPoints">Sexbound.Actor:climaxPoints ()</a></td>
+	<td class="summary">Returns this actor's climax points.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:maxClimaxPoints">Sexbound.Actor:maxClimaxPoints ()</a></td>
+	<td class="summary">Returns this actor's max climax points.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:flipPart">Sexbound.Actor:flipPart (actorNumber, partName)</a></td>
+	<td class="summary">Flips a specified part in the animator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:id">Sexbound.Actor:id ()</a></td>
+	<td class="summary">Returns the actor's id.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:identity">Sexbound.Actor:identity (name)</a></td>
+	<td class="summary">Returns the actor's identity data or a specified parameter in the actor's identity.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getData">Sexbound.Actor:getData ()</a></td>
+	<td class="summary">Returns all stored data.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:reset">Sexbound.Actor:reset (actorNumber, animationName)</a></td>
+	<td class="summary">Resets an specified actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:setup">Sexbound.Actor:setup (actor, storeActor)</a></td>
+	<td class="summary">Setup new actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:species">Sexbound.Actor:species ()</a></td>
+	<td class="summary">Returns the species value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:storage">Sexbound.Actor:storage (name)</a></td>
+	<td class="summary">Returns the actor's storage data or a specified parameter in the actor's storage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:talk">Sexbound.Actor:talk ()</a></td>
+	<td class="summary">Commands the actor to talk.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:validateGender">Sexbound.Actor:validateGender (gender)</a></td>
+	<td class="summary">Processes gender value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:validateSpecies">Sexbound.Actor:validateSpecies (species)</a></td>
+	<td class="summary">Processes species value.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Sexbound.Actor:init"></a>
+    <strong>Sexbound.Actor:init (actor, storeActor)</strong>
+    </dt>
+    <dd>
+    Initialize this instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actor</span>
+
+        </li>
+        <li><span class="parameter">storeActor</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:update"></a>
+    <strong>Sexbound.Actor:update (dt)</strong>
+    </dt>
+    <dd>
+    Updates this instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:initTimers"></a>
+    <strong>Sexbound.Actor:initTimers ()</strong>
+    </dt>
+    <dd>
+    Initializes the timers for this instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:updateTimers"></a>
+    <strong>Sexbound.Actor:updateTimers (dt)</strong>
+    </dt>
+    <dd>
+    Updates all timers for this instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:uninit"></a>
+    <strong>Sexbound.Actor:uninit ()</strong>
+    </dt>
+    <dd>
+    Uninitializes this instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:entityType"></a>
+    <strong>Sexbound.Actor:entityType ()</strong>
+    </dt>
+    <dd>
+    Returns this actor's entity type.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:climaxPoints"></a>
+    <strong>Sexbound.Actor:climaxPoints ()</strong>
+    </dt>
+    <dd>
+    Returns this actor's climax points.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:maxClimaxPoints"></a>
+    <strong>Sexbound.Actor:maxClimaxPoints ()</strong>
+    </dt>
+    <dd>
+    Returns this actor's max climax points.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:flipPart"></a>
+    <strong>Sexbound.Actor:flipPart (actorNumber, partName)</strong>
+    </dt>
+    <dd>
+    Flips a specified part in the animator.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorNumber</span>
+
+        </li>
+        <li><span class="parameter">partName</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:id"></a>
+    <strong>Sexbound.Actor:id ()</strong>
+    </dt>
+    <dd>
+    Returns the actor's id.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:identity"></a>
+    <strong>Sexbound.Actor:identity (name)</strong>
+    </dt>
+    <dd>
+    Returns the actor's identity data or a specified parameter in the actor's identity.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getData"></a>
+    <strong>Sexbound.Actor:getData ()</strong>
+    </dt>
+    <dd>
+    Returns all stored data.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:reset"></a>
+    <strong>Sexbound.Actor:reset (actorNumber, animationName)</strong>
+    </dt>
+    <dd>
+    Resets an specified actor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorNumber</span>
+
+        </li>
+        <li><span class="parameter">animationName</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:setup"></a>
+    <strong>Sexbound.Actor:setup (actor, storeActor)</strong>
+    </dt>
+    <dd>
+    Setup new actor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actor</span>
+
+        </li>
+        <li><span class="parameter">storeActor</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:species"></a>
+    <strong>Sexbound.Actor:species ()</strong>
+    </dt>
+    <dd>
+    Returns the species value.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a string
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:storage"></a>
+    <strong>Sexbound.Actor:storage (name)</strong>
+    </dt>
+    <dd>
+    Returns the actor's storage data or a specified parameter in the actor's storage.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:talk"></a>
+    <strong>Sexbound.Actor:talk ()</strong>
+    </dt>
+    <dd>
+    Commands the actor to talk.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:validateGender"></a>
+    <strong>Sexbound.Actor:validateGender (gender)</strong>
+    </dt>
+    <dd>
+    Processes gender value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">gender</span>
+         male, female, or something else (future)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:validateSpecies"></a>
+    <strong>Sexbound.Actor:validateSpecies (species)</strong>
+    </dt>
+    <dd>
+    Processes species value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">species</span>
+         name of species
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2017-11-14 02:17:37 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

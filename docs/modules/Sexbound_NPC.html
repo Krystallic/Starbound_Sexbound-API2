@@ -42,11 +42,11 @@
   <li><a href="../modules/Sexbound.Actor.html">Sexbound.Actor</a></li>
   <li><a href="../modules/Sexbound.Climax.html">Sexbound.Climax</a></li>
   <li><a href="../modules/Sexbound.Emote.html">Sexbound.Emote</a></li>
-  <li><strong>Log</strong></li>
+  <li><a href="../modules/Log.html">Log</a></li>
   <li><a href="../modules/Sexbound.Moan.html">Sexbound.Moan</a></li>
   <li><a href="../modules/Sexbound.Node.html">Sexbound.Node</a></li>
   <li><a href="../modules/Sexbound_Common.html">Sexbound_Common</a></li>
-  <li><a href="../modules/Sexbound_NPC.html">Sexbound_NPC</a></li>
+  <li><strong>Sexbound_NPC</strong></li>
   <li><a href="../modules/Position.html">Position</a></li>
   <li><a href="../modules/SexTalk.html">SexTalk</a></li>
   <li><a href="../modules/Util.html">Util</a></li>
@@ -56,36 +56,40 @@
 
 <div id="content">
 
-<h1>Module <code>Log</code></h1>
-<p>Log Module.</p>
+<h1>Module <code>Sexbound_NPC</code></h1>
+<p>Sexbound_NPC Module.</p>
 <p></p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log.new">Sexbound.Log.new ([options])</a></td>
-	<td class="summary">Instantiates Log.</td>
+	<td class="name" nowrap><a href="#init">init ()</a></td>
+	<td class="summary">Hook - init</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:init">Sexbound.Log:init ([options])</a></td>
-	<td class="summary">Initializes Log.</td>
+	<td class="name" nowrap><a href="#update">update (dt)</a></td>
+	<td class="summary">Hook - Update</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:error">Sexbound.Log:error (text)</a></td>
-	<td class="summary">Instructs util API to log error.</td>
+	<td class="name" nowrap><a href="#initMessageHandlers">initMessageHandlers ()</a></td>
+	<td class="summary">Initializes message handlers.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:info">Sexbound.Log:info (text)</a></td>
-	<td class="summary">Instructs util API to log info.</td>
+	<td class="name" nowrap><a href="#setupActor">setupActor (store)</a></td>
+	<td class="summary">Creates and sends actor data to the Sexbound API.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:warn">Sexbound.Log:warn (text)</a></td>
-	<td class="summary">Instructs util API to warn info.</td>
+	<td class="name" nowrap><a href="#transformIntoObject">transformIntoObject ([callback])</a></td>
+	<td class="summary">Attempts to transform the NPC into a Sexbound node by placing a 'sexbound_main_node' object at the feet of the NPC.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:prepare">Sexbound.Log:prepare (text)</a></td>
-	<td class="summary">Prepares text to be logged.</td>
+	<td class="name" nowrap><a href="#unload">unload ()</a></td>
+	<td class="summary">Kills the NPC.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#updateStatuses">updateStatuses ()</a></td>
+	<td class="summary">Updates status effects.</td>
 	</tr>
 </table>
 
@@ -97,16 +101,84 @@
 
     <dl class="function">
     <dt>
-    <a name = "Sexbound.Log.new"></a>
-    <strong>Sexbound.Log.new ([options])</strong>
+    <a name = "init"></a>
+    <strong>init ()</strong>
     </dt>
     <dd>
-    Instantiates Log.
+    Hook - init
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "update"></a>
+    <strong>update (dt)</strong>
+    </dt>
+    <dd>
+    Hook - Update
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">options</span>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "initMessageHandlers"></a>
+    <strong>initMessageHandlers ()</strong>
+    </dt>
+    <dd>
+    Initializes message handlers.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setupActor"></a>
+    <strong>setupActor (store)</strong>
+    </dt>
+    <dd>
+    Creates and sends actor data to the Sexbound API.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">store</span>
+         is a boolean
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "transformIntoObject"></a>
+    <strong>transformIntoObject ([callback])</strong>
+    </dt>
+    <dd>
+    Attempts to transform the NPC into a Sexbound node by placing a 'sexbound_main_node' object at the feet of the NPC.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">callback</span>
 
          (<em>optional</em>)
         </li>
@@ -118,20 +190,13 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Log:init"></a>
-    <strong>Sexbound.Log:init ([options])</strong>
+    <a name = "unload"></a>
+    <strong>unload ()</strong>
     </dt>
     <dd>
-    Initializes Log.
+    Kills the NPC.
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">options</span>
-
-         (<em>optional</em>)
-        </li>
-    </ul>
 
 
 
@@ -139,79 +204,13 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Log:error"></a>
-    <strong>Sexbound.Log:error (text)</strong>
+    <a name = "updateStatuses"></a>
+    <strong>updateStatuses ()</strong>
     </dt>
     <dd>
-    Instructs util API to log error.
+    Updates status effects.
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">text</span>
-         string value
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Log:info"></a>
-    <strong>Sexbound.Log:info (text)</strong>
-    </dt>
-    <dd>
-    Instructs util API to log info.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">text</span>
-         string value
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Log:warn"></a>
-    <strong>Sexbound.Log:warn (text)</strong>
-    </dt>
-    <dd>
-    Instructs util API to warn info.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">text</span>
-         string value
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Log:prepare"></a>
-    <strong>Sexbound.Log:prepare (text)</strong>
-    </dt>
-    <dd>
-    Prepares text to be logged.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">text</span>
-         string value
-        </li>
-    </ul>
 
 
 

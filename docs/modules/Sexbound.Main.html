@@ -1,0 +1,686 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Sexbound API v2</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>Sexbound.Main</strong></li>
+  <li><a href="../modules/Sexbound.Actor.html">Sexbound.Actor</a></li>
+  <li><a href="../modules/Sexbound.Climax.html">Sexbound.Climax</a></li>
+  <li><a href="../modules/Sexbound.Emote.html">Sexbound.Emote</a></li>
+  <li><a href="../modules/Log.html">Log</a></li>
+  <li><a href="../modules/Sexbound.Moan.html">Sexbound.Moan</a></li>
+  <li><a href="../modules/Sexbound.Node.html">Sexbound.Node</a></li>
+  <li><a href="../modules/Sexbound_Common.html">Sexbound_Common</a></li>
+  <li><a href="../modules/Sexbound_NPC.html">Sexbound_NPC</a></li>
+  <li><a href="../modules/Position.html">Position</a></li>
+  <li><a href="../modules/SexTalk.html">SexTalk</a></li>
+  <li><a href="../modules/Util.html">Util</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>Sexbound.Main</code></h1>
+<p>Main Module.</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.init">Sexbound.Main.init ()</a></td>
+	<td class="summary">Initializes this module</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.update">Sexbound.Main.update (dt)</a></td>
+	<td class="summary">Updates this module.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.getConfig">Sexbound.Main.getConfig ()</a></td>
+	<td class="summary">Returns a reference to stored Sexbound configuration.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.getParameter">Sexbound.Main.getParameter (paramater)</a></td>
+	<td class="summary">Returns the value for the specified parameter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.handleInteract">Sexbound.Main.handleInteract (args)</a></td>
+	<td class="summary">Handles a player interaction request.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.handleUninit">Sexbound.Main.handleUninit ()</a></td>
+	<td class="summary">Handles this entities uninit.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.initMessageHandlers">Sexbound.Main.initMessageHandlers ()</a></td>
+	<td class="summary">Initializes the message handlers.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.adjustTempo">Sexbound.Main.adjustTempo (dt)</a></td>
+	<td class="summary">Adjusts the animation rate of the animator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.respawnNPC">Sexbound.Main.respawnNPC ()</a></td>
+	<td class="summary">Attempts to spawn a stored actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.addActor">Sexbound.Main.addActor (actor, storeActor)</a></td>
+	<td class="summary">Stores the specified actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.getActors">Sexbound.Main.getActors ()</a></td>
+	<td class="summary">Returns all actors.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.removeActor">Sexbound.Main.removeActor (actorId)</a></td>
+	<td class="summary">Removes the specified actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.resetActors">Sexbound.Main.resetActors ()</a></td>
+	<td class="summary">Resets all actors.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.resetAllGlobalAnimatorTags">Sexbound.Main.resetAllGlobalAnimatorTags ()</a></td>
+	<td class="summary">Resets all global animator tags for all actors.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.switchRole">Sexbound.Main.switchRole (skipReset)</a></td>
+	<td class="summary">Shifts the actors in actor data list to the right.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.updateActors">Sexbound.Main.updateActors (dt)</a></td>
+	<td class="summary">Invokes the update method for all actors.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.becomeNode">Sexbound.Main.becomeNode ()</a></td>
+	<td class="summary">Adds new node and tracks it as being this object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.createNode">Sexbound.Main.createNode (tilePosition)</a></td>
+	<td class="summary">Creates a new node.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.uninitNodes">Sexbound.Main.uninitNodes ()</a></td>
+	<td class="summary">Uninitializes all nodes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.initPositions">Sexbound.Main.initPositions ()</a></td>
+	<td class="summary">Initializes the defined positions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.currentPosition">Sexbound.Main.currentPosition ()</a></td>
+	<td class="summary">Returns a reference to the current position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.nextPosition">Sexbound.Main.nextPosition ()</a></td>
+	<td class="summary">Changes to the next position and returns it.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.previousPosition">Sexbound.Main.previousPosition ()</a></td>
+	<td class="summary">Changes to the previous position and returns it.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.switchPosition">Sexbound.Main.switchPosition (index)</a></td>
+	<td class="summary">Switches to the specified position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.getStatus">Sexbound.Main.getStatus (statusName)</a></td>
+	<td class="summary">Returns the value for the specified status.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.isHavingSex">Sexbound.Main.isHavingSex ()</a></td>
+	<td class="summary">Returns whether or not this object is having sex.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.isClimaxing">Sexbound.Main.isClimaxing ()</a></td>
+	<td class="summary">Returns whether or not this object is climaxing.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.isReseting">Sexbound.Main.isReseting ()</a></td>
+	<td class="summary">Returns whether or not this object is reseting.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Main.setStatus">Sexbound.Main.setStatus (statusName, value)</a></td>
+	<td class="summary">Sets the specified status name as the specified boolean value.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Sexbound.Main.init"></a>
+    <strong>Sexbound.Main.init ()</strong>
+    </dt>
+    <dd>
+    Initializes this module
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.update"></a>
+    <strong>Sexbound.Main.update (dt)</strong>
+    </dt>
+    <dd>
+    Updates this module.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.getConfig"></a>
+    <strong>Sexbound.Main.getConfig ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to stored Sexbound configuration.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.getParameter"></a>
+    <strong>Sexbound.Main.getParameter (paramater)</strong>
+    </dt>
+    <dd>
+    Returns the value for the specified parameter.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">paramater</span>
+         string value with periods to separate parameters.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.handleInteract"></a>
+    <strong>Sexbound.Main.handleInteract (args)</strong>
+    </dt>
+    <dd>
+    Handles a player interaction request.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">args</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.handleUninit"></a>
+    <strong>Sexbound.Main.handleUninit ()</strong>
+    </dt>
+    <dd>
+    Handles this entities uninit.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.initMessageHandlers"></a>
+    <strong>Sexbound.Main.initMessageHandlers ()</strong>
+    </dt>
+    <dd>
+    Initializes the message handlers.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.adjustTempo"></a>
+    <strong>Sexbound.Main.adjustTempo (dt)</strong>
+    </dt>
+    <dd>
+    Adjusts the animation rate of the animator.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.respawnNPC"></a>
+    <strong>Sexbound.Main.respawnNPC ()</strong>
+    </dt>
+    <dd>
+    Attempts to spawn a stored actor.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.addActor"></a>
+    <strong>Sexbound.Main.addActor (actor, storeActor)</strong>
+    </dt>
+    <dd>
+    Stores the specified actor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actor</span>
+
+        </li>
+        <li><span class="parameter">storeActor</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.getActors"></a>
+    <strong>Sexbound.Main.getActors ()</strong>
+    </dt>
+    <dd>
+    Returns all actors.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.removeActor"></a>
+    <strong>Sexbound.Main.removeActor (actorId)</strong>
+    </dt>
+    <dd>
+    Removes the specified actor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorId</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.resetActors"></a>
+    <strong>Sexbound.Main.resetActors ()</strong>
+    </dt>
+    <dd>
+    Resets all actors.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.resetAllGlobalAnimatorTags"></a>
+    <strong>Sexbound.Main.resetAllGlobalAnimatorTags ()</strong>
+    </dt>
+    <dd>
+    Resets all global animator tags for all actors.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.switchRole"></a>
+    <strong>Sexbound.Main.switchRole (skipReset)</strong>
+    </dt>
+    <dd>
+    Shifts the actors in actor data list to the right.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">skipReset</span>
+         True := Skip reseting all actors.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.updateActors"></a>
+    <strong>Sexbound.Main.updateActors (dt)</strong>
+    </dt>
+    <dd>
+    Invokes the update method for all actors.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.becomeNode"></a>
+    <strong>Sexbound.Main.becomeNode ()</strong>
+    </dt>
+    <dd>
+    Adds new node and tracks it as being this object.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.createNode"></a>
+    <strong>Sexbound.Main.createNode (tilePosition)</strong>
+    </dt>
+    <dd>
+    Creates a new node.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tilePosition</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.uninitNodes"></a>
+    <strong>Sexbound.Main.uninitNodes ()</strong>
+    </dt>
+    <dd>
+    Uninitializes all nodes.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.initPositions"></a>
+    <strong>Sexbound.Main.initPositions ()</strong>
+    </dt>
+    <dd>
+    Initializes the defined positions.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.currentPosition"></a>
+    <strong>Sexbound.Main.currentPosition ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to the current position.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.nextPosition"></a>
+    <strong>Sexbound.Main.nextPosition ()</strong>
+    </dt>
+    <dd>
+    Changes to the next position and returns it.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.previousPosition"></a>
+    <strong>Sexbound.Main.previousPosition ()</strong>
+    </dt>
+    <dd>
+    Changes to the previous position and returns it.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.switchPosition"></a>
+    <strong>Sexbound.Main.switchPosition (index)</strong>
+    </dt>
+    <dd>
+    Switches to the specified position.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.getStatus"></a>
+    <strong>Sexbound.Main.getStatus (statusName)</strong>
+    </dt>
+    <dd>
+    Returns the value for the specified status.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">statusName</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.isHavingSex"></a>
+    <strong>Sexbound.Main.isHavingSex ()</strong>
+    </dt>
+    <dd>
+    Returns whether or not this object is having sex.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.isClimaxing"></a>
+    <strong>Sexbound.Main.isClimaxing ()</strong>
+    </dt>
+    <dd>
+    Returns whether or not this object is climaxing.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.isReseting"></a>
+    <strong>Sexbound.Main.isReseting ()</strong>
+    </dt>
+    <dd>
+    Returns whether or not this object is reseting.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Main.setStatus"></a>
+    <strong>Sexbound.Main.setStatus (statusName, value)</strong>
+    </dt>
+    <dd>
+    Sets the specified status name as the specified boolean value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">statusName</span>
+
+        </li>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2017-11-14 02:17:37 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

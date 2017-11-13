@@ -42,9 +42,9 @@
   <li><a href="../modules/Sexbound.Actor.html">Sexbound.Actor</a></li>
   <li><a href="../modules/Sexbound.Climax.html">Sexbound.Climax</a></li>
   <li><a href="../modules/Sexbound.Emote.html">Sexbound.Emote</a></li>
-  <li><strong>Log</strong></li>
+  <li><a href="../modules/Log.html">Log</a></li>
   <li><a href="../modules/Sexbound.Moan.html">Sexbound.Moan</a></li>
-  <li><a href="../modules/Sexbound.Node.html">Sexbound.Node</a></li>
+  <li><strong>Sexbound.Node</strong></li>
   <li><a href="../modules/Sexbound_Common.html">Sexbound_Common</a></li>
   <li><a href="../modules/Sexbound_NPC.html">Sexbound_NPC</a></li>
   <li><a href="../modules/Position.html">Position</a></li>
@@ -56,36 +56,36 @@
 
 <div id="content">
 
-<h1>Module <code>Log</code></h1>
-<p>Log Module.</p>
+<h1>Module <code>Sexbound.Node</code></h1>
+<p>Node Module.</p>
 <p></p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log.new">Sexbound.Log.new ([options])</a></td>
-	<td class="summary">Instantiates Log.</td>
+	<td class="name" nowrap><a href="#Sexbound.Node:init">Sexbound.Node:init (tilePosition, placeObject)</a></td>
+	<td class="summary">Initializes this instance.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:init">Sexbound.Log:init ([options])</a></td>
-	<td class="summary">Initializes Log.</td>
+	<td class="name" nowrap><a href="#Sexbound.Node:create">Sexbound.Node:create (tilePosition)</a></td>
+	<td class="summary">Attempt to place a new sexbound node object at specified tile position.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:error">Sexbound.Log:error (text)</a></td>
-	<td class="summary">Instructs util API to log error.</td>
+	<td class="name" nowrap><a href="#Sexbound.Node:id">Sexbound.Node:id ()</a></td>
+	<td class="summary">Returns the entityId for this node.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:info">Sexbound.Log:info (text)</a></td>
-	<td class="summary">Instructs util API to log info.</td>
+	<td class="name" nowrap><a href="#Sexbound.Node:lounge">Sexbound.Node:lounge (entityId)</a></td>
+	<td class="summary">Sends "sexbound_lounge" message to interacting entity (player).</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:warn">Sexbound.Log:warn (text)</a></td>
-	<td class="summary">Instructs util API to warn info.</td>
+	<td class="name" nowrap><a href="#Sexbound.Node:occupied">Sexbound.Node:occupied ()</a></td>
+	<td class="summary">Returns whether or not this node is occupied.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Log:prepare">Sexbound.Log:prepare (text)</a></td>
-	<td class="summary">Prepares text to be logged.</td>
+	<td class="name" nowrap><a href="#Sexbound.Node:uninit">Sexbound.Node:uninit ()</a></td>
+	<td class="summary">Uninitializes this instance.</td>
 	</tr>
 </table>
 
@@ -97,18 +97,20 @@
 
     <dl class="function">
     <dt>
-    <a name = "Sexbound.Log.new"></a>
-    <strong>Sexbound.Log.new ([options])</strong>
+    <a name = "Sexbound.Node:init"></a>
+    <strong>Sexbound.Node:init (tilePosition, placeObject)</strong>
     </dt>
     <dd>
-    Instantiates Log.
+    Initializes this instance.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">options</span>
+        <li><span class="parameter">tilePosition</span>
 
-         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">placeObject</span>
+
         </li>
     </ul>
 
@@ -118,18 +120,17 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Log:init"></a>
-    <strong>Sexbound.Log:init ([options])</strong>
+    <a name = "Sexbound.Node:create"></a>
+    <strong>Sexbound.Node:create (tilePosition)</strong>
     </dt>
     <dd>
-    Initializes Log.
+    Attempt to place a new sexbound node object at specified tile position.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">options</span>
+        <li><span class="parameter">tilePosition</span>
 
-         (<em>optional</em>)
         </li>
     </ul>
 
@@ -139,17 +140,31 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Log:error"></a>
-    <strong>Sexbound.Log:error (text)</strong>
+    <a name = "Sexbound.Node:id"></a>
+    <strong>Sexbound.Node:id ()</strong>
     </dt>
     <dd>
-    Instructs util API to log error.
+    Returns the entityId for this node.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Node:lounge"></a>
+    <strong>Sexbound.Node:lounge (entityId)</strong>
+    </dt>
+    <dd>
+    Sends "sexbound_lounge" message to interacting entity (player).
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">text</span>
-         string value
+        <li><span class="parameter">entityId</span>
+
         </li>
     </ul>
 
@@ -159,19 +174,13 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Log:info"></a>
-    <strong>Sexbound.Log:info (text)</strong>
+    <a name = "Sexbound.Node:occupied"></a>
+    <strong>Sexbound.Node:occupied ()</strong>
     </dt>
     <dd>
-    Instructs util API to log info.
+    Returns whether or not this node is occupied.
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">text</span>
-         string value
-        </li>
-    </ul>
 
 
 
@@ -179,39 +188,13 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Log:warn"></a>
-    <strong>Sexbound.Log:warn (text)</strong>
+    <a name = "Sexbound.Node:uninit"></a>
+    <strong>Sexbound.Node:uninit ()</strong>
     </dt>
     <dd>
-    Instructs util API to warn info.
+    Uninitializes this instance.
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">text</span>
-         string value
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Log:prepare"></a>
-    <strong>Sexbound.Log:prepare (text)</strong>
-    </dt>
-    <dd>
-    Prepares text to be logged.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">text</span>
-         string value
-        </li>
-    </ul>
 
 
 

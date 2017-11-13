@@ -41,13 +41,13 @@
   <li><a href="../modules/Sexbound.Main.html">Sexbound.Main</a></li>
   <li><a href="../modules/Sexbound.Actor.html">Sexbound.Actor</a></li>
   <li><a href="../modules/Sexbound.Climax.html">Sexbound.Climax</a></li>
-  <li><a href="../modules/Sexbound.Emote.html">Sexbound.Emote</a></li>
+  <li><strong>Sexbound.Emote</strong></li>
   <li><a href="../modules/Log.html">Log</a></li>
   <li><a href="../modules/Sexbound.Moan.html">Sexbound.Moan</a></li>
   <li><a href="../modules/Sexbound.Node.html">Sexbound.Node</a></li>
   <li><a href="../modules/Sexbound_Common.html">Sexbound_Common</a></li>
   <li><a href="../modules/Sexbound_NPC.html">Sexbound_NPC</a></li>
-  <li><strong>Position</strong></li>
+  <li><a href="../modules/Position.html">Position</a></li>
   <li><a href="../modules/SexTalk.html">SexTalk</a></li>
   <li><a href="../modules/Util.html">Util</a></li>
 </ul>
@@ -56,20 +56,24 @@
 
 <div id="content">
 
-<h1>Module <code>Position</code></h1>
-<p>Position Module.</p>
+<h1>Module <code>Sexbound.Emote</code></h1>
+<p>Emote Module.</p>
 <p></p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Position:init">Sexbound.Position:init (position)</a></td>
-	<td class="summary">Initializes this module.</td>
+	<td class="name" nowrap><a href="#Sexbound.Emote:init">Sexbound.Emote:init (parent)</a></td>
+	<td class="summary">Initialize this instance.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Position:getData">Sexbound.Position:getData ()</a></td>
-	<td class="summary">Returns data for the current position.</td>
+	<td class="name" nowrap><a href="#Sexbound.Emote:update">Sexbound.Emote:update (dt)</a></td>
+	<td class="summary">Updates this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Emote:changeAnimationState">Sexbound.Emote:changeAnimationState (stateName)</a></td>
+	<td class="summary">Changes the animation state for the parent actor.</td>
 	</tr>
 </table>
 
@@ -81,16 +85,16 @@
 
     <dl class="function">
     <dt>
-    <a name = "Sexbound.Position:init"></a>
-    <strong>Sexbound.Position:init (position)</strong>
+    <a name = "Sexbound.Emote:init"></a>
+    <strong>Sexbound.Emote:init (parent)</strong>
     </dt>
     <dd>
-    Initializes this module.
+    Initialize this instance.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">position</span>
+        <li><span class="parameter">parent</span>
 
         </li>
     </ul>
@@ -101,13 +105,39 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Position:getData"></a>
-    <strong>Sexbound.Position:getData ()</strong>
+    <a name = "Sexbound.Emote:update"></a>
+    <strong>Sexbound.Emote:update (dt)</strong>
     </dt>
     <dd>
-    Returns data for the current position.
+    Updates this instance.
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Emote:changeAnimationState"></a>
+    <strong>Sexbound.Emote:changeAnimationState (stateName)</strong>
+    </dt>
+    <dd>
+    Changes the animation state for the parent actor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stateName</span>
+
+        </li>
+    </ul>
 
 
 
