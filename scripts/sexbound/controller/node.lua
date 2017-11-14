@@ -1,3 +1,6 @@
+--- NodeController Module.
+-- @module NodeController
+
 NodeController = {}
 
 require "/scripts/sexbound/util.lua"

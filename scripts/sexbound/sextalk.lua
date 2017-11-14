@@ -1,5 +1,5 @@
---- SexTalk Module.
--- @module SexTalk
+--- Sexbound.SexTalk Module.
+-- @module Sexbound.SexTalk
 
 Sexbound.SexTalk = {}
 Sexbound.SexTalk.__index = Sexbound.SexTalk
@@ -22,9 +22,34 @@ function Sexbound.SexTalk:init(parent)
   
   -- Initialize sextalk data
   self.sextalk = {
-    config = root.assetJson(Sexbound.Main.getParameter("sextalk.config")),
+    config = util.mergeTable({}, Sexbound.Main.getParameter("sextalk")),
+    dialogConfig = root.assetJson(Sexbound.Main.getParameter("sextalk.config")),
     history = {}
   }
+  
+  self.sextalk.cooldown = self:refreshCooldown()
+  
+  self.timer = {
+    sextalk = 0
+  }
+end
+
+--- Updates this instance.
+-- @param dt
+function Sexbound.SexTalk:update(dt)
+  self.timer.sextalk = self.timer.sextalk + dt
+  
+  if self.timer.sextalk >= self.sextalk.cooldown then
+    self:sayRandom()
+  
+    -- Reset sextalk timer
+    self.timer.sextalk = 0
+  end
+end
+
+-- Return a reference to this module's config.
+function Sexbound.SexTalk:config()
+  return self.sextalk.config
 end
 
 --- Returns a random dialog message from the dialog pool.
@@ -68,15 +93,22 @@ function Sexbound.SexTalk:outputRandomMessage()
   return message
 end
 
+-- Refreshes the cooldown time for this module.
+function Sexbound.SexTalk:refreshCooldown()
+  self.sextalk.cooldown = util.randomInRange(self:config().cooldown)
+  
+  return self.sextalk.cooldown
+end
+
 --- Refreshes the dialog pool where messages are choosen.
 function Sexbound.SexTalk:refreshDialogPool()
   local animationState = animator.animationState("main")
   
   local targetActor = self:targetRandomActor()
 
-  if not self.sextalk.config[animationState] or not self.sextalk.config[animationState][self.sextalk.role] then return end
+  if not self.sextalk.dialogConfig[animationState] or not self.sextalk.dialogConfig[animationState][self.sextalk.role] then return end
     
-  local roleRoot = self.sextalk.config[animationState][self.sextalk.role]
+  local roleRoot = self.sextalk.dialogConfig[animationState][self.sextalk.role]
   
   self.sextalk.dialogPool = {}
 
@@ -117,6 +149,9 @@ function Sexbound.SexTalk:sayRandom()
 
   if type(self.sextalk.currentMessage) == "string" then
     object.say(self.sextalk.currentMessage)
+    
+    -- Reset the sextalk timer
+    self.timer.sextalk = 0
   else
     self.log:warn("Object was given non-string data to say.")
   end
@@ -139,7 +174,7 @@ function Sexbound.SexTalk:targetRandomActor()
     end
   end
   
-  if type(actorData) == "table" then
+  if not isEmpty(actorData) then
     self.sextalk.targetActor = util.randomChoice(actorData)
   end
   

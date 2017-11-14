@@ -1,5 +1,5 @@
---- Log Module.
--- @module Log
+--- Sexbound.Log Module.
+-- @module Sexbound.Log
 Sexbound.Log = {}
 Sexbound.Log.__index = Sexbound.Log
 

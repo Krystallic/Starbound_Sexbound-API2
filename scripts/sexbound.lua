@@ -83,7 +83,7 @@ function Sexbound.Main.getConfig()
 end
 
 --- Returns the value for the specified parameter.
--- @param paramater string value with periods to separate parameters.
+-- @param parameter string value with periods to separate parameters.
 function Sexbound.Main.getParameter(parameter)
   local config = self.sexboundData.config or root.assetJson("/sexbound.config")
   

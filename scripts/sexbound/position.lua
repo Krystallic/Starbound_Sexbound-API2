@@ -1,5 +1,5 @@
---- Position Module.
--- @module Position
+--- Sexbound.Position Module.
+-- @module Sexbound.Position
 Sexbound.Position = {}
 
 Sexbound.Position.__index = Sexbound.Position

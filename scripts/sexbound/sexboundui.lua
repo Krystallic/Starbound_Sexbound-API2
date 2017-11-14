@@ -1,3 +1,6 @@
+--- SexboundUI Module.
+-- @module SexboundUI
+
 SexboundUI = {}
 SexboundUI.__index = SexboundUI
 

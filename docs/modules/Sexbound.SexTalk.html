@@ -45,13 +45,13 @@
   <li><a href="../modules/Sexbound.Emote.html">Sexbound.Emote</a></li>
   <li><a href="../modules/Sexbound.Log.html">Sexbound.Log</a></li>
   <li><a href="../modules/Sexbound.Moan.html">Sexbound.Moan</a></li>
-  <li><strong>Sexbound.Node</strong></li>
+  <li><a href="../modules/Sexbound.Node.html">Sexbound.Node</a></li>
   <li><a href="../modules/Sexbound_Common.html">Sexbound_Common</a></li>
   <li><a href="../modules/Sexbound_NPC.html">Sexbound_NPC</a></li>
   <li><a href="../modules/Sexbound.Position.html">Sexbound.Position</a></li>
   <li><a href="../modules/Sexbound.Pregnant.html">Sexbound.Pregnant</a></li>
   <li><a href="../modules/SexboundUI.html">SexboundUI</a></li>
-  <li><a href="../modules/Sexbound.SexTalk.html">Sexbound.SexTalk</a></li>
+  <li><strong>Sexbound.SexTalk</strong></li>
   <li><a href="../modules/Sexbound.StateMachine.html">Sexbound.StateMachine</a></li>
   <li><a href="../modules/Sexbound_Util.html">Sexbound_Util</a></li>
 </ul>
@@ -60,36 +60,36 @@
 
 <div id="content">
 
-<h1>Module <code>Sexbound.Node</code></h1>
-<p>Node Module.</p>
+<h1>Module <code>Sexbound.SexTalk</code></h1>
+<p>Sexbound.SexTalk Module.</p>
 <p></p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Node:init">Sexbound.Node:init (tilePosition, placeObject)</a></td>
-	<td class="summary">Initializes this instance.</td>
+	<td class="name" nowrap><a href="#Sexbound.SexTalk:init">Sexbound.SexTalk:init (parent)</a></td>
+	<td class="summary">Initialize this instance.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Node:create">Sexbound.Node:create (tilePosition)</a></td>
-	<td class="summary">Attempt to place a new sexbound node object at specified tile position.</td>
+	<td class="name" nowrap><a href="#Sexbound.SexTalk:update">Sexbound.SexTalk:update (dt)</a></td>
+	<td class="summary">Updates this instance.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Node:id">Sexbound.Node:id ()</a></td>
-	<td class="summary">Returns the entityId for this node.</td>
+	<td class="name" nowrap><a href="#Sexbound.SexTalk:outputRandomMessage">Sexbound.SexTalk:outputRandomMessage ()</a></td>
+	<td class="summary">Returns a random dialog message from the dialog pool.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Node:lounge">Sexbound.Node:lounge (entityId)</a></td>
-	<td class="summary">Sends "sexbound_lounge" message to interacting entity (player).</td>
+	<td class="name" nowrap><a href="#Sexbound.SexTalk:refreshDialogPool">Sexbound.SexTalk:refreshDialogPool ()</a></td>
+	<td class="summary">Refreshes the dialog pool where messages are choosen.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Node:occupied">Sexbound.Node:occupied ()</a></td>
-	<td class="summary">Returns whether or not this node is occupied.</td>
+	<td class="name" nowrap><a href="#Sexbound.SexTalk:sayRandom">Sexbound.SexTalk:sayRandom ()</a></td>
+	<td class="summary">Commands the object to say a random message.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Node:uninit">Sexbound.Node:uninit ()</a></td>
-	<td class="summary">Uninitializes this instance.</td>
+	<td class="name" nowrap><a href="#Sexbound.SexTalk:targetRandomActor">Sexbound.SexTalk:targetRandomActor ()</a></td>
+	<td class="summary">Sets a random actor as the target for a future message.</td>
 	</tr>
 </table>
 
@@ -101,19 +101,36 @@
 
     <dl class="function">
     <dt>
-    <a name = "Sexbound.Node:init"></a>
-    <strong>Sexbound.Node:init (tilePosition, placeObject)</strong>
+    <a name = "Sexbound.SexTalk:init"></a>
+    <strong>Sexbound.SexTalk:init (parent)</strong>
     </dt>
     <dd>
-    Initializes this instance.
+    Initialize this instance.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">tilePosition</span>
-
+        <li><span class="parameter">parent</span>
+         instance
         </li>
-        <li><span class="parameter">placeObject</span>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.SexTalk:update"></a>
+    <strong>Sexbound.SexTalk:update (dt)</strong>
+    </dt>
+    <dd>
+    Updates this instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
 
         </li>
     </ul>
@@ -124,65 +141,30 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Node:create"></a>
-    <strong>Sexbound.Node:create (tilePosition)</strong>
+    <a name = "Sexbound.SexTalk:outputRandomMessage"></a>
+    <strong>Sexbound.SexTalk:outputRandomMessage ()</strong>
     </dt>
     <dd>
-    Attempt to place a new sexbound node object at specified tile position.
+    Returns a random dialog message from the dialog pool.
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">tilePosition</span>
 
-        </li>
-    </ul>
+    <h3>Returns:</h3>
+    <ol>
 
+        a string
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "Sexbound.Node:id"></a>
-    <strong>Sexbound.Node:id ()</strong>
+    <a name = "Sexbound.SexTalk:refreshDialogPool"></a>
+    <strong>Sexbound.SexTalk:refreshDialogPool ()</strong>
     </dt>
     <dd>
-    Returns the entityId for this node.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Node:lounge"></a>
-    <strong>Sexbound.Node:lounge (entityId)</strong>
-    </dt>
-    <dd>
-    Sends "sexbound_lounge" message to interacting entity (player).
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">entityId</span>
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Node:occupied"></a>
-    <strong>Sexbound.Node:occupied ()</strong>
-    </dt>
-    <dd>
-    Returns whether or not this node is occupied.
+    Refreshes the dialog pool where messages are choosen.
 
 
 
@@ -192,11 +174,25 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Node:uninit"></a>
-    <strong>Sexbound.Node:uninit ()</strong>
+    <a name = "Sexbound.SexTalk:sayRandom"></a>
+    <strong>Sexbound.SexTalk:sayRandom ()</strong>
     </dt>
     <dd>
-    Uninitializes this instance.
+    Commands the object to say a random message.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.SexTalk:targetRandomActor"></a>
+    <strong>Sexbound.SexTalk:targetRandomActor ()</strong>
+    </dt>
+    <dd>
+    Sets a random actor as the target for a future message.
 
 
 

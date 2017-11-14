@@ -1,8 +1,11 @@
-require "/scripts/stateMachine.lua"
+--- Sexbound.StateMachine Module.
+-- @module Sexbound.StateMachine
 
 Sexbound.StateMachine = {}
 
 Sexbound.StateMachine.__index = Sexbound.StateMachine
+
+require "/scripts/stateMachine.lua"
 
 function Sexbound.StateMachine.new(...)
   local self = setmetatable({}, Sexbound.StateMachine)

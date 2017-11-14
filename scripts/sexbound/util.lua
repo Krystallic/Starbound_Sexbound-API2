@@ -1,5 +1,5 @@
---- Util Module.
--- @module Util
+--- Sexbound_Util Module.
+-- @module Sexbound_Util
 Sexbound_Util = {}
 
 --- Dumps all of the functions of a specfied table.

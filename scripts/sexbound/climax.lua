@@ -61,6 +61,8 @@ function Sexbound.Climax:update(dt)
         -- Play "cum sound" by default
         animator.playSound("climax")
       
+        self.parent:getMoan():playRandom()
+      
         -- Burst cum particles
         animator.burstParticleEmitter( self.particleEffect )
         

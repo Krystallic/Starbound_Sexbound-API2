@@ -5,6 +5,7 @@ Sexbound.Actor.__index = Sexbound.Actor
 
 require "/scripts/sexbound/climax.lua"
 require "/scripts/sexbound/emote.lua"
+require "/scripts/sexbound/moan.lua"
 require "/scripts/sexbound/pregnant.lua"
 require "/scripts/sexbound/sextalk.lua"
 
@@ -39,13 +40,15 @@ function Sexbound.Actor:update(dt)
   
   self.climax:update(dt)
   
+  self.moan:update(dt)
+
+  if self:entityType() == "npc" then
+    self.sextalk:update(dt)
+  end
+  
   self.emote:update(dt)
   
   self.pregnant:update(dt)
-  
-  if self:entityType() == "npc" then
-    self:tryToTalk()
-  end
 end
 
 --- Initializes the timers for this instance.
@@ -112,10 +115,27 @@ function Sexbound.Actor:getData()
   return self.actor
 end
 
+--- Retursn a reference to this actor's Climax instance.
 function Sexbound.Actor:getClimax()
   return self.climax
 end
 
+--- Returns a reference to this actor's Emote instance.
+function Sexbound.Actor:getEmote()
+  return self.emote
+end
+
+--- Returns a reference to this actor's Moan instance.
+function Sexbound.Actor:getMoan()
+  return self.moan
+end
+
+--- Returns a reference to this actor's Pregnant instance.
+function Sexbound.Actor:getPregnant()
+  return self.pregnant
+end
+
+--- Returns this actor's gender.
 function Sexbound.Actor:gender()
   return self.actor.identity.gender
 end
@@ -136,13 +156,9 @@ function Sexbound.Actor:applyTransformations(actorNumber, position)
   end
 end
 
-function Sexbound.Actor:refreshTalkCooldown()
-  self.actor.talkCooldown = util.randomChoice(self.actor.config.defaultTalkCooldown)
-end
-
 --- Resets an specified actor.
 -- @param actorNumber
--- @param animationName
+-- @param position
 function Sexbound.Actor:reset(actorNumber, position)
   local defaultPath = "/artwork/humanoid/default.png:default"
   
@@ -159,9 +175,12 @@ function Sexbound.Actor:reset(actorNumber, position)
   
   self:applyTransformations(actorNumber, position)
   
-  -- Refresh sextalk dialog pool.
   if self.sextalk and Sexbound.Main.getActorCount() > 1 then
+    -- Refresh sextalk dialog pool.
     self.sextalk:refreshDialogPool()
+    
+    -- Say random dialog message.
+    self.sextalk:sayRandom()
   end
   
   -- Set the directives.
@@ -324,9 +343,6 @@ function Sexbound.Actor:setup(actor, storeActor)
   -- Init timers for this actor.
   self:initTimers()
   
-  -- Refresh this actors talk cooldown (timeout).
-  self:refreshTalkCooldown()
-  
   -- Initialize hair identities.
   self.actor.identity.hairFolder = self:hairFolder()
   self.actor.identity.hairType = self:hairType()
@@ -347,13 +363,16 @@ function Sexbound.Actor:setup(actor, storeActor)
     self.sextalk = Sexbound.SexTalk.new( self )
   end
   
-  -- Initialize new module : climax
+  -- Initialize new module : Climax
   self.climax = Sexbound.Climax.new(self)
   
-  -- Initialize new module : emote
+  -- Initialize new module : Emote
   self.emote = Sexbound.Emote.new(self)
   
-  -- Initialize new module : pregnant
+  -- Initialize new module : Moan
+  self.moan = Sexbound.Moan.new(self)
+  
+  -- Initialize new module : Pregnant
   self.pregnant = Sexbound.Pregnant.new(self)
 end
 
@@ -428,18 +447,6 @@ function Sexbound.Actor:translateParts(actorNumber, partName, offset)
     if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
       self:translatePart(actorNumber, partName, offset)
     end
-  end
-end
-
-function Sexbound.Actor:tryToTalk()
-  if self.timer.talk >= self.actor.talkCooldown then
-    self:talk()
-    
-    -- Reset the talk timer
-    self.timer.talk = 0
-    
-    -- Refresh the talk cooldown
-    self:refreshTalkCooldown()
   end
 end
 
