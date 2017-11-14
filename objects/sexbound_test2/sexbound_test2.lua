@@ -3,8 +3,6 @@ require "/scripts/sexbound.lua"
 function init()
   Sexbound.Main.init()
   
-  Sexbound.Main.addActor(Sexbound.Main.getParameter("testNPC"), false)
-  
   Sexbound.Main.createNode({1,0})
   Sexbound.Main.createNode({2,0})
 end

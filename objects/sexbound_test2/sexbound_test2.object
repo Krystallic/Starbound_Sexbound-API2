@@ -1,10 +1,10 @@
 {
-  "objectName" : "sexbound_test",
+  "objectName" : "sexbound_test2",
   "colonyTags" : ["misc"],
   "printable" : false,
   "rarity" : "Common",
   "description" : "A test object.",
-  "shortdescription" : "Sexbound Test",
+  "shortdescription" : "Sexbound Test 2",
   "race" : "generic",
   "category" : "furniture",
   "price" : 1,
@@ -30,7 +30,7 @@
     }
   ],
   
-  "scripts" : ["sexbound_test.lua"],
+  "scripts" : ["sexbound_test2.lua"],
   
   "sexboundConfig" : {
     "requiredVersion" : "2.0.0",

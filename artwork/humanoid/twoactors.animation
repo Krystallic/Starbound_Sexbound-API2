@@ -263,68 +263,6 @@
           }
         }
       }
-    
-      /*"actor1Climax" : {
-        "default" : "none",
-        "states" : {
-          "none" : {},
-        
-          "default" : {
-            "frames" : 12,
-            "cycle"  : 4,
-            "mode"   : "loop",
-            "properties" : {
-              "immediateSoundRangeMultiplier" : 0.2
-            },
-            "frameProperties" : {
-              "immediateSound" : ["/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", ""],
-              "particleEmittersOn" : [["cum1"],[],[],[],["cum1"],[],[],[],["cum1"],[],[],[]],
-              "particleEmittersOff" : [[],["cum1"],[],[],[],["cum1"],[],[],[],["cum1"],[],["cum1"]]
-            }
-          },
-          
-          "off" : {
-            "frames" : 1,
-            "cycle" : 1,
-            "mode" : "transition",
-            "properties" : {
-              "particleEmittersOff" : ["cum1"]
-            },
-            "transition" : "none"
-          }
-        }
-      },
-      
-      "actor2Climax" : {
-        "default" : "none",
-        "states" : {
-          "none" : {},
-        
-          "default" : {
-            "frames" : 12,
-            "cycle"  : 4,
-            "mode"   : "loop",
-            "properties" : {
-              "immediateSoundRangeMultiplier" : 0.2
-            },
-            "frameProperties" : {
-              "immediateSound" : ["/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", ""],
-              "particleEmittersOn" : [["cum1"],[],[],[],["cum1"],[],[],[],["cum1"],[],[],[]],
-              "particleEmittersOff" : [[],["cum1"],[],[],[],["cum1"],[],[],[],["cum1"],[],["cum1"]]
-            }
-          },
-          
-          "off" : {
-            "frames" : 1,
-            "cycle" : 1,
-            "mode" : "transition",
-            "properties" : {
-              "particleEmittersOff" : ["cum1"]
-            },
-            "transition" : "none"
-          }
-        }
-      }*/
     },
     
     "parts" : {
