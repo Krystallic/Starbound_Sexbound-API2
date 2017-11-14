@@ -5,6 +5,7 @@ Sexbound.Actor.__index = Sexbound.Actor
 
 require "/scripts/sexbound/climax.lua"
 require "/scripts/sexbound/emote.lua"
+require "/scripts/sexbound/pregnant.lua"
 require "/scripts/sexbound/sextalk.lua"
 
 function Sexbound.Actor.new(...)
@@ -24,7 +25,7 @@ function Sexbound.Actor:init(actor, storeActor)
   
   -- Initialize the actor data object.
   self.actor = {
-    config = Sexbound.Main.getParameter("actor")
+    config = util.mergeTable({}, Sexbound.Main.getParameter("actor"))
   }
   
   -- Setup the actor.
@@ -39,6 +40,8 @@ function Sexbound.Actor:update(dt)
   self.climax:update(dt)
   
   self.emote:update(dt)
+  
+  self.pregnant:update(dt)
   
   if self:entityType() == "npc" then
     self:tryToTalk()
@@ -344,11 +347,14 @@ function Sexbound.Actor:setup(actor, storeActor)
     self.sextalk = Sexbound.SexTalk.new( self )
   end
   
-  -- Initialize new climax module and specify this actor as the parent.
+  -- Initialize new module : climax
   self.climax = Sexbound.Climax.new(self)
   
-  -- Initialize new emote module and specify this actor as the parent.
+  -- Initialize new module : emote
   self.emote = Sexbound.Emote.new(self)
+  
+  -- Initialize new module : pregnant
+  self.pregnant = Sexbound.Pregnant.new(self)
 end
 
 -- Returns a validated facial hair folder name.

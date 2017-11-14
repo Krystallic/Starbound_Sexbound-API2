@@ -89,6 +89,9 @@ Sexbound_NPC.transformIntoObject = function(callback)
   -- Attempt to override default mind control status options.
   self.sexbound.mindControl = util.mergeTable(self.sexbound.mindControl, status.statusProperty("sexbound_mind_control_override", {}))
   
+  -- Legacy support for older versions of Aphrodite's Bow.
+  self.sexbound.mindControl = util.mergeTable(self.sexbound.mindControl, status.statusProperty("lustConfigOverride", {}))
+  
   -- Create an object that resembles the npc at the position
   local position = vec2.floor(entity.position())
   position[2] = position[2] - 2
@@ -160,6 +163,16 @@ Sexbound_NPC.updateStatuses = function()
   -- If the status property 'sexbound_mind_control' is set.
   if status.statusProperty("sexbound_mind_control") == true and not self.sexbound.hasStoredActor then
     status.setStatusProperty("sexbound_mind_control", false)
+  
+    Sexbound_NPC.transformIntoObject(function()
+      -- If Successful then..
+      
+    end)
+  end
+  
+  -- Legacy support for older versions of Aphrodite's Bow.
+  if status.statusProperty("lust") == true and not self.sexbound.hasStoredActor then
+    status.setStatusProperty("lust", false)
   
     Sexbound_NPC.transformIntoObject(function()
       -- If Successful then..

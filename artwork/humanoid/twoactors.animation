@@ -75,13 +75,7 @@
             "frames" : 12,
             "cycle" : 4,
             "mode" : "transition",
-            "transition" : "position1-reset",
-            "properties" : {
-              "immediateSoundRangeMultiplier" : 0.8
-            },
-            "frameProperties" : {
-              "immediateSound" : ["/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", "", "", "/sfx/sexbound/cum/squish.ogg"]
-            }
+            "transition" : "position1-reset"
           },
           
           "position1-reset" : {
@@ -106,13 +100,7 @@
             "frames" : 12,
             "cycle" : 4,
             "mode" : "transition",
-            "transition" : "position2-reset",
-            "properties" : {
-              "immediateSoundRangeMultiplier" : 0.8
-            },
-            "frameProperties" : {
-              "immediateSound" : ["/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", "", "", "/sfx/sexbound/cum/squish.ogg"]
-            }
+            "transition" : "position2-reset"
           },
           
           "position2-reset" : {
@@ -137,13 +125,7 @@
             "frames" : 12,
             "cycle" : 4,
             "mode" : "transition",
-            "transition" : "position3-reset",
-            "properties" : {
-              "immediateSoundRangeMultiplier" : 0.8
-            },
-            "frameProperties" : {
-              "immediateSound" : ["/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", "", "", "/sfx/sexbound/cum/squish.ogg"]
-            }
+            "transition" : "position3-reset"
           },
           
           "position3-reset" : {
@@ -281,6 +263,68 @@
           }
         }
       }
+    
+      /*"actor1Climax" : {
+        "default" : "none",
+        "states" : {
+          "none" : {},
+        
+          "default" : {
+            "frames" : 12,
+            "cycle"  : 4,
+            "mode"   : "loop",
+            "properties" : {
+              "immediateSoundRangeMultiplier" : 0.2
+            },
+            "frameProperties" : {
+              "immediateSound" : ["/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", ""],
+              "particleEmittersOn" : [["cum1"],[],[],[],["cum1"],[],[],[],["cum1"],[],[],[]],
+              "particleEmittersOff" : [[],["cum1"],[],[],[],["cum1"],[],[],[],["cum1"],[],["cum1"]]
+            }
+          },
+          
+          "off" : {
+            "frames" : 1,
+            "cycle" : 1,
+            "mode" : "transition",
+            "properties" : {
+              "particleEmittersOff" : ["cum1"]
+            },
+            "transition" : "none"
+          }
+        }
+      },
+      
+      "actor2Climax" : {
+        "default" : "none",
+        "states" : {
+          "none" : {},
+        
+          "default" : {
+            "frames" : 12,
+            "cycle"  : 4,
+            "mode"   : "loop",
+            "properties" : {
+              "immediateSoundRangeMultiplier" : 0.2
+            },
+            "frameProperties" : {
+              "immediateSound" : ["/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", "", "/sfx/sexbound/cum/squish.ogg", "", "", ""],
+              "particleEmittersOn" : [["cum1"],[],[],[],["cum1"],[],[],[],["cum1"],[],[],[]],
+              "particleEmittersOff" : [[],["cum1"],[],[],[],["cum1"],[],[],[],["cum1"],[],["cum1"]]
+            }
+          },
+          
+          "off" : {
+            "frames" : 1,
+            "cycle" : 1,
+            "mode" : "transition",
+            "properties" : {
+              "particleEmittersOff" : ["cum1"]
+            },
+            "transition" : "none"
+          }
+        }
+      }*/
     },
     
     "parts" : {
@@ -903,54 +947,6 @@
         }
       },
 
-      "actor1-climax" : {
-        "properties" : {
-          "centered" : true,
-          "anchorPart" : "actor1-body",
-          "zLevel" : 16
-        },
-        
-        "partStates" : {
-          "main" : {
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-climax>.<frame>"
-              }
-            },
-            
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-climax>.<frame>"
-              }
-            },
-            
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-climax>.<frame>"
-              }
-            },
-            
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-climax>.12"
-              }
-            },
-            
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-climax>.12"
-              }
-            },
-            
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-climax>.12"
-              }
-            }
-          }
-        }
-      },
-      
 /* Actor 2 */
       
       "actor2-body" : {
@@ -1548,54 +1544,6 @@
             }
           }
         }
-      },
-            
-      "actor2-climax" : {
-        "properties" : {
-          "centered" : true,
-          "anchorPart" : "actor2-body",
-          "zLevel" : 16
-        },
-        
-        "partStates" : {
-          "main" : {
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-climax>.<frame>"
-              }
-            },
-            
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-climax>.<frame>"
-              }
-            },
-            
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-climax>.<frame>"
-              }
-            },
-            
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-climax>.12"
-              }
-            },
-            
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-climax>.12"
-              }
-            },
-            
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-climax>.12"
-              }
-            }
-          }
-        }
       }
     }
   },
@@ -1608,6 +1556,120 @@
   },
   
   "particleEmitters" : {
+    "malecum1_1" : {
+      "anchorPart" : "actor1-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [2.875, 1.5],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [-3.0, 1.25],
+            "finalVelocity" : [-0.7, -10.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [1.25, 0.25]
+            }
+          }
+        }
+      ]
+    },
+   
+    "malecum1_2" : {
+      "anchorPart" : "actor2-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [3.5, 1.375],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [3.0, 1.25],
+            "finalVelocity" : [0.7, -10.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [1.25, 0.25]
+            }
+          }
+        }
+      ]
+    },
+    
+    "femalecum1_1" : {
+      "anchorPart" : "actor1-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [2.875, 1.25],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [0.0, 0.0],
+            "finalVelocity" : [0.0, -6.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [0.1, 0.25],
+              "finalVelocity" : [0.1, 0.0]
+            }
+          }
+        }
+      ]
+    },
+    
+    "femalecum1_2" : {
+      "anchorPart" : "actor2-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [2.875, 1.25],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [0.0, 0.0],
+            "finalVelocity" : [0.0, -6.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [0.1, 0.25],
+              "finalVelocity" : [0.1, 0.0]
+            }
+          }
+        }
+      ]
+    },
+  
     "emotehappy" : {
       "emissionRate" : 1,
       "particles" : [
@@ -1615,7 +1677,7 @@
           "particle" : {
             "type" : "animated",
             "animation" : "/animations/emotes/happy.animation",
-            "position" : [9, 6],
+            "position" : [0, 0],
             "finalVelocity" : [0, 0],
             "initialVelocity" : [0, 0],
             "destructionTime" : 0.2,
@@ -1631,6 +1693,7 @@
   
   "sounds" : {
     "femalemoan" : [],
-    "malemoan"   : []
+    "malemoan"   : [],
+    "climax"     : []
   }
 }

@@ -19,7 +19,7 @@ function Sexbound.Emote:init(parent)
   self.moan = Sexbound.Moan.new()
   
   self.emote = {
-    config = Sexbound.Main.getParameter("emote"),
+    config = util.mergeTable({}, Sexbound.Main.getParameter("emote")),
     isTalking = false,
     talkingTimeout = 3
   }

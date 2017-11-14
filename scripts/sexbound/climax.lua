@@ -15,45 +15,68 @@ function Sexbound.Climax:init(parent)
   self.parent = parent
   
   self.climax = {
-    auto = false,
-    defaultIncrease = {0, 2.5},
-    defaultDecrease = 10,
-    currentPoints = 0,
-    minPoints = 0,
-    maxPoints = 100,
-    threshold = 100
+    config = util.mergeTable({}, Sexbound.Main.getParameter("climax")),
+    isClimaxing = false
   }
   
-  self.isClimaxing = false
+  self.timer = {
+    shoot = 0
+  }
+  
+  self.timeout = {}
+  
+  self.timeout.shoot = self:refreshTimeout("shoot")
 end
 
 function Sexbound.Climax:getMaxPoints()
-  return self.climax.maxPoints
+  return self.climax.config.maxPoints
 end
 
 function Sexbound.Climax:getPoints()
-  return self.climax.currentPoints
+  return self.climax.config.currentPoints
 end
 
 --- Updates this instance.
 -- @param dt
 function Sexbound.Climax:update(dt)
   if Sexbound.Main.isHavingSex() then
-    if not self.isClimaxing and not Sexbound.Main.isReseting() then
-      local multiplier = Sexbound.Main.currentPosition():getData().pleasureMultiplier[self.parent:actorNumber()] or 1
+    if not self.climax.isClimaxing and not Sexbound.Main.isReseting() then
+      local multiplier = Sexbound.Main.currentPosition():getData().climaxMultiplier[self.parent:actorNumber()] or 1
     
-      local increase = util.randomInRange(self.climax.defaultIncrease)
+      local increase = util.randomInRange(self.climax.config.defaultIncrease)
     
-      self.climax.currentPoints = util.clamp(self.climax.currentPoints + increase * multiplier * dt, self.climax.minPoints, self.climax.maxPoints)
+      self.climax.config.currentPoints = util.clamp(self.climax.config.currentPoints + increase * multiplier * dt, self.climax.config.minPoints, self.climax.config.maxPoints)
     end
     
-    if self.isClimaxing then
-      local decrease = self.climax.defaultDecrease
-  
-      self.climax.currentPoints = util.clamp(self.climax.currentPoints - decrease * dt, self.climax.minPoints, self.climax.maxPoints)
+    if self.climax.isClimaxing and not Sexbound.Main.isHavingSex() then
+      Sexbound.Main.setStatus("climaxing" , false)
       
-      if self.climax.currentPoints == 0 then
-        self.isClimaxing = false
+      self.climax.config.currentPoints = 0
+    end
+    
+    if self.climax.isClimaxing then
+      self.timer.shoot = self.timer.shoot + dt
+    
+      if self.timer.shoot >= self.timeout.shoot then
+        -- Play "cum sound" by default
+        animator.playSound("climax")
+      
+        -- Burst cum particles
+        animator.burstParticleEmitter( self.particleEffect )
+        
+        -- Reset shoot timer
+        self.timer.shoot = 0
+        
+        -- Refresh next shoot timeout
+        self:refreshTimeout("shoot")
+      end
+    
+      local decrease = self.climax.config.defaultDecrease
+  
+      self.climax.config.currentPoints = util.clamp(self.climax.config.currentPoints - decrease * dt, self.climax.config.minPoints, self.climax.config.maxPoints)
+      
+      if self.climax.config.currentPoints == 0 then
+        self.climax.isClimaxing = false
       
         Sexbound.Main.setStatus("climaxing" , false)
       end
@@ -62,7 +85,20 @@ function Sexbound.Climax:update(dt)
 end
 
 function Sexbound.Climax:beginClimax()
-  self.isClimaxing = true
+  self.climax.isClimaxing = true
+  
+  self.timer.shoot = self:refreshTimeout("shoot")
+  
+  self.particleEffect = Sexbound.Main.currentPosition():getData().climaxParticles[ self.parent:actorNumber() ][ self.parent:gender() ]
   
   Sexbound.Main.setStatus("climaxing" , true)
+end
+
+function Sexbound.Climax:defaultTimeout()
+  return self.climax.config.defaultTimeout
+end
+
+function Sexbound.Climax:refreshTimeout(name)
+  self.timeout[name] = util.randomInRange(self:defaultTimeout()[name])
+  return self.timeout[name]
 end

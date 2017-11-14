@@ -37,7 +37,7 @@ function Sexbound.Main.init()
   self.sexboundData.nodeCount = 0
   
   -- Initialize moan sound effects
-  Sexbound.Main.initMoanSoundEffects()
+  Sexbound.Main.initSoundEffects()
   
   -- Initialize positions
   Sexbound.Main.initPositions()
@@ -160,9 +160,19 @@ function Sexbound.Main.initMessageHandlers()
 end
 
 -- Initializes the moan sound effects.
-function Sexbound.Main.initMoanSoundEffects()
+function Sexbound.Main.initSoundEffects()
+  self.sexboundData.animatorSound = {}
+
+  if (animator.hasSound("climax")) then
+    self.sexboundData.animatorSound.climax = {
+      "/sfx/sexbound/cum/squish.ogg"
+    }
+    
+    animator.setSoundPool("climax", self.sexboundData.animatorSound.climax)
+  end
+
   if (animator.hasSound("femalemoan")) then
-    self.femaleMoans = {
+    self.sexboundData.animatorSound.femaleMoans = {
       "/sfx/sexbound/moans/femalemoan1.ogg",
       "/sfx/sexbound/moans/femalemoan2.ogg",
       "/sfx/sexbound/moans/femalemoan3.ogg",
@@ -170,23 +180,28 @@ function Sexbound.Main.initMoanSoundEffects()
       "/sfx/sexbound/moans/femalemoan5.ogg"
     }
   
-    animator.setSoundPool("femalemoan", self.femaleMoans)
+    animator.setSoundPool("femalemoan", self.sexboundData.animatorSound.femaleMoans)
   end
   
   if (animator.hasSound("malemoan")) then
-    self.maleMoans = {
+    self.sexboundData.animatorSound.maleMoans = {
       "/sfx/sexbound/moans/malemoan1.ogg",
       "/sfx/sexbound/moans/malemoan2.ogg",
       "/sfx/sexbound/moans/malemoan3.ogg"
     }
     
-    animator.setSoundPool("malemoan", self.maleMoans)
+    animator.setSoundPool("malemoan", self.sexboundData.animatorSound.maleMoans)
   end
 end
 
 --- Adjusts the animation rate of the animator.
 -- @param dt
 function Sexbound.Main.adjustTempo(dt)
+  if Sexbound.Main.isClimaxing() or Sexbound.Main.isReseting() then
+    self.sexboundData.animationRate = 1
+    return
+  end
+
   local position = Sexbound.Main.currentPosition()
 
   self.sexboundData.animationRate = self.sexboundData.animationRate + (position:maxTempo() / (position:sustainedInterval() / dt))
@@ -195,11 +210,6 @@ function Sexbound.Main.adjustTempo(dt)
 
   -- Set the animator's animation rate
   animator.setAnimationRate(self.sexboundData.animationRate)
-  
-  -- Calculate the climax points
-  --self.climaxPoints.current = self.climaxPoints.current + ((position.maxTempo * 1) * dt)
-  
-  --self.climaxPoints.current = helper.clamp(self.climaxPoints.current, self.climaxPoints.min, self.climaxPoints.max)
   
   if (self.sexboundData.animationRate >= position:maxTempo()) then
     self.sexboundData.animationRate = position:minTempo()

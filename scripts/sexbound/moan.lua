@@ -12,7 +12,7 @@ end
 --- Initialize this instance.
 function Sexbound.Moan:init()
   self.moan = {
-    config = Sexbound.Main.getParameter("moan")
+    config = util.mergeTable({}, Sexbound.Main.getParameter("moan"))
   }
 end
 
