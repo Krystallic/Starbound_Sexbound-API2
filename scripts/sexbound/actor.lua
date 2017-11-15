@@ -80,12 +80,12 @@ end
 
 --- Returns this actor's climax points.
 function Sexbound.Actor:climaxPoints()
-  return self.climax:getPoints() or 0
+  return self.climax:currentPoints() or 0
 end
 
 --- Returns this actor's max climax points.
 function Sexbound.Actor:maxClimaxPoints()
-  return self.climax:getMaxPoints() or 0
+  return self.climax:maxPoints() or 0
 end
 
 --- Flips a specified part in the animator.

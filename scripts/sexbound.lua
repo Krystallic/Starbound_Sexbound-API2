@@ -67,7 +67,15 @@ end
 --- Updates this module.
 -- @param dt
 function Sexbound.Main.update(dt)
-  Sexbound.Main.updateActors(dt)
+  -- Update each Node instance.
+  for _,node in ipairs(self.sexboundData.nodes) do
+    node:update(dt)
+  end
+  
+  -- Update each Actor instance.
+  for _,actor in ipairs(self.sexboundData.actors) do
+    actor:update(dt)
+  end
 
   if Sexbound.Main.isHavingSex() then
     Sexbound.Main.adjustTempo(dt)
@@ -149,10 +157,13 @@ function Sexbound.Main.initMessageHandlers()
     local data = {}
     data.actors = {}
     
-    for i,actor in ipairs(self.sexboundData.actors) do
-      data.actors[i] = {}
-      data.actors[i].climaxPoints = actor:climaxPoints()
-      data.actors[i].maxClimaxPoints = actor:maxClimaxPoints()
+    for _,actor in ipairs(self.sexboundData.actors) do
+      table.insert(data.actors, {
+        climax = {
+          currentPoints = actor:getClimax():currentPoints(),
+          maxPoints = actor:getClimax():maxPoints()
+        }
+      })
     end
     
     return data
@@ -163,6 +174,7 @@ end
 function Sexbound.Main.initSoundEffects()
   self.sexboundData.animatorSound = {}
 
+  -- Initialize climax.
   if (animator.hasSound("climax")) then
     self.sexboundData.animatorSound.climax = {
       "/sfx/sexbound/cum/squish.ogg"
@@ -171,8 +183,9 @@ function Sexbound.Main.initSoundEffects()
     animator.setSoundPool("climax", self.sexboundData.animatorSound.climax)
   end
 
-  if (animator.hasSound("femalemoan")) then
-    self.sexboundData.animatorSound.femaleMoans = {
+  -- Initialize female moans.
+  if (animator.hasSound("moanfemale")) then
+    self.sexboundData.animatorSound.moanfemale = {
       "/sfx/sexbound/moans/femalemoan1.ogg",
       "/sfx/sexbound/moans/femalemoan2.ogg",
       "/sfx/sexbound/moans/femalemoan3.ogg",
@@ -180,17 +193,27 @@ function Sexbound.Main.initSoundEffects()
       "/sfx/sexbound/moans/femalemoan5.ogg"
     }
   
-    animator.setSoundPool("femalemoan", self.sexboundData.animatorSound.femaleMoans)
+    animator.setSoundPool("moanfemale", self.sexboundData.animatorSound.moanfemale)
   end
   
-  if (animator.hasSound("malemoan")) then
-    self.sexboundData.animatorSound.maleMoans = {
+  -- Initialize male moans.
+  if (animator.hasSound("moanmale")) then
+    self.sexboundData.animatorSound.moanmale = {
       "/sfx/sexbound/moans/malemoan1.ogg",
       "/sfx/sexbound/moans/malemoan2.ogg",
       "/sfx/sexbound/moans/malemoan3.ogg"
     }
     
-    animator.setSoundPool("malemoan", self.sexboundData.animatorSound.maleMoans)
+    animator.setSoundPool("moanmale", self.sexboundData.animatorSound.moanmale)
+  end
+  
+  -- Initialize female orgasms.
+  if (animator.hasSound("orgasmfemale")) then
+    self.sexboundData.animatorSound.orgasmfemale = {
+      "/sfx/sexbound/orgasms/femaleorgasm1.ogg"
+    }
+    
+    animator.setSoundPool("orgasmfemale", self.sexboundData.animatorSound.orgasmfemale)
   end
 end
 
@@ -331,14 +354,6 @@ function Sexbound.Main.switchRole()
     table.insert(self.sexboundData.actors, 1, table.remove(self.sexboundData.actors, #self.sexboundData.actors))
     
     Sexbound.Main.resetActors()
-  end
-end
-
---- Invokes the update method for all actors.
--- @param dt
-function Sexbound.Main.updateActors(dt)
-  for _,actor in ipairs(self.sexboundData.actors) do
-    actor:update(dt)
   end
 end
 

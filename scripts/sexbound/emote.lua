@@ -34,14 +34,14 @@ end
 --- Updates this instance.
 -- @param dt
 function Sexbound.Emote:update(dt)
-  if self.emote.isMoaning and self.emote.isTalking then
+  if self.emote.isMoaning or self.emote.isTalking then
     -- The actor is moaning 
     if self.emote.isMoaning then
       self.timer.moaning = self.timer.moaning + dt
       
       if self.timer.moaning >= self.emote.moaningTimeout then
-        self:showMoan()
-        
+        self:showNone()
+      
         -- Reset the moaning timer
         self.timer.moaning = 0
         self.emote.isMoaning = false
@@ -96,6 +96,8 @@ end
 -- Sets the 'isMoaning' status for this instance.
 function Sexbound.Emote:setIsMoaning(value)
   self.isMoaning = value
+  
+  self:showMoan()
 end
 
 -- Sets the 'isTalking' status for this instance.

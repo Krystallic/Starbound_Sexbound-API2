@@ -29,6 +29,8 @@ Sexbound_Player.initMessageHandlers = function()
     -- Lounge the player in the object's first anchor.
     player.lounge(args.loungeId, anchor)
     
+    self.sexbound.controllerId = args.controllerId
+    
     -- Show the Sexbound UI.
     self.sexbound.ui:showUI(args.controllerId)
   end)
@@ -176,5 +178,5 @@ Sexbound_Player.setupActor = function()
   
   actorData.identity = Sexbound_Player.buildIdentityFromPortrait( portraitData )
   
-  Sexbound_Util.sendMessage( self.sexbound.loungeId, "node-setup-actor", actorData )
+  Sexbound_Util.sendMessage( self.sexbound.controllerId, "main-setup-actor", actorData )
 end

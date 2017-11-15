@@ -107,9 +107,8 @@ end
 
 function Climax:updateProgressBars(actors)
   for i,actor in ipairs(actors) do
-    local climaxPoints = actor.climaxPoints
-    if climaxPoints ~= 0 then
-      self.climax.progressBars[i].amount = actor.climaxPoints / actor.maxClimaxPoints
+    if actor.climax.currentPoints ~= 0 then
+      self.climax.progressBars[i].amount = actor.climax.currentPoints / actor.climax.maxPoints
     else
       self.climax.progressBars[i].amount = 0
     end

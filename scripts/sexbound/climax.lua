@@ -28,14 +28,6 @@ function Sexbound.Climax:init(parent)
   self.timeout.shoot = self:refreshTimeout("shoot")
 end
 
-function Sexbound.Climax:getMaxPoints()
-  return self.climax.config.maxPoints
-end
-
-function Sexbound.Climax:getPoints()
-  return self.climax.config.currentPoints
-end
-
 --- Updates this instance.
 -- @param dt
 function Sexbound.Climax:update(dt)
@@ -61,8 +53,6 @@ function Sexbound.Climax:update(dt)
         -- Play "cum sound" by default
         animator.playSound("climax")
       
-        self.parent:getMoan():playRandom()
-      
         -- Burst cum particles
         animator.burstParticleEmitter( self.particleEffect )
         
@@ -84,6 +74,14 @@ function Sexbound.Climax:update(dt)
       end
     end
   end
+end
+
+function Sexbound.Climax:maxPoints()
+  return self.climax.config.maxPoints
+end
+
+function Sexbound.Climax:currentPoints()
+  return self.climax.config.currentPoints
 end
 
 function Sexbound.Climax:beginClimax()

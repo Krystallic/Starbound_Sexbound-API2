@@ -189,19 +189,22 @@ function doClimax(args)
   end
 end
 
+--- Commands the player to open a specified ScriptPane.
 function doOpenScriptPane(args)
   player.interact("ScriptPane", args.config)
 end
 
+--- Sends a message to the main controller to "switch sex positions".
 function doSwitchPosition(args)
-  Sexbound_Util.sendMessage(player.loungingIn(), "node-switch-position", args)
+  Sexbound_Util.sendMessage(self.controllerId, "main-switch-position", args)
 end
 
+--- Sends a message to the main controller to "switch actor roles".
 function doSwitchRole(args)
-  Sexbound_Util.sendMessage(player.loungingIn(), "node-switch-role", args)
+  Sexbound_Util.sendMessage(self.controllerId, "main-switch-role", args)
 end
 
---- Sync the UI with relative Sexbound controller.
+--- Sends a message to the main controller to sync the UI.
 function syncUI()
   Sexbound_Util.sendMessage(self.controllerId, "main-sync-ui", nil, true)
 end

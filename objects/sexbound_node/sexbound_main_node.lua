@@ -1,5 +1,4 @@
 require "/scripts/sexbound.lua"
-require "/scripts/sexbound/controller/node.lua"
 
 function init()
   -- Check if mindControl is in storage before setting it.
@@ -12,8 +11,6 @@ function init()
   Sexbound.Main.init()
   
   Sexbound.Main.becomeNode()
-  
-  NodeController.init()
 end
 
 function update(dt)

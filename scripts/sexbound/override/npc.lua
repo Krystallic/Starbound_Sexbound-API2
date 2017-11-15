@@ -77,7 +77,7 @@ Sexbound_NPC.setupActor = function(store)
   }
   
   if store then
-    Sexbound_Util.sendMessage( self.sexbound.loungeId, "node-store-actor", actorData )
+    Sexbound_Util.sendMessage( self.sexbound.loungeId, "main-store-actor", actorData )
   else
     Sexbound_Util.sendMessage( self.sexbound.loungeId, "node-setup-actor", actorData )
   end
@@ -137,7 +137,7 @@ Sexbound_NPC.transformIntoObject = function(callback)
   if not result then Sexbound_Common.splashDamage() end
 end
 
---- Kills the NPC.
+--- Unloads this NPC.
 Sexbound_NPC.unload = function()
   -- Prevent loot drop.
   npc.setDropPools({})
@@ -145,6 +145,7 @@ Sexbound_NPC.unload = function()
   -- Prevent death particle effect.
   npc.setDeathParticleBurst(nil) 
   
+  -- Remove persistence from NPC?
   npc.setPersistent(false)
 
   -- Kill the NPC

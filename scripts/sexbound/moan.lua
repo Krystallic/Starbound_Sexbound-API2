@@ -50,13 +50,6 @@ function Sexbound.Moan:config()
   return self.moan.config
 end
 
---- 
-function Sexbound.Moan:getRandomEmote()
-  local emotes = self:config().emote
-
-  return util.randomChoice(emotes)
-end
-
 --- Plays a random moan sound effect for the specified gender.
 -- @param gender
 function Sexbound.Moan:playRandom()
@@ -65,9 +58,10 @@ function Sexbound.Moan:playRandom()
   local pitch = util.randomInRange( self.moan.config.pitch[gender] )
   
   -- Check if animator has sound
-  if (animator.hasSound(gender .. "moan")) then
-    animator.setSoundPitch(gender .. "moan", pitch, 0)
-    animator.playSound(gender .. "moan")
+  if (animator.hasSound("moan" .. gender)) then
+    animator.setSoundPitch("moan" .. gender, pitch, 0)
+    
+    animator.playSound("moan" .. gender)
   end
 end
 

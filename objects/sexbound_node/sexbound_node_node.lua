@@ -1,13 +1,12 @@
-require "/scripts/sexbound/controller/node.lua"
+require "/scripts/sexbound/util.lua"
 
 function init()
-  NodeController.init()
-end
-
-function die()
-  NodeController.destroy()
+  -- Handle Setup Actor
+  message.setHandler("node-setup-actor", function(_,_,args)
+    Sexbound_Util.sendMessage(config.getParemeter("controllerId"), "main-setup-actor", args)
+  end)
 end
 
 function uninit()
-  NodeController.destroy()
+  object.smash(true)
 end

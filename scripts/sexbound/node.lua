@@ -14,7 +14,8 @@ function Sexbound.Node:init(tilePosition, placeObject)
   tilePosition = tilePosition or {0,0}
 
   self.node.tilePosition = vec2.floor(vec2.add(entity.position(), tilePosition))
-
+  self.node.placeObject = placeObject
+  
   if placeObject then
     self:create(self.node.tilePosition)
   else
@@ -22,35 +23,51 @@ function Sexbound.Node:init(tilePosition, placeObject)
   end
 end
 
+--- Updates this instance.
+-- @param dt
+function Sexbound.Node:update(dt)
+ if self.node.placeObject and not self:exists() then
+   self:create(self.node.tilePosition)
+ end
+end
+
 --- Attempt to place a new sexbound node object at specified tile position.
 -- @param tilePosition
 function Sexbound.Node:create(tilePosition)
+  self.node.uniqueId = sb.makeUuid()
+
   local params = {
-    controllerId = self.node.controllerId
+    controllerId = self.node.controllerId,
+    uniqueId = self.node.uniqueId
   }
-
-  local objectNodeId = world.objectAt(tilePosition)
-
-  if objectNodeId and world.entityName(objectNodeId) == self.nodeName then
-    -- Sync the existing node with the main controller.
-    Sexbound_Util.sendMessage(objectNodeId, "node-sync-main", params)
-  else
-    -- Attempt to place new node.
+  
+  if not world.objectAt(tilePosition) then
     world.placeObject(self.nodeName, tilePosition, object.direction(), params)
+  end
+end
+
+function Sexbound.Node:exists()
+  local entityId = world.objectAt(self.node.tilePosition)
+  
+  if entityId then
+    return self.node.uniqueId == world.entityUniqueId(entityId)
   end
 end
 
 --- Returns the entityId for this node.
 function Sexbound.Node:id()
-  if not self.node.id then
-    local objectNodeId = world.objectAt(self.node.tilePosition)
-    
-    if objectNodeId and world.entityName(objectNodeId) == self.nodeName then
-      self.node.id = objectNodeId
-    end
+  local entityId = world.objectAt(self.node.tilePosition)
+  
+  if entityId and world.entityName(entityId) == self.nodeName then
+    self.node.id = entityId
   end
   
   return self.node.id
+end
+
+--- Returns the uniqueId for this Node's object.
+function Sexbound.Node:uniqueId()
+  return self.node.uniqueId
 end
 
 --- Sends "sexbound_lounge" message to interacting entity (player).

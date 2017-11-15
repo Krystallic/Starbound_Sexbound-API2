@@ -37,9 +37,7 @@ Sexbound_Common.removeActor = function()
   self.sexbound.hasStoredActor = false
   
   -- Request the SexboundAPI to remove this entity from the list of actors.
-  Sexbound_Util.sendMessage( self.sexbound.loungeId, "node-remove-actor", entity.id() )
-  
-  self.sexbound.loungeId = nil
+  Sexbound_Util.sendMessage( self.sexbound.controllerId, "main-remove-actor", entity.id() )
 end
 
 Sexbound_Common.splashDamage = function()
