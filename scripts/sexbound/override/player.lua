@@ -1,7 +1,6 @@
 require "/scripts/vec2.lua"
 
-require "/scripts/sexbound/util.lua"
-require "/scripts/sexbound/sexboundui.lua"
+require "/scripts/sexbound.lua"
 require "/scripts/sexbound/override/common.lua"
 
 Sexbound_Player = {}
@@ -12,7 +11,7 @@ function init()
   
   Sexbound_Player.initMessageHandlers()
   
-  --Sexbound_Util.deepdump(_ENV)
+  --Sexbound.API.Util.deepdump(_ENV)
 end
 
 --- Hook - update
@@ -32,7 +31,7 @@ Sexbound_Player.initMessageHandlers = function()
     self.sexbound.controllerId = args.controllerId
     
     -- Show the Sexbound UI.
-    self.sexbound.ui:showUI(args.controllerId)
+    Sexbound.API.UI.showUI(args.controllerId)
   end)
 end
 
@@ -178,5 +177,5 @@ Sexbound_Player.setupActor = function()
   
   actorData.identity = Sexbound_Player.buildIdentityFromPortrait( portraitData )
   
-  Sexbound_Util.sendMessage( self.sexbound.controllerId, "main-setup-actor", actorData )
+  Sexbound.API.Util.sendMessage( self.sexbound.controllerId, "main-setup-actor", actorData )
 end

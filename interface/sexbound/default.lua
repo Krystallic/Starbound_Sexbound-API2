@@ -3,7 +3,7 @@ require "/scripts/rect.lua"
 require "/scripts/util.lua"
 require "/scripts/vec2.lua"
 
-require "/scripts/sexbound/util.lua"
+require "/scripts/sexbound.lua"
 
 require "/interface/sexbound/climax/climax.lua"
 require "/interface/sexbound/positions/positions.lua"
@@ -55,7 +55,7 @@ function update(dt)
     syncUI()
   end
   
-  Sexbound_Util.updateMessage("main-sync-ui", function(result)
+  Sexbound.API.Util.updateMessage("main-sync-ui", function(result)
     if result then
       self.climax:updateProgressBars(result.actors)
     end
@@ -185,7 +185,7 @@ end
 
 function doClimax(args)
   if self.climax:progressBars()[args.actorId].amount >= 0.5 then
-    Sexbound_Util.sendMessage(self.controllerId, "main-climax", args)
+    Sexbound.API.Util.sendMessage(self.controllerId, "main-climax", args)
   end
 end
 
@@ -196,15 +196,15 @@ end
 
 --- Sends a message to the main controller to "switch sex positions".
 function doSwitchPosition(args)
-  Sexbound_Util.sendMessage(self.controllerId, "main-switch-position", args)
+  Sexbound.API.Util.sendMessage(self.controllerId, "main-switch-position", args)
 end
 
 --- Sends a message to the main controller to "switch actor roles".
 function doSwitchRole(args)
-  Sexbound_Util.sendMessage(self.controllerId, "main-switch-role", args)
+  Sexbound.API.Util.sendMessage(self.controllerId, "main-switch-role", args)
 end
 
 --- Sends a message to the main controller to sync the UI.
 function syncUI()
-  Sexbound_Util.sendMessage(self.controllerId, "main-sync-ui", nil, true)
+  Sexbound.API.Util.sendMessage(self.controllerId, "main-sync-ui", nil, true)
 end

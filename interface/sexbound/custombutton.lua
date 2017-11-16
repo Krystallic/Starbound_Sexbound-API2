@@ -1,4 +1,4 @@
-require "/scripts/sexbound/util.lua"
+require "/scripts/util.lua"
 
 CustomButton = {}
 CustomButton.__index = CustomButton

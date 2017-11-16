@@ -1,22 +1,22 @@
 require "/scripts/sexbound.lua"
 
 function init()
-  Sexbound.Main.init()
+  Sexbound.API.init()
   
-  Sexbound.Main.addActor(Sexbound.Main.getParameter("testNPC"), false)
+  Sexbound.API.Actors.addActor(Sexbound.API.getParameter("testNPC"), false)
   
-  Sexbound.Main.createNode({1,0})
-  Sexbound.Main.createNode({2,0})
+  Sexbound.API.Nodes.createNode({1,0})
+  Sexbound.API.Nodes.createNode({2,0})
 end
 
 function update(dt)
-  Sexbound.Main.update(dt)
+  Sexbound.API.update(dt)
 end
 
 function onInteraction(args)
-  return Sexbound.Main.handleInteract(args) or nil
+  return Sexbound.API.handleInteract(args) or nil
 end
 
 function uninit()
-  Sexbound.Main.handleUninit()
+  Sexbound.API.handleUninit()
 end

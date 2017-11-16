@@ -16,8 +16,7 @@ Sexbound_Common.init = function()
     hasSetupActor = false,
     mindControl = {
       damageSourceKind = "sexbound_mind_control"
-    },    
-    ui = SexboundUI.new()
+    }
   }
 end
 
@@ -37,7 +36,7 @@ Sexbound_Common.removeActor = function()
   self.sexbound.hasStoredActor = false
   
   -- Request the SexboundAPI to remove this entity from the list of actors.
-  Sexbound_Util.sendMessage( self.sexbound.controllerId, "main-remove-actor", entity.id() )
+  Sexbound.API.Util.sendMessage( self.sexbound.controllerId, "main-remove-actor", entity.id() )
 end
 
 Sexbound_Common.splashDamage = function()

@@ -3,8 +3,7 @@
 
 require "/scripts/vec2.lua"
 
-require "/scripts/sexbound/util.lua"
-require "/scripts/sexbound/sexboundui.lua"
+require "/scripts/sexbound.lua"
 require "/scripts/sexbound/override/common.lua"
 
 Sexbound_NPC = {}
@@ -77,9 +76,9 @@ Sexbound_NPC.setupActor = function(store)
   }
   
   if store then
-    Sexbound_Util.sendMessage( self.sexbound.loungeId, "main-store-actor", actorData )
+    Sexbound.API.Util.sendMessage( self.sexbound.loungeId, "main-store-actor", actorData )
   else
-    Sexbound_Util.sendMessage( self.sexbound.loungeId, "node-setup-actor", actorData )
+    Sexbound.API.Util.sendMessage( self.sexbound.loungeId, "node-setup-actor", actorData )
   end
 end
 
@@ -116,14 +115,14 @@ Sexbound_NPC.transformIntoObject = function(callback)
   
     -- Check for respawner (tenant)
     if Sexbound_NPC.hasRespawner() or Sexbound_NPC.hasOwnerUuid() then
-      if Sexbound_NPC.hasRespawner() and Sexbound_Util.findEntityWithUid(storage.respawner) then
+      if Sexbound_NPC.hasRespawner() and Sexbound.API.Util.findEntityWithUid(storage.respawner) then
         Sexbound_NPC.setupActor(true)
         
         world.sendEntityMessage(storage.respawner, "transform-into-object", {uniqueId = entity.uniqueId()})
       end
       
       -- Check for crew member
-      --if Sexbound_NPC.hasOwnerUuid() and Sexbound_Util.findEntityWithUid(storage.ownerUuid) then
+      --if Sexbound_NPC.hasOwnerUuid() and Sexbound.API.Util.findEntityWithUid(storage.ownerUuid) then
         --Sexbound_Common.splashDamage()
         --world.sendEntityMessage(storage.ownerUuid, "transform-into-object", {uniqueId = entity.uniqueId()})
       --end

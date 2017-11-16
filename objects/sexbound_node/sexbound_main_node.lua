@@ -8,28 +8,28 @@ function init()
   
   storage.mindControl = config.getParameter("mindControl")
   
-  Sexbound.Main.init()
+  Sexbound.API.init()
   
-  Sexbound.Main.becomeNode()
+  Sexbound.API.becomeNode()
 end
 
 function update(dt)
-  Sexbound.Main.update(dt)
+  Sexbound.API.update(dt)
   
   if storage.mindControl then
     local worldTime = world.day() + world.timeOfDay()
     
-    if not Sexbound.Main.getStatus("havingSex") and worldTime >= storage.mindControl.timeout then
+    if not Sexbound.API.Status.getStatus("havingSex") and worldTime >= storage.mindControl.timeout then
       object.smash(true)
     end
   end
 end
 
 function onInteraction(args)
-  return Sexbound.Main.handleInteract(args) or nil
+  return Sexbound.API.handleInteract(args) or nil
 end
 
 function die()
-  Sexbound.Main.respawnNPC()
+  Sexbound.API.respawnNPC()
 end
   
