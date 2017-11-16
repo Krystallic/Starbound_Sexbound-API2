@@ -1,6 +1,5 @@
 --- Sexbound.API.Actors Submodule.
 -- @submodule Sexbound.API
-
 Sexbound.API.Actors = {}
 
 --- Stores the specified actor.

@@ -86,13 +86,13 @@ function Climax:render()
   self.climax.progressBars[2].angle = 90 * self.climax.progressBars[2].amount
   self.climax.progressBars[2].rotation = self.climax.progressBars[2].angle * math.pi / 180
   
-  self:canvas():drawImage(self:config().backgroundImage, {129,-3}, 1.0, self:config().color, true)
+  self:canvas():drawImage(self:config().backgroundImage, {129,-2}, 1.0, self:config().color, true)
   
   for _,progressBar in ipairs(self.climax.progressBars) do
-    self:canvas():drawImageDrawable(self:config().progressBarImage .. "?addmask=" .. self:config().progressBarMask, {129,-3}, 1.0, progressBar.color, progressBar.rotation)
+    self:canvas():drawImageDrawable(self:config().progressBarImage .. "?addmask=" .. self:config().progressBarMask, {129,-2}, 1.0, progressBar.color, progressBar.rotation)
   end
   
-  self:canvas():drawImage(self:config().coverImage, {129, -3}, 1.0, self:config().coverColor, true)
+  self:canvas():drawImage(self:config().coverImage, {129, -2}, 1.0, self:config().coverColor, true)
 end
 
 function Climax:updateAlphaForAllImages(alpha)

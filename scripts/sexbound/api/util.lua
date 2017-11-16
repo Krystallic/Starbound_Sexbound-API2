@@ -1,5 +1,6 @@
 --- Sexbound.API.Util Submodule.
 -- @submodule Sexbound.API
+Sexbound = Sexbound or {API = {}}
 Sexbound.API.Util = {}
 
 --- Dumps all of the functions of a specfied table.

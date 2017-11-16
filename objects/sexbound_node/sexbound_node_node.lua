@@ -1,4 +1,4 @@
-require "/scripts/sexbound.lua"
+require "/scripts/sexbound/api/util.lua"
 
 function init()
   -- Handle Setup Actor

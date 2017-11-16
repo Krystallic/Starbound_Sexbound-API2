@@ -1,5 +1,6 @@
 --- Sexbound.API.UI Submodule.
 -- @submodule Sexbound.API
+Sexbound = Sexbound or {API = {}}
 Sexbound.API.UI = {}
 
 --- Pops up the Sexbound UI.

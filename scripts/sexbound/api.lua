@@ -101,6 +101,31 @@ local function Sexbound_API_InitSoundEffect()
   end
 end
 
+--- Private: Updates the animator's animation rate.
+local function Sexbound_API_UpdateAnimationRate(dt)
+  if Sexbound.API.Status.isClimaxing() or Sexbound.API.Status.isReseting() then
+    self.sexboundData.animationRate = 1
+    return
+  end
+
+  local position = Sexbound.API.Positions.currentPosition()
+
+  self.sexboundData.animationRate = self.sexboundData.animationRate + (position:maxTempo() / (position:sustainedInterval() / dt))
+
+  self.sexboundData.animationRate = util.clamp(self.sexboundData.animationRate, position:minTempo(), position:maxTempo())
+
+  -- Set the animator's animation rate
+  animator.setAnimationRate(self.sexboundData.animationRate)
+  
+  if (self.sexboundData.animationRate >= position:maxTempo()) then
+    self.sexboundData.animationRate = position:minTempo()
+    
+    position:nextMaxTempo()
+      
+    position:nextSustainedInterval()
+  end
+end
+
 --- Initializes this module.
 -- @usage function init() Sexbound.API.init() end
 function Sexbound.API.init()
@@ -148,32 +173,6 @@ function Sexbound.API.init()
   Sexbound_API_InitMessageHandlers()
 end
 
---- Adds new node and tracks it as being this object.
-function Sexbound.API.becomeNode()
-  table.insert(self.sexboundData.nodes, Sexbound.Core.Node.new({0, 0}, false))
-  
-  self.sexboundData.nodeCount = self.sexboundData.nodeCount + 1
-end
-
---- Handles a player interaction request.
--- @param args interact arguments
--- @usage function onInteraction(args) Sexbound.API.handleInteract(args) end
-function Sexbound.API.handleInteract(args)
-  -- Lounge-in next available node.
-  for _,node in ipairs(self.sexboundData.nodes) do
-    if not node:occupied() then
-      node:lounge(args.sourceId)
-      return
-    end
-  end
-end
-
---- Handles this entities uninit.
-function Sexbound.API.handleUninit()
-  -- Uninit any and all nodes.
-  Sexbound.API.Nodes.uninitNodes()
-end
-
 --- Updates this module.
 -- @param dt delta time
 -- @usage function update(dt) Sexbound.API.update(dt) end
@@ -189,11 +188,18 @@ function Sexbound.API.update(dt)
   end
 
   if Sexbound.API.Status.isHavingSex() then
-    Sexbound.API.updateAnimationRate(dt)
+    Sexbound_API_UpdateAnimationRate(dt)
   end
   
   -- Update the state machine
   self.stateMachine:update(dt)
+end
+
+--- Adds new node and tracks it as being this object.
+function Sexbound.API.becomeNode()
+  table.insert(self.sexboundData.nodes, Sexbound.Core.Node.new({0, 0}, false))
+  
+  self.sexboundData.nodeCount = self.sexboundData.nodeCount + 1
 end
 
 --- Returns a reference to the entire configuration.
@@ -216,6 +222,19 @@ function Sexbound.API.getParameter(param)
   end
   
   return config
+end
+
+--- Handles a player interaction request.
+-- @param args interact arguments
+-- @usage function onInteraction(args) Sexbound.API.handleInteract(args) end
+function Sexbound.API.handleInteract(args)
+  -- Lounge-in next available node.
+  for _,node in ipairs(self.sexboundData.nodes) do
+    if not node:occupied() then
+      node:lounge(args.sourceId)
+      return
+    end
+  end
 end
 
 --- Attempts to spawn a stored actor.
@@ -259,28 +278,8 @@ function Sexbound.API.respawnNPC()
   end
 end
 
---- Adjusts the animation rate of the animator.
--- @param dt
-function Sexbound.API.updateAnimationRate(dt)
-  if Sexbound.API.Status.isClimaxing() or Sexbound.API.Status.isReseting() then
-    self.sexboundData.animationRate = 1
-    return
-  end
-
-  local position = Sexbound.API.Positions.currentPosition()
-
-  self.sexboundData.animationRate = self.sexboundData.animationRate + (position:maxTempo() / (position:sustainedInterval() / dt))
-
-  self.sexboundData.animationRate = util.clamp(self.sexboundData.animationRate, position:minTempo(), position:maxTempo())
-
-  -- Set the animator's animation rate
-  animator.setAnimationRate(self.sexboundData.animationRate)
-  
-  if (self.sexboundData.animationRate >= position:maxTempo()) then
-    self.sexboundData.animationRate = position:minTempo()
-    
-    position:nextMaxTempo()
-      
-    position:nextSustainedInterval()
-  end
+--- Handles this entities uninit.
+function Sexbound.API.uninit()
+  -- Uninit any and all nodes.
+  Sexbound.API.Nodes.uninitNodes()
 end

@@ -3,7 +3,8 @@
 -- @author Loxodon
 -- @license GNU General Public License v3.0
 
-Sexbound = {API = {}}
+Sexbound = {}
+Sexbound.API = {}
 
 require "/scripts/sexbound/api.lua"
 require "/scripts/sexbound/api/actors.lua"

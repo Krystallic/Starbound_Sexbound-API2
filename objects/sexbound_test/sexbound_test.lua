@@ -18,5 +18,5 @@ function onInteraction(args)
 end
 
 function uninit()
-  Sexbound.API.handleUninit()
+  Sexbound.API.uninit()
 end

@@ -1,6 +1,7 @@
 require "/scripts/vec2.lua"
 
-require "/scripts/sexbound.lua"
+require "/scripts/sexbound/api/util.lua"
+require "/scripts/sexbound/api/ui.lua"
 require "/scripts/sexbound/override/common.lua"
 
 Sexbound_Player = {}
