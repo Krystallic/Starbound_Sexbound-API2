@@ -119,10 +119,10 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.API.Actors.getActors">Sexbound.API.Actors.getActors ()</a></td>
-	<td class="summary">Returns all actors.</td>
+	<td class="summary">Returns a reference to all actors.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.API.Actors.getActorCount">Sexbound.API.Actors.getActorCount ()</a></td>
+	<td class="name" nowrap><a href="#Sexbound.API.Actors.getCount">Sexbound.API.Actors.getCount ()</a></td>
 	<td class="summary">Returns the count of actors.</td>
 	</tr>
 	<tr>
@@ -130,7 +130,7 @@
 	<td class="summary">Removes the specified actor.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.API.Actors.resetActors">Sexbound.API.Actors.resetActors ()</a></td>
+	<td class="name" nowrap><a href="#Sexbound.API.Actors.resetAll">Sexbound.API.Actors.resetAll ()</a></td>
 	<td class="summary">Resets all actors.</td>
 	</tr>
 	<tr>
@@ -138,27 +138,31 @@
 	<td class="summary">Resets all global animator tags for all actors.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.API.Actors.switchRole">Sexbound.API.Actors.switchRole (skipReset)</a></td>
+	<td class="name" nowrap><a href="#Sexbound.API.Actors.switchRole">Sexbound.API.Actors.switchRole ()</a></td>
 	<td class="summary">Shifts the actors in actor data list to the right.</td>
 	</tr>
 </table>
 <h2><a href="#sexbound_api_nodes_Functions">sexbound.api.nodes Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.API.Nodes.createNode">Sexbound.API.Nodes.createNode (tilePosition)</a></td>
-	<td class="summary">Creates a new node.</td>
+	<td class="name" nowrap><a href="#Sexbound.API.Nodes.addNode">Sexbound.API.Nodes.addNode (tilePosition)</a></td>
+	<td class="summary">Creates a new Node.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.API.Nodes.uninitNodes">Sexbound.API.Nodes.uninitNodes ()</a></td>
-	<td class="summary">Uninitializes all nodes.</td>
+	<td class="name" nowrap><a href="#Sexbound.API.Nodes.getNodes">Sexbound.API.Nodes.getNodes ()</a></td>
+	<td class="summary">Returns a reference to all Nodes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.API.Nodes.getCount">Sexbound.API.Nodes.getCount ()</a></td>
+	<td class="summary">Returns the count of nodes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.API.Nodes.uninit">Sexbound.API.Nodes.uninit ()</a></td>
+	<td class="summary">Uninitializes all Nodes.</td>
 	</tr>
 </table>
 <h2><a href="#sexbound_api_positions_Functions">sexbound.api.positions Functions</a></h2>
 <table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.API.Positions.initPositions">Sexbound.API.Positions.initPositions ()</a></td>
-	<td class="summary">Initializes the defined positions.</td>
-	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.API.Positions.currentPosition">Sexbound.API.Positions.currentPosition ()</a></td>
 	<td class="summary">Returns a reference to the current position.</td>
@@ -424,7 +428,7 @@
     <strong>Sexbound.API.Actors.getActors ()</strong>
     </dt>
     <dd>
-    Returns all actors.
+    Returns a reference to all actors.
 
 
 
@@ -434,8 +438,8 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.API.Actors.getActorCount"></a>
-    <strong>Sexbound.API.Actors.getActorCount ()</strong>
+    <a name = "Sexbound.API.Actors.getCount"></a>
+    <strong>Sexbound.API.Actors.getCount ()</strong>
     </dt>
     <dd>
     Returns the count of actors.
@@ -468,8 +472,8 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.API.Actors.resetActors"></a>
-    <strong>Sexbound.API.Actors.resetActors ()</strong>
+    <a name = "Sexbound.API.Actors.resetAll"></a>
+    <strong>Sexbound.API.Actors.resetAll ()</strong>
     </dt>
     <dd>
     Resets all actors.
@@ -497,18 +501,12 @@
 </dd>
     <dt>
     <a name = "Sexbound.API.Actors.switchRole"></a>
-    <strong>Sexbound.API.Actors.switchRole (skipReset)</strong>
+    <strong>Sexbound.API.Actors.switchRole ()</strong>
     </dt>
     <dd>
     Shifts the actors in actor data list to the right.
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">skipReset</span>
-         True := Skip reseting all actors.
-        </li>
-    </ul>
 
 
 
@@ -520,11 +518,11 @@
 
     <dl class="function">
     <dt>
-    <a name = "Sexbound.API.Nodes.createNode"></a>
-    <strong>Sexbound.API.Nodes.createNode (tilePosition)</strong>
+    <a name = "Sexbound.API.Nodes.addNode"></a>
+    <strong>Sexbound.API.Nodes.addNode (tilePosition)</strong>
     </dt>
     <dd>
-    Creates a new node.
+    Creates a new Node.
 
 
     <h3>Parameters:</h3>
@@ -540,11 +538,39 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.API.Nodes.uninitNodes"></a>
-    <strong>Sexbound.API.Nodes.uninitNodes ()</strong>
+    <a name = "Sexbound.API.Nodes.getNodes"></a>
+    <strong>Sexbound.API.Nodes.getNodes ()</strong>
     </dt>
     <dd>
-    Uninitializes all nodes.
+    Returns a reference to all Nodes.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.API.Nodes.getCount"></a>
+    <strong>Sexbound.API.Nodes.getCount ()</strong>
+    </dt>
+    <dd>
+    Returns the count of nodes.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.API.Nodes.uninit"></a>
+    <strong>Sexbound.API.Nodes.uninit ()</strong>
+    </dt>
+    <dd>
+    Uninitializes all Nodes.
 
 
 
@@ -557,20 +583,6 @@
     <h2 class="section-header "><a name="sexbound_api_positions_Functions"></a>sexbound.api.positions Functions</h2>
 
     <dl class="function">
-    <dt>
-    <a name = "Sexbound.API.Positions.initPositions"></a>
-    <strong>Sexbound.API.Positions.initPositions ()</strong>
-    </dt>
-    <dd>
-    Initializes the defined positions.
-
-
-
-
-
-
-
-</dd>
     <dt>
     <a name = "Sexbound.API.Positions.currentPosition"></a>
     <strong>Sexbound.API.Positions.currentPosition ()</strong>
@@ -869,7 +881,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-11-16 11:42:28 </i>
+<i style="float:right;">Last updated 2017-11-16 18:00:39 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

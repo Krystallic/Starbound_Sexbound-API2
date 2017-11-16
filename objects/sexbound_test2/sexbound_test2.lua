@@ -3,8 +3,8 @@ require "/scripts/sexbound.lua"
 function init()
   Sexbound.API.init()
   
-  Sexbound.API.Nodes.createNode({1,0})
-  Sexbound.API.Nodes.createNode({2,0})
+  Sexbound.API.Nodes.addNode({1,0})
+  Sexbound.API.Nodes.addNode({2,0})
 end
 
 function update(dt)

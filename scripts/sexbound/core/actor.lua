@@ -175,7 +175,7 @@ function Sexbound.Core.Actor:reset(actorNumber, position)
   
   self:applyTransformations(actorNumber, position)
   
-  if self.sextalk and Sexbound.API.Actors.getActorCount() > 1 then
+  if self.sextalk and Sexbound.API.Actors.getCount() > 1 then
     -- Refresh sextalk dialog pool.
     self.sextalk:refreshDialogPool()
     
@@ -422,7 +422,7 @@ end
 
 --- Commands the actor to talk.
 function Sexbound.Core.Actor:talk()
-  if self.sextalk and Sexbound.API.Actors.getActorCount() > 1 then
+  if self.sextalk and Sexbound.API.Actors.getCount() > 1 then
     self.sextalk:sayRandom()
     
     self.emote:showBlabber()

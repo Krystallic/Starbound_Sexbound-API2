@@ -12,18 +12,18 @@ function Sexbound.API.Actors.addActor(actor, storeActor)
   
   self.sexboundData.actorCount = self.sexboundData.actorCount + 1
 
-  Sexbound.API.Actors.resetActors()
+  Sexbound.API.Actors.resetAll()
   
   if self.sexboundData.actorCount > 1 then self.sexboundData.status.havingSex = true end
 end
 
---- Returns all actors.
+--- Returns a reference to all actors.
 function Sexbound.API.Actors.getActors()
   return self.sexboundData.actors
 end
 
 --- Returns the count of actors.
-function Sexbound.API.Actors.getActorCount()
+function Sexbound.API.Actors.getCount()
   return self.sexboundData.actorCount
 end
 
@@ -44,13 +44,13 @@ function Sexbound.API.Actors.removeActor(actorId)
     end
   end
   
-  Sexbound.API.Actors.resetActors()
+  Sexbound.API.Actors.resetAll()
   
   if self.sexboundData.actorCount <= 1 then self.sexboundData.status.havingSex = false end
 end
 
 --- Resets all actors.
-function Sexbound.API.Actors.resetActors()
+function Sexbound.API.Actors.resetAll()
   for i,actor in ipairs(self.sexboundData.actors) do
     actor:reset(i, Sexbound.API.Positions.currentPosition():getData())
   end
@@ -64,11 +64,10 @@ function Sexbound.API.Actors.resetAllGlobalAnimatorTags()
 end
 
 --- Shifts the actors in actor data list to the right.
--- @param skipReset True := Skip reseting all actors.
 function Sexbound.API.Actors.switchRole()
   if Sexbound.API.Status.isHavingSex() and not Sexbound.API.Status.isClimaxing() and not Sexbound.API.Status.isReseting() then
     table.insert(self.sexboundData.actors, 1, table.remove(self.sexboundData.actors, #self.sexboundData.actors))
     
-    Sexbound.API.Actors.resetActors()
+    Sexbound.API.Actors.resetAll()
   end
 end

@@ -1,34 +1,6 @@
 --- Sexbound.API.Positions Submodule.
 -- @submodule Sexbound.API
-
 Sexbound.API.Positions = {}
-
---- Initializes the defined positions.
-function Sexbound.API.Positions.initPositions()
-  self.sexboundData.positions = {}
-  
-  -- Initialize idle positions.
-  self.sexboundData.positions.idle = {}
-  self.sexboundData.positions.idle.positionCount = 0
-  self.sexboundData.positions.idle.positionIndex = 1
-  
-  for _,v in ipairs(Sexbound.API.getParameter("position.idle")) do
-    table.insert(self.sexboundData.positions.idle, Sexbound.Core.Position.new(v))
-    
-    self.sexboundData.positions.idle.positionCount = self.sexboundData.positions.idle.positionCount + 1
-  end
-  
-  -- Initialize sex positions.
-  self.sexboundData.positions.sex = {}
-  self.sexboundData.positions.sex.positionCount = 0
-  self.sexboundData.positions.sex.positionIndex = 1
-  
-  for _,v in ipairs(Sexbound.API.getParameter("position.sex")) do
-    table.insert(self.sexboundData.positions.sex, Sexbound.Core.Position.new(v))
-    
-    self.sexboundData.positions.sex.positionCount = self.sexboundData.positions.sex.positionCount + 1
-  end
-end
 
 --- Returns a reference to the current position.
 function Sexbound.API.Positions.currentPosition()
@@ -71,7 +43,7 @@ function Sexbound.API.Positions.switchPosition( index )
     animator.setAnimationState("main", self.sexboundData.positions.sex[self.sexboundData.positions.sex.positionIndex]:getData().animationState)
     
     -- Reset all actors.
-    Sexbound.API.Actors.resetActors()
+    Sexbound.API.Actors.resetAll()
     
     return self.sexboundData.positions.sex[self.sexboundData.positions.sex.positionIndex]:getData()
   end

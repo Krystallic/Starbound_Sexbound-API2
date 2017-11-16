@@ -44,7 +44,7 @@ function idleState.enteringState(stateData)
   
   animator.setAnimationState("main", Sexbound.API.getParameter("animationStateIdle"), true)
   
-  Sexbound.API.Actors.resetActors()
+  Sexbound.API.Actors.resetAll()
 end
 
 function idleState.update(dt, stateData)
@@ -86,7 +86,7 @@ function sexState.enteringState(stateData)
     animator.setAnimationState("main", Sexbound.API.getParameter("animationStateSex"), true)
   end
   
-  Sexbound.API.Actors.resetActors()
+  Sexbound.API.Actors.resetAll()
 end
 
 function sexState.update(dt, stateData)
