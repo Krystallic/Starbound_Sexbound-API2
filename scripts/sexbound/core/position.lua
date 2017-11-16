@@ -4,20 +4,19 @@ Sexbound.Core.Position = {}
 
 Sexbound.Core.Position.__index = Sexbound.Core.Position
 
-function Sexbound.Core.Position.new(...)
+--- Instantiates a new instance of Position.
+-- @param position
+function Sexbound.Core.Position.new(position)
   local self = setmetatable({}, Sexbound.Core.Position)
-  self:init(...)
-  return self
-end
 
---- Initializes this module.
-function Sexbound.Core.Position:init(position)
   self.position = position
   
   self.data = {}
   self.data.maxTempo = util.randomInRange(position.maxTempo)
   self.data.minTempo = util.randomInRange(position.minTempo)
   self.data.sustainedInterval = util.randomInRange(position.sustainedInterval)
+  
+  return self
 end
 
 --- Returns data for the current position.

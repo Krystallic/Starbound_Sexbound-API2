@@ -3,7 +3,7 @@ require "/scripts/sexbound.lua"
 function init()
   -- Check if mindControl is in storage before setting it.
   if storage.mindControl then
-    object.smash(true)
+    Sexbound.API.uninit()
   end
   
   storage.mindControl = config.getParameter("mindControl")
@@ -20,7 +20,7 @@ function update(dt)
     local worldTime = world.day() + world.timeOfDay()
     
     if not Sexbound.API.Status.getStatus("havingSex") and worldTime >= storage.mindControl.timeout then
-      object.smash(true)
+      Sexbound.API.uninit()
     end
   end
 end
@@ -29,7 +29,7 @@ function onInteraction(args)
   return Sexbound.API.handleInteract(args) or nil
 end
 
-function die()
-  Sexbound.API.respawnNPC()
+function uninit()
+  Sexbound.API.uninit()
 end
   

@@ -3,19 +3,16 @@
 Sexbound.Core.Log = {}
 Sexbound.Core.Log.__index = Sexbound.Core.Log
 
---- Instantiates Log.
+--- Instantiates a new instance of Log.
 -- @param[opt] options
 function Sexbound.Core.Log.new(...)
   local self = setmetatable({}, Sexbound.Core.Log)
-  self:init(...)
-  return self
-end
 
---- Initializes Log.
--- @param[opt] options
-function Sexbound.Core.Log:init(options)
   self.options = options or {moduleName = "Unknown Module"}
+  
   self.moduleName = "Log"
+  
+  return self
 end
 
 --- Instructs util API to log error.

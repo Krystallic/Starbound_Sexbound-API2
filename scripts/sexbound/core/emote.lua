@@ -3,15 +3,11 @@
 Sexbound.Core.Emote = {}
 Sexbound.Core.Emote.__index = Sexbound.Core.Emote
 
-function Sexbound.Core.Emote.new(...)
+--- Instantiates a new instance of Emote.
+-- @param parent
+function Sexbound.Core.Emote.new(parent)
   local self = setmetatable({}, Sexbound.Core.Emote)
-  self:init(...)
-  return self
-end
 
---- Initialize this instance.
--- @param parent 
-function Sexbound.Core.Emote:init(parent)
   self.parent = parent
   
   self.emote = {
@@ -29,6 +25,8 @@ function Sexbound.Core.Emote:init(parent)
     talking = 0,
     moaning = 0
   }
+  
+  return self
 end
 
 --- Updates this instance.

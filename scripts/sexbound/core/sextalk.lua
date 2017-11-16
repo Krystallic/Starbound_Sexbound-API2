@@ -3,15 +3,11 @@
 Sexbound.Core.SexTalk = {}
 Sexbound.Core.SexTalk.__index = Sexbound.Core.SexTalk
 
-function Sexbound.Core.SexTalk.new(...)
+--- Instantiates a new instance of SexTalk.
+-- @param parent
+function Sexbound.Core.SexTalk.new(parent)
   local self = setmetatable({}, Sexbound.Core.SexTalk)
-  self:init(...)
-  return self
-end
 
---- Initialize this instance.
--- @param parent instance
-function Sexbound.Core.SexTalk:init(parent)
   self.parent = parent
   
   -- Initialize log
@@ -31,6 +27,8 @@ function Sexbound.Core.SexTalk:init(parent)
   self.timer = {
     sextalk = 0
   }
+  
+  return self
 end
 
 --- Updates this instance.

@@ -9,16 +9,12 @@ require "/scripts/sexbound/core/moan.lua"
 require "/scripts/sexbound/core/pregnant.lua"
 require "/scripts/sexbound/core/sextalk.lua"
 
-function Sexbound.Core.Actor.new(...)
-  local self = setmetatable({}, Sexbound.Core.Actor)
-  self:init(...)
-  return self
-end
-
---- Initialize this instance.
+--- Instantiates a new instance of Actor.
 -- @param actor
 -- @param storeActor
-function Sexbound.Core.Actor:init(actor, storeActor)
+function Sexbound.Core.Actor.new(actor, storeActor)
+  local self = setmetatable({}, Sexbound.Core.Actor)
+  
   -- Create new log utility.
   self.log = Sexbound.Core.Log.new({
     moduleName = "Actor | ID: " .. actor.id
@@ -31,6 +27,8 @@ function Sexbound.Core.Actor:init(actor, storeActor)
   
   -- Setup the actor.
   self:setup(actor, storeActor)
+  
+  return self
 end
 
 --- Updates this instance.

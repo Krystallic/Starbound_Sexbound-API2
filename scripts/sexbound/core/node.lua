@@ -3,14 +3,12 @@
 Sexbound.Core.Node = {}
 Sexbound.Core.Node.__index = Sexbound.Core.Node
 
-function Sexbound.Core.Node.new(...)
+--- Instantiates a new instance of Node.
+-- @param tilePosition
+-- @param placeObject
+function Sexbound.Core.Node.new(tilePosition, placeObject)
   local self = setmetatable({nodeName = "sexbound_node_node", node = {controllerId = entity.id()}}, Sexbound.Core.Node)
-  self:init(...)
-  return self
-end
 
---- Initializes this instance.
-function Sexbound.Core.Node:init(tilePosition, placeObject)
   tilePosition = tilePosition or {0,0}
 
   self.node.tilePosition = vec2.floor(vec2.add(entity.position(), tilePosition))
@@ -21,6 +19,8 @@ function Sexbound.Core.Node:init(tilePosition, placeObject)
   else
     self.node.id = self.node.controllerId
   end
+  
+  return self
 end
 
 --- Updates this instance.

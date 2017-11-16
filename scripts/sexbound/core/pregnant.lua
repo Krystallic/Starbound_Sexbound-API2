@@ -3,16 +3,14 @@
 Sexbound.Core.Pregnant = {}
 Sexbound.Core.Pregnant.__index = Sexbound.Core.Pregnant
 
-function Sexbound.Core.Pregnant.new(...)
-  local self = setmetatable({}, Sexbound.Core.Pregnant)
-  self:init(...)
-  return self
-end
-
---- Initialize this instance.
+--- Instantiates a new instance of Pregnant.
 -- @param parent
-function Sexbound.Core.Pregnant:init(parent)
+function Sexbound.Core.Pregnant.new(parent)
+  local self = setmetatable({}, Sexbound.Core.Pregnant)
+  
   self.parent = parent
+  
+  return self
 end
 
 --- Update this instance.

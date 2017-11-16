@@ -6,19 +6,19 @@ Sexbound.Core.StateMachine.__index = Sexbound.Core.StateMachine
 
 require "/scripts/stateMachine.lua"
 
+--- Instantiates a new instance of StateMachine.
+-- @param[opt] options
 function Sexbound.Core.StateMachine.new(...)
   local self = setmetatable({}, Sexbound.Core.StateMachine)
-  self:init(...)
-  return self
-end
 
-function Sexbound.Core.StateMachine:init(options)
   self.log = Sexbound.Core.Log.new({
     moduleName = "StateMachine"
   })
 
   -- Create default states
   self.states = stateMachine.create({ "idleState", "sexState", "climaxState", "exitState" })
+  
+  return self
 end
 
 --- Updates the state machine.

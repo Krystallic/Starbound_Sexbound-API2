@@ -3,15 +3,11 @@
 Sexbound.Core.Climax = {}
 Sexbound.Core.Climax.__index = Sexbound.Core.Climax
 
-function Sexbound.Core.Climax.new(...)
-  local self = setmetatable({}, Sexbound.Core.Climax)
-  self:init(...)
-  return self
-end
-
---- Initialize this instance.
+--- Instantiates a new instance of Climax.
 -- @param parent
-function Sexbound.Core.Climax:init(parent)
+function Sexbound.Core.Climax.new(parent)
+  local self = setmetatable({}, Sexbound.Core.Climax)
+  
   self.parent = parent
   
   self.climax = {
@@ -26,6 +22,8 @@ function Sexbound.Core.Climax:init(parent)
   self.timeout = {}
   
   self.timeout.shoot = self:refreshTimeout("shoot")
+  
+  return self
 end
 
 --- Updates this instance.

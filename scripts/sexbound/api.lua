@@ -264,17 +264,13 @@ function Sexbound.API.handleInteract(args)
   end
 end
 
---- Attempts to spawn a stored actor.
-function Sexbound.API.respawnNPC()
-  self.log:info("Restoring actor.")
-  self.log:info(storage.actor)
-
+--- Handles this entities uninit.
+function Sexbound.API.uninit()
+  -- Uninit any and all nodes.
+  Sexbound.API.Nodes.uninit()
+  
+  -- Respawn stored actor.
   if storage.actor then
-    -- Don't respawn NPC if it is a companion.
-    --if storage.npc.storage.ownerUuid then 
-      --world.sendEntityMessage(storage.npc.storage.ownerUuid, "transform-into-npc", {uniqueId = storage.npc.uniqueId})
-    --return end
-    
     local position = vec2.add(object.position(), {0, 3})
     
     -- Copy reference to pregnant storage into NPC storage
@@ -303,10 +299,7 @@ function Sexbound.API.respawnNPC()
     
     world.spawnNpc(position, storage.actor.identity.species, storage.actor.type, storage.actor.level, storage.actor.seed, parameters)
   end
-end
-
---- Handles this entities uninit.
-function Sexbound.API.uninit()
-  -- Uninit any and all nodes.
-  Sexbound.API.Nodes.uninit()
+  
+  -- Smash the object
+  object.smash(true)
 end

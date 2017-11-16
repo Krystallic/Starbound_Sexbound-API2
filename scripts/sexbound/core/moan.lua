@@ -3,15 +3,11 @@
 Sexbound.Core.Moan = {}
 Sexbound.Core.Moan.__index = Sexbound.Core.Moan
 
-function Sexbound.Core.Moan.new(...)
-  local self = setmetatable({}, Sexbound.Core.Moan)
-  self:init(...)
-  return self
-end
-
---- Initializes this instance.
+--- Instantiates a new instance of Moan.
 -- @param parent
-function Sexbound.Core.Moan:init(parent)
+function Sexbound.Core.Moan.new(parent)
+  local self = setmetatable({}, Sexbound.Core.Moan)
+
   self.parent = parent
   
   self.moan = {
@@ -21,6 +17,8 @@ function Sexbound.Core.Moan:init(parent)
   self.moan.cooldown = self:refreshCooldown()
   
   self.timer = {moan = 0}
+  
+  return self
 end
 
 --- Updates this module.

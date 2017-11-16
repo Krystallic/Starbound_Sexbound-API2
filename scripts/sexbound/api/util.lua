@@ -30,9 +30,9 @@ end
 
 --[ Messaging ]---------------------------------------------------------------------[ Messaging ]--#
 
----Creates and stores a new message.
+---Private: Creates and stores a new message.
 -- @param message reference name of the message.
-Sexbound.API.Util.resetMessenger = function(message)
+local function Sexbound_API_Util_ResetMessenger(message)
   self.messenger[message] = {promise = nil, busy = false}
 end
 
@@ -48,7 +48,7 @@ Sexbound.API.Util.sendMessage = function(entityId, message, args, wait)
 
   -- Prepare new message to store data
   if (self.messenger[message] == nil) then
-    Sexbound.API.Util.resetMessenger(message)
+    Sexbound_API_Util_ResetMessenger(message)
   end
   
   -- If not already busy then send message
@@ -72,7 +72,7 @@ Sexbound.API.Util.updateMessage = function(message, callback)
   if (promise and promise:finished()) then
     local result = promise:result()
     
-    Sexbound.API.Util.resetMessenger(message)
+    Sexbound_API_Util_ResetMessenger(message)
     
     callback(result)
   end
