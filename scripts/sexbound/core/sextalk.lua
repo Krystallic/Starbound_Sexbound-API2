@@ -100,6 +100,10 @@ end
 --- Refreshes the dialog pool where messages are choosen.
 function Sexbound.Core.SexTalk:refreshDialogPool()
   local animationState = animator.animationState("main")
+
+  if Sexbound.API.Status.isClimaxing() then
+    animationState = "climax"
+  end
   
   local targetActor = self:targetRandomActor()
 
@@ -146,6 +150,8 @@ function Sexbound.Core.SexTalk:sayRandom()
 
   if type(self.sextalk.currentMessage) == "string" then
     object.say(self.sextalk.currentMessage)
+    
+    self.parent:getEmote():setIsTalking(true)
     
     -- Reset the sextalk timer
     self.timer.sextalk = 0

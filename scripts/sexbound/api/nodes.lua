@@ -22,11 +22,13 @@ end
 
 --- Uninitializes all Nodes.
 function Sexbound.API.Nodes.uninit()
-  while self.sexboundData.nodeCount > 0 do
-    self.sexboundData.nodes[1]:uninit()
-  
-    table.remove(self.sexboundData.nodes, 1)
-  
-    self.sexboundData.nodeCount = self.sexboundData.nodeCount - 1
+  if self.sexboundData then
+    while self.sexboundData.nodeCount > 0 do
+      self.sexboundData.nodes[1]:uninit()
+    
+      table.remove(self.sexboundData.nodes, 1)
+    
+      self.sexboundData.nodeCount = self.sexboundData.nodeCount - 1
+    end
   end
 end

@@ -34,12 +34,14 @@ end
 --- Updates this instance.
 -- @param dt
 function Sexbound.Core.Actor:update(dt)
-  self:updateTimers(dt)
+  self.timer.emote = self.timer.emote + dt
+  self.timer.moan  = self.timer.moan  + dt
+  self.timer.talk  = self.timer.talk  + dt
   
   self.climax:update(dt)
   
   self.moan:update(dt)
-
+  
   if self:entityType() == "npc" then
     self.sextalk:update(dt)
   end
@@ -47,19 +49,6 @@ function Sexbound.Core.Actor:update(dt)
   self.emote:update(dt)
   
   self.pregnant:update(dt)
-end
-
---- Initializes the timers for this instance.
-function Sexbound.Core.Actor:initTimers()
-  self.timer = { emote = 0, moan = 0, talk = 0 }
-end
-
---- Updates all timers for this instance.
--- @param dt
-function Sexbound.Core.Actor:updateTimers(dt)
-  self.timer.emote = self.timer.emote + dt
-  self.timer.moan  = self.timer.moan  + dt
-  self.timer.talk  = self.timer.talk  + dt
 end
 
 --- Uninitializes this instance.
@@ -71,44 +60,75 @@ function Sexbound.Core.Actor:uninit()
   self.emote:uninit()
 end
 
---- Returns this actor's entity type.
+--- Returns this Actor's current number.
+function Sexbound.Core.Actor:actorNumber()
+  return self.actor.actorNumber
+end
+
+--- Returns this Actor's entity type.
 function Sexbound.Core.Actor:entityType()
   return self.actor.entityType
 end
 
---- Returns this actor's climax points.
-function Sexbound.Core.Actor:climaxPoints()
-  return self.climax:currentPoints() or 0
-end
-
---- Returns this actor's max climax points.
-function Sexbound.Core.Actor:maxClimaxPoints()
-  return self.climax:maxPoints() or 0
-end
-
---- Flips a specified part in the animator.
--- @param actorNumber
--- @param partName
-function Sexbound.Core.Actor:flipPart(actorNumber, partName)
-  if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
-    animator.scaleTransformationGroup("actor" .. actorNumber .. partName, {-1, 1}, {0, 0})
-  end
-end
-
---- Returns the actor's id.
+--- Returns this Actor's id.
 function Sexbound.Core.Actor:id()
   return self.actor.id
 end
 
---- Returns the actor's identity data or a specified parameter in the actor's identity.
--- @param name
-function Sexbound.Core.Actor:identity(name)
-  if name then return self.actor.identity[name] end
+--- Returns a reference to this Actor identifiers.
+-- @param[opt] param
+function Sexbound.Core.Actor:identity(param)
+  if param then return self.actor.identity[param] end
 
   return self.actor.identity
 end
 
---- Returns all stored data.
+--- Returns a validated facial hair folder name.
+function Sexbound.Core.Actor:facialHairFolder()
+  return self:identity("facialHairFolder") or self:identity("facialHairGroup") or ""
+end
+
+--- Returns a validated facial hair type.
+function Sexbound.Core.Actor:facialHairType()
+  return self:identity("facialHairType") or "1"
+end
+
+--- Returns a validated facial mask folder name.
+function Sexbound.Core.Actor:facialMaskFolder()
+  return self:identity("facialMaskFolder") or self:identity("facialMaskGroup") or ""
+end
+
+--- Returns a validated facial mask type.
+function Sexbound.Core.Actor:facialMaskType()
+  return self:identity("facialMaskType") or "1"
+end
+
+--- Returns this Actor's gender.
+function Sexbound.Core.Actor:gender()
+  return self.actor.identity.gender
+end
+
+--- Returns a validated hair folder name.
+function Sexbound.Core.Actor:hairFolder()
+  return self.actor.identity.hairFolder or self:identity("hairGroup") or "hair"
+end
+
+--- Returns a validated hair type.
+function Sexbound.Core.Actor:hairType()
+  return self:identity("hairType") or "1"
+end
+
+--- Returns the species value.
+function Sexbound.Core.Actor:species()
+  return self.actor.identity.species
+end
+
+--- Returns this Actor's current role.
+function Sexbound.Core.Actor:role()
+  return self.actor.role
+end
+
+--- Returns a reference to all of Actor's data.
 function Sexbound.Core.Actor:getData()
   return self.actor
 end
@@ -133,11 +153,9 @@ function Sexbound.Core.Actor:getPregnant()
   return self.pregnant
 end
 
---- Returns this actor's gender.
-function Sexbound.Core.Actor:gender()
-  return self.actor.identity.gender
-end
-
+--- Applies transformations to animator parts.
+-- @param actorNumber
+-- @param position
 function Sexbound.Core.Actor:applyTransformations(actorNumber, position)
   for i,partName in ipairs({"Body", "Climax", "Head"}) do
     if position["offset" .. partName] ~= nil then
@@ -145,12 +163,21 @@ function Sexbound.Core.Actor:applyTransformations(actorNumber, position)
     end
       
     if position["rotate" .. partName] ~= nil then
-      self:rotateParts(actorNumber, partName, position["rotate" .. partName][actorNumber])
+      self:rotatePart(actorNumber, partName, position["rotate" .. partName][actorNumber])
     end
       
     if position["flip" .. partName] ~= nil and position["flip" .. partName][actorNumber] == true then
       self:flipPart(actorNumber, partName)
     end
+  end
+end
+
+--- Flips a specified part in the animator.
+-- @param actorNumber
+-- @param partName
+function Sexbound.Core.Actor:flipPart(actorNumber, partName)
+  if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
+    animator.scaleTransformationGroup("actor" .. actorNumber .. partName, {-1, 1}, {0, 0})
   end
 end
 
@@ -172,13 +199,15 @@ function Sexbound.Core.Actor:reset(actorNumber, position)
   self:resetTransformations(actorNumber)
   
   self:applyTransformations(actorNumber, position)
-  
-  if self.sextalk and Sexbound.API.Actors.getCount() > 1 then
+    
+  if self.sextalk then
     -- Refresh sextalk dialog pool.
     self.sextalk:refreshDialogPool()
-    
-    -- Say random dialog message.
-    self.sextalk:sayRandom()
+  
+    if Sexbound.API.Actors.getCount() > 1 then
+      -- Say random dialog message.
+      self.sextalk:sayRandom()
+    end
   end
   
   -- Set the directives.
@@ -277,7 +306,11 @@ function Sexbound.Core.Actor:reset(actorNumber, position)
   animator.setGlobalTag(role .. "-hairDirectives", directives.hair)
 end
 
+--- Resets the Actor's global animator tags.
+-- @param[opt] actorNumber
 function Sexbound.Core.Actor:resetGlobalAnimatorTags(actorNumber)
+  actorNumber = actorNumber or self:actorNumber()
+  
   local default = "/artwork/default.png:default"
   local role = "actor" .. actorNumber
   
@@ -294,7 +327,11 @@ function Sexbound.Core.Actor:resetGlobalAnimatorTags(actorNumber)
   animator.setGlobalTag(role .. "-hairDirectives", default)
 end
 
+--- Resets all transformations for this Actor.
+-- @param[opt] actorNumber
 function Sexbound.Core.Actor:resetTransformations(actorNumber)
+  actorNumber = actorNumber or self:actorNumber()
+
   for _,v in ipairs({"Body", "Head"}) do
     if animator.hasTransformationGroup("actor" .. actorNumber .. v) then
       animator.resetTransformationGroup("actor" .. actorNumber .. v)
@@ -302,33 +339,14 @@ function Sexbound.Core.Actor:resetTransformations(actorNumber)
   end
 end
 
-function Sexbound.Core.Actor:actorNumber()
-  return self.actor.actorNumber
-end
-
-function Sexbound.Core.Actor:role()
-  return self.actor.role
-end
-
+--- Rotates a specified animator part.
+-- @param actorNumber
+-- @param partName
+-- @param rotation
 function Sexbound.Core.Actor:rotatePart(actorNumber, partName, rotation)
   if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
     animator.rotateTransformationGroup("actor" .. actorNumber .. partName, rotation)
   end
-end
-
-function Sexbound.Core.Actor:rotateParts(actorNumber, partName, rotation)
-  local partsList = {}
-  table.insert(partsList, 1, partName)
-  
-  if (partName == "Body") then partsList = {"ArmBack", "ArmFront", "Body"} end
-  
-  if (partName == "Head") then partsList = {"FacialHair", "FacialMask", "Emote", "Hair", "Head"} end
-  
-  util.each(partsList, function(k, v)
-    if (animator.hasTransformationGroup("actor" .. actorNumber .. v)) then
-      self:rotatePart(actorNumber, v, rotation)
-    end
-  end)
 end
 
 --- Setup new actor.
@@ -339,7 +357,7 @@ function Sexbound.Core.Actor:setup(actor, storeActor)
   self.actor = util.mergeTable(self.actor, actor)
   
   -- Init timers for this actor.
-  self:initTimers()
+  self.timer = { emote = 0, moan = 0, talk = 0 }
   
   -- Initialize hair identities.
   self.actor.identity.hairFolder = self:hairFolder()
@@ -374,42 +392,6 @@ function Sexbound.Core.Actor:setup(actor, storeActor)
   self.pregnant = Sexbound.Core.Pregnant.new(self)
 end
 
--- Returns a validated facial hair folder name.
-function Sexbound.Core.Actor:facialHairFolder()
-  return self:identity("facialHairFolder") or self:identity("facialHairGroup") or ""
-end
-
--- Returns a validated facial hair type.
-function Sexbound.Core.Actor:facialHairType()
-  return self:identity("facialHairType") or "1"
-end
-
--- Returns a validated facial mask folder name.
-function Sexbound.Core.Actor:facialMaskFolder()
-  return self:identity("facialMaskFolder") or self:identity("facialMaskGroup") or ""
-end
-
--- Returns a validated facial mask type.
-function Sexbound.Core.Actor:facialMaskType()
-  return self:identity("facialMaskType") or "1"
-end
-
--- Returns a validated hair folder name.
-function Sexbound.Core.Actor:hairFolder()
-  return self.actor.identity.hairFolder or self:identity("hairGroup") or "hair"
-end
-
--- Returns a validated hair type.
-function Sexbound.Core.Actor:hairType()
-  return self:identity("hairType") or "1"
-end
-
---- Returns the species value.
--- @return a string
-function Sexbound.Core.Actor:species()
-  return self.actor.identity.species
-end
-
 --- Returns the actor's storage data or a specified parameter in the actor's storage.
 -- @param name
 function Sexbound.Core.Actor:storage(name)
@@ -418,34 +400,14 @@ function Sexbound.Core.Actor:storage(name)
   return self.actor.storage
 end
 
---- Commands the actor to talk.
-function Sexbound.Core.Actor:talk()
-  if self.sextalk and Sexbound.API.Actors.getCount() > 1 then
-    self.sextalk:sayRandom()
-    
-    self.emote:showBlabber()
-  end
-end
-
+--- Translates a specified animator part.
+-- @param actorNumber
+-- @param partName
+-- @param rotation
 function Sexbound.Core.Actor:translatePart(actorNumber, partName, offset)
   animator.resetTransformationGroup("actor" .. actorNumber .. partName)
   
   animator.translateTransformationGroup("actor" .. actorNumber .. partName, offset)
-end
-
-function Sexbound.Core.Actor:translateParts(actorNumber, partName, offset)
-  local partsList = {}
-  table.insert(partsList, 1, partName)
-  
-  if (partName == "Body") then partsList = {"ArmBack", "ArmFront", "Body"} end
-  
-  if (partName == "Head") then partsList = {"FacialHair", "FacialMask", "Emote", "Hair", "Head"} end
-  
-  for _,partName in ipairs(partsList) do
-    if (animator.hasTransformationGroup("actor" .. actorNumber .. partName)) then
-      self:translatePart(actorNumber, partName, offset)
-    end
-  end
 end
 
 --- Processes gender value.

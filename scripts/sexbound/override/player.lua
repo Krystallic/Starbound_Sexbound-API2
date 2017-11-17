@@ -153,7 +153,10 @@ Sexbound_Player.updateStatuses = function()
   
   -- If the status property 'sexbound_sex' is cleared.
   if status.statusProperty("sexbound_sex") ~= true and self.sexbound.hasStoredActor then
-    Sexbound_Common.removeActor()
+    self.sexbound.hasStoredActor = false
+  
+    -- Request the SexboundAPI to remove this entity from the list of actors.
+    Sexbound.API.Util.sendMessage( self.sexbound.controllerId, "main-remove-actor", entity.id() )
   end
 end
 

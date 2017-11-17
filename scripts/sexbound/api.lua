@@ -87,44 +87,23 @@ local function Sexbound_API_InitSoundEffect()
 
   -- Initialize climax.
   if (animator.hasSound("climax")) then
-    self.sexboundData.animatorSound.climax = {
-      "/sfx/sexbound/cum/squish.ogg"
-    }
+    self.sexboundData.animatorSound.climax = Sexbound.API.getParameter("climax.sounds")
     
     animator.setSoundPool("climax", self.sexboundData.animatorSound.climax)
   end
 
   -- Initialize female moans.
   if (animator.hasSound("moanfemale")) then
-    self.sexboundData.animatorSound.moanfemale = {
-      "/sfx/sexbound/moans/femalemoan1.ogg",
-      "/sfx/sexbound/moans/femalemoan2.ogg",
-      "/sfx/sexbound/moans/femalemoan3.ogg",
-      "/sfx/sexbound/moans/femalemoan4.ogg",
-      "/sfx/sexbound/moans/femalemoan5.ogg"
-    }
+    self.sexboundData.animatorSound.moanfemale = Sexbound.API.getParameter("moan.sounds.female")
   
     animator.setSoundPool("moanfemale", self.sexboundData.animatorSound.moanfemale)
   end
   
   -- Initialize male moans.
   if (animator.hasSound("moanmale")) then
-    self.sexboundData.animatorSound.moanmale = {
-      "/sfx/sexbound/moans/malemoan1.ogg",
-      "/sfx/sexbound/moans/malemoan2.ogg",
-      "/sfx/sexbound/moans/malemoan3.ogg"
-    }
+    self.sexboundData.animatorSound.moanmale = Sexbound.API.getParameter("moan.sounds.male")
     
     animator.setSoundPool("moanmale", self.sexboundData.animatorSound.moanmale)
-  end
-  
-  -- Initialize female orgasms.
-  if (animator.hasSound("orgasmfemale")) then
-    self.sexboundData.animatorSound.orgasmfemale = {
-      "/sfx/sexbound/orgasms/femaleorgasm1.ogg"
-    }
-    
-    animator.setSoundPool("orgasmfemale", self.sexboundData.animatorSound.orgasmfemale)
   end
 end
 
@@ -202,8 +181,11 @@ end
 
 --- Updates this module.
 -- @param dt delta time
+-- @param[opt] callback
 -- @usage function update(dt) Sexbound.API.update(dt) end
-function Sexbound.API.update(dt)
+function Sexbound.API.update(dt, callback)
+  if not self.sexboundData then return end
+
   -- Update each Node instance.
   for _,node in ipairs(self.sexboundData.nodes) do
     node:update(dt)
@@ -220,6 +202,10 @@ function Sexbound.API.update(dt)
   
   -- Update the state machine
   self.stateMachine:update(dt)
+  
+  if type(callback) == "function" then
+    callback(self.sexboundData)
+  end
 end
 
 --- Adds new node and tracks it as being this object.
@@ -264,11 +250,7 @@ function Sexbound.API.handleInteract(args)
   end
 end
 
---- Handles this entities uninit.
-function Sexbound.API.uninit()
-  -- Uninit any and all nodes.
-  Sexbound.API.Nodes.uninit()
-  
+function Sexbound.API.respawnStoredActor()
   -- Respawn stored actor.
   if storage.actor then
     local position = vec2.add(object.position(), {0, 3})
@@ -299,7 +281,10 @@ function Sexbound.API.uninit()
     
     world.spawnNpc(position, storage.actor.identity.species, storage.actor.type, storage.actor.level, storage.actor.seed, parameters)
   end
-  
-  -- Smash the object
-  object.smash(true)
+end
+
+--- Handles this entities uninit.
+function Sexbound.API.uninit()
+  -- Uninit any and all nodes.
+  Sexbound.API.Nodes.uninit()
 end

@@ -15,14 +15,12 @@ function Sexbound.Core.Climax.new(parent)
     isClimaxing = false
   }
   
+  self.climax.cooldown = self:refreshCooldown()
+  
   self.timer = {
-    shoot = 0
+    shoot = self.climax.cooldown
   }
-  
-  self.timeout = {}
-  
-  self.timeout.shoot = self:refreshTimeout("shoot")
-  
+
   return self
 end
 
@@ -47,7 +45,7 @@ function Sexbound.Core.Climax:update(dt)
     if self.climax.isClimaxing then
       self.timer.shoot = self.timer.shoot + dt
     
-      if self.timer.shoot >= self.timeout.shoot then
+      if self.timer.shoot >= self.climax.cooldown then
         -- Play "cum sound" by default
         animator.playSound("climax")
       
@@ -58,7 +56,7 @@ function Sexbound.Core.Climax:update(dt)
         self.timer.shoot = 0
         
         -- Refresh next shoot timeout
-        self:refreshTimeout("shoot")
+        self:refreshCooldown()
       end
     
       local decrease = self.climax.config.defaultDecrease
@@ -74,29 +72,35 @@ function Sexbound.Core.Climax:update(dt)
   end
 end
 
+--- Returns a reference to this instance's config.
+function Sexbound.Core.Climax:config()
+  return self.climax.config
+end
+
+--- Returns the max possible climax points.
 function Sexbound.Core.Climax:maxPoints()
   return self.climax.config.maxPoints
 end
 
+--- Return the current climax points.
 function Sexbound.Core.Climax:currentPoints()
   return self.climax.config.currentPoints
 end
 
+--- Causes the actor to begin climaxing.
 function Sexbound.Core.Climax:beginClimax()
   self.climax.isClimaxing = true
   
-  self.timer.shoot = self:refreshTimeout("shoot")
+  self.climax.cooldown = self:refreshCooldown()
   
   self.particleEffect = Sexbound.API.Positions.currentPosition():getData().climaxParticles[ self.parent:actorNumber() ][ self.parent:gender() ]
   
   Sexbound.API.Status.setStatus("climaxing" , true)
 end
 
-function Sexbound.Core.Climax:defaultTimeout()
-  return self.climax.config.defaultTimeout
-end
-
-function Sexbound.Core.Climax:refreshTimeout(name)
-  self.timeout[name] = util.randomInRange(self:defaultTimeout()[name])
-  return self.timeout[name]
+-- Refreshes the cooldown time for this module.
+function Sexbound.Core.Climax:refreshCooldown()
+  self.climax.cooldown = util.randomInRange(self:config().cooldown)
+  
+  return self.climax.cooldown
 end

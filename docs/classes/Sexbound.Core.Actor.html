@@ -76,44 +76,64 @@
 	<td class="summary">Updates this instance.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:initTimers">Sexbound.Core.Actor:initTimers ()</a></td>
-	<td class="summary">Initializes the timers for this instance.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:updateTimers">Sexbound.Core.Actor:updateTimers (dt)</a></td>
-	<td class="summary">Updates all timers for this instance.</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Core.Actor:uninit">Sexbound.Core.Actor:uninit ()</a></td>
 	<td class="summary">Uninitializes this instance.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:actorNumber">Sexbound.Core.Actor:actorNumber ()</a></td>
+	<td class="summary">Returns this Actor's current number.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Core.Actor:entityType">Sexbound.Core.Actor:entityType ()</a></td>
-	<td class="summary">Returns this actor's entity type.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:climaxPoints">Sexbound.Core.Actor:climaxPoints ()</a></td>
-	<td class="summary">Returns this actor's climax points.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:maxClimaxPoints">Sexbound.Core.Actor:maxClimaxPoints ()</a></td>
-	<td class="summary">Returns this actor's max climax points.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:flipPart">Sexbound.Core.Actor:flipPart (actorNumber, partName)</a></td>
-	<td class="summary">Flips a specified part in the animator.</td>
+	<td class="summary">Returns this Actor's entity type.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Core.Actor:id">Sexbound.Core.Actor:id ()</a></td>
-	<td class="summary">Returns the actor's id.</td>
+	<td class="summary">Returns this Actor's id.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:identity">Sexbound.Core.Actor:identity (name)</a></td>
-	<td class="summary">Returns the actor's identity data or a specified parameter in the actor's identity.</td>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:identity">Sexbound.Core.Actor:identity ([param])</a></td>
+	<td class="summary">Returns a reference to this Actor identifiers.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:facialHairFolder">Sexbound.Core.Actor:facialHairFolder ()</a></td>
+	<td class="summary">Returns a validated facial hair folder name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:facialHairType">Sexbound.Core.Actor:facialHairType ()</a></td>
+	<td class="summary">Returns a validated facial hair type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:facialMaskFolder">Sexbound.Core.Actor:facialMaskFolder ()</a></td>
+	<td class="summary">Returns a validated facial mask folder name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:facialMaskType">Sexbound.Core.Actor:facialMaskType ()</a></td>
+	<td class="summary">Returns a validated facial mask type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:gender">Sexbound.Core.Actor:gender ()</a></td>
+	<td class="summary">Returns this Actor's gender.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:hairFolder">Sexbound.Core.Actor:hairFolder ()</a></td>
+	<td class="summary">Returns a validated hair folder name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:hairType">Sexbound.Core.Actor:hairType ()</a></td>
+	<td class="summary">Returns a validated hair type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:species">Sexbound.Core.Actor:species ()</a></td>
+	<td class="summary">Returns the species value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:role">Sexbound.Core.Actor:role ()</a></td>
+	<td class="summary">Returns this Actor's current role.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Core.Actor:getData">Sexbound.Core.Actor:getData ()</a></td>
-	<td class="summary">Returns all stored data.</td>
+	<td class="summary">Returns a reference to all of Actor's data.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Core.Actor:getClimax">Sexbound.Core.Actor:getClimax ()</a></td>
@@ -132,28 +152,40 @@
 	<td class="summary">Returns a reference to this actor's Pregnant instance.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:gender">Sexbound.Core.Actor:gender ()</a></td>
-	<td class="summary">Returns this actor's gender.</td>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:applyTransformations">Sexbound.Core.Actor:applyTransformations (actorNumber, position)</a></td>
+	<td class="summary">Applies transformations to animator parts.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:flipPart">Sexbound.Core.Actor:flipPart (actorNumber, partName)</a></td>
+	<td class="summary">Flips a specified part in the animator.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Core.Actor:reset">Sexbound.Core.Actor:reset (actorNumber, position)</a></td>
 	<td class="summary">Resets an specified actor.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:setup">Sexbound.Core.Actor:setup (actor, storeActor)</a></td>
-	<td class="summary">Setup new actor.</td>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:resetGlobalAnimatorTags">Sexbound.Core.Actor:resetGlobalAnimatorTags ([actorNumber])</a></td>
+	<td class="summary">Resets the Actor's global animator tags.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:species">Sexbound.Core.Actor:species ()</a></td>
-	<td class="summary">Returns the species value.</td>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:resetTransformations">Sexbound.Core.Actor:resetTransformations ([actorNumber])</a></td>
+	<td class="summary">Resets all transformations for this Actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:rotatePart">Sexbound.Core.Actor:rotatePart (actorNumber, partName, rotation)</a></td>
+	<td class="summary">Rotates a specified animator part.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:setup">Sexbound.Core.Actor:setup (actor, storeActor)</a></td>
+	<td class="summary">Setup new actor.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Core.Actor:storage">Sexbound.Core.Actor:storage (name)</a></td>
 	<td class="summary">Returns the actor's storage data or a specified parameter in the actor's storage.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Core.Actor:talk">Sexbound.Core.Actor:talk ()</a></td>
-	<td class="summary">Commands the actor to talk.</td>
+	<td class="name" nowrap><a href="#Sexbound.Core.Actor:translatePart">Sexbound.Core.Actor:translatePart (actorNumber, partName, rotation)</a></td>
+	<td class="summary">Translates a specified animator part.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Core.Actor:validateGender">Sexbound.Core.Actor:validateGender (gender)</a></td>
@@ -216,40 +248,6 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Core.Actor:initTimers"></a>
-    <strong>Sexbound.Core.Actor:initTimers ()</strong>
-    </dt>
-    <dd>
-    Initializes the timers for this instance.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Core.Actor:updateTimers"></a>
-    <strong>Sexbound.Core.Actor:updateTimers (dt)</strong>
-    </dt>
-    <dd>
-    Updates all timers for this instance.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">dt</span>
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "Sexbound.Core.Actor:uninit"></a>
     <strong>Sexbound.Core.Actor:uninit ()</strong>
     </dt>
@@ -264,64 +262,27 @@
 
 </dd>
     <dt>
+    <a name = "Sexbound.Core.Actor:actorNumber"></a>
+    <strong>Sexbound.Core.Actor:actorNumber ()</strong>
+    </dt>
+    <dd>
+    Returns this Actor's current number.
+
+
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "Sexbound.Core.Actor:entityType"></a>
     <strong>Sexbound.Core.Actor:entityType ()</strong>
     </dt>
     <dd>
-    Returns this actor's entity type.
+    Returns this Actor's entity type.
 
 
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Core.Actor:climaxPoints"></a>
-    <strong>Sexbound.Core.Actor:climaxPoints ()</strong>
-    </dt>
-    <dd>
-    Returns this actor's climax points.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Core.Actor:maxClimaxPoints"></a>
-    <strong>Sexbound.Core.Actor:maxClimaxPoints ()</strong>
-    </dt>
-    <dd>
-    Returns this actor's max climax points.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Core.Actor:flipPart"></a>
-    <strong>Sexbound.Core.Actor:flipPart (actorNumber, partName)</strong>
-    </dt>
-    <dd>
-    Flips a specified part in the animator.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">actorNumber</span>
-
-        </li>
-        <li><span class="parameter">partName</span>
-
-        </li>
-    </ul>
 
 
 
@@ -333,7 +294,7 @@
     <strong>Sexbound.Core.Actor:id ()</strong>
     </dt>
     <dd>
-    Returns the actor's id.
+    Returns this Actor's id.
 
 
 
@@ -344,18 +305,145 @@
 </dd>
     <dt>
     <a name = "Sexbound.Core.Actor:identity"></a>
-    <strong>Sexbound.Core.Actor:identity (name)</strong>
+    <strong>Sexbound.Core.Actor:identity ([param])</strong>
     </dt>
     <dd>
-    Returns the actor's identity data or a specified parameter in the actor's identity.
+    Returns a reference to this Actor identifiers.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">name</span>
+        <li><span class="parameter">param</span>
 
+         (<em>optional</em>)
         </li>
     </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:facialHairFolder"></a>
+    <strong>Sexbound.Core.Actor:facialHairFolder ()</strong>
+    </dt>
+    <dd>
+    Returns a validated facial hair folder name.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:facialHairType"></a>
+    <strong>Sexbound.Core.Actor:facialHairType ()</strong>
+    </dt>
+    <dd>
+    Returns a validated facial hair type.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:facialMaskFolder"></a>
+    <strong>Sexbound.Core.Actor:facialMaskFolder ()</strong>
+    </dt>
+    <dd>
+    Returns a validated facial mask folder name.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:facialMaskType"></a>
+    <strong>Sexbound.Core.Actor:facialMaskType ()</strong>
+    </dt>
+    <dd>
+    Returns a validated facial mask type.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:gender"></a>
+    <strong>Sexbound.Core.Actor:gender ()</strong>
+    </dt>
+    <dd>
+    Returns this Actor's gender.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:hairFolder"></a>
+    <strong>Sexbound.Core.Actor:hairFolder ()</strong>
+    </dt>
+    <dd>
+    Returns a validated hair folder name.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:hairType"></a>
+    <strong>Sexbound.Core.Actor:hairType ()</strong>
+    </dt>
+    <dd>
+    Returns a validated hair type.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:species"></a>
+    <strong>Sexbound.Core.Actor:species ()</strong>
+    </dt>
+    <dd>
+    Returns the species value.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:role"></a>
+    <strong>Sexbound.Core.Actor:role ()</strong>
+    </dt>
+    <dd>
+    Returns this Actor's current role.
+
+
 
 
 
@@ -367,7 +455,7 @@
     <strong>Sexbound.Core.Actor:getData ()</strong>
     </dt>
     <dd>
-    Returns all stored data.
+    Returns a reference to all of Actor's data.
 
 
 
@@ -433,13 +521,45 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Core.Actor:gender"></a>
-    <strong>Sexbound.Core.Actor:gender ()</strong>
+    <a name = "Sexbound.Core.Actor:applyTransformations"></a>
+    <strong>Sexbound.Core.Actor:applyTransformations (actorNumber, position)</strong>
     </dt>
     <dd>
-    Returns this actor's gender.
+    Applies transformations to animator parts.
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorNumber</span>
+
+        </li>
+        <li><span class="parameter">position</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:flipPart"></a>
+    <strong>Sexbound.Core.Actor:flipPart (actorNumber, partName)</strong>
+    </dt>
+    <dd>
+    Flips a specified part in the animator.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorNumber</span>
+
+        </li>
+        <li><span class="parameter">partName</span>
+
+        </li>
+    </ul>
 
 
 
@@ -460,6 +580,74 @@
 
         </li>
         <li><span class="parameter">position</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:resetGlobalAnimatorTags"></a>
+    <strong>Sexbound.Core.Actor:resetGlobalAnimatorTags ([actorNumber])</strong>
+    </dt>
+    <dd>
+    Resets the Actor's global animator tags.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorNumber</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:resetTransformations"></a>
+    <strong>Sexbound.Core.Actor:resetTransformations ([actorNumber])</strong>
+    </dt>
+    <dd>
+    Resets all transformations for this Actor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorNumber</span>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Actor:rotatePart"></a>
+    <strong>Sexbound.Core.Actor:rotatePart (actorNumber, partName, rotation)</strong>
+    </dt>
+    <dd>
+    Rotates a specified animator part.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorNumber</span>
+
+        </li>
+        <li><span class="parameter">partName</span>
+
+        </li>
+        <li><span class="parameter">rotation</span>
 
         </li>
     </ul>
@@ -493,25 +681,6 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Core.Actor:species"></a>
-    <strong>Sexbound.Core.Actor:species ()</strong>
-    </dt>
-    <dd>
-    Returns the species value.
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-        a string
-    </ol>
-
-
-
-
-</dd>
-    <dt>
     <a name = "Sexbound.Core.Actor:storage"></a>
     <strong>Sexbound.Core.Actor:storage (name)</strong>
     </dt>
@@ -532,13 +701,25 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound.Core.Actor:talk"></a>
-    <strong>Sexbound.Core.Actor:talk ()</strong>
+    <a name = "Sexbound.Core.Actor:translatePart"></a>
+    <strong>Sexbound.Core.Actor:translatePart (actorNumber, partName, rotation)</strong>
     </dt>
     <dd>
-    Commands the actor to talk.
+    Translates a specified animator part.
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorNumber</span>
+
+        </li>
+        <li><span class="parameter">partName</span>
+
+        </li>
+        <li><span class="parameter">rotation</span>
+
+        </li>
+    </ul>
 
 
 
@@ -592,7 +773,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-11-17 04:55:45 </i>
+<i style="float:right;">Last updated 2017-11-17 10:08:17 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

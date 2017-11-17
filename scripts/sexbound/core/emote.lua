@@ -69,6 +69,11 @@ function Sexbound.Core.Emote:update(dt)
   end
 end
 
+--- Uninitializes this instance.
+function Sexbound.Core.Emote:uninit()
+  self:showNone()
+end
+
 --- Returns a reference to this module's config.
 function Sexbound.Core.Emote:config()
   return self.emote.config
@@ -84,60 +89,56 @@ function Sexbound.Core.Emote:changeAnimationState(stateName)
   end
 end
 
--- Refreshes the cooldown time for this module.
+--- Refreshes the cooldown time for this module.
 function Sexbound.Core.Emote:refreshCooldown()
   self.emote.cooldown = util.randomInRange(self:config().cooldown)
   
   return self.emote.cooldown
 end
 
--- Sets the 'isMoaning' status for this instance.
+--- Reset the actor's emote.
+function Sexbound.Core.Emote:reset()
+  self:showNone()
+end
+
+--- Sets the 'isMoaning' status for this instance.
 function Sexbound.Core.Emote:setIsMoaning(value)
   self.isMoaning = value
   
   self:showMoan()
 end
 
--- Sets the 'isTalking' status for this instance.
+--- Sets the 'isTalking' status for this instance.
 function Sexbound.Core.Emote:setIsTalking(value)
   self.isTalking = value
 end
 
--- Shows the 'blabber' animation.
+--- Shows the 'blabber' animation.
 function Sexbound.Core.Emote:showBlabber()
   self.emote.isTalking = true
 
   self:changeAnimationState("blabber")
 end
 
--- Shows the 'happy' animation.
+--- Shows the 'happy' animation.
 function Sexbound.Core.Emote:showHappy()
   self:changeAnimationState("happy")
 end
 
--- Shows a random animation for moan that specified in the configuration file.
+--- Shows a random animation for moan that specified in the configuration file.
 function Sexbound.Core.Emote:showMoan()
   self:changeAnimationState(util.randomChoice( self:config().moan ))
 end
 
--- Shows nothing.
+--- Shows nothing.
 function Sexbound.Core.Emote:showNone()
   self:changeAnimationState("none")
 end
 
--- Shows a random emote animation.
+--- Shows a random emote animation.
 function Sexbound.Core.Emote:showRandom()
-  local choice = util.randomChoice(self:config().pool)
+  local choice = util.randomChoice(self:config().auto)
 
   self:changeAnimationState(choice)
 end
 
--- Reset the actor's emote.
-function Sexbound.Core.Emote:reset()
-  self:showNone()
-end
-
--- Uninitializes this instance.
-function Sexbound.Core.Emote:uninit()
-  self:showNone()
-end

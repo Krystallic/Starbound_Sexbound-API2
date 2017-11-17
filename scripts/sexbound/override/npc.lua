@@ -78,7 +78,7 @@ Sexbound_NPC.setupActor = function(store)
   if store then
     Sexbound.API.Util.sendMessage( self.sexbound.loungeId, "main-store-actor", actorData )
   else
-    Sexbound.API.Util.sendMessage( self.sexbound.loungeId, "node-setup-actor", actorData )
+    Sexbound.API.Util.sendMessage( self.sexbound.loungeId, "main-setup-actor", actorData )
   end
 end
 
@@ -190,7 +190,11 @@ Sexbound_NPC.updateStatuses = function()
   end
   
   -- If the status property 'sexbound_sex' is cleared.
-  if  not self.sexbound.isTransformed and status.statusProperty("sexbound_sex") ~= true and self.sexbound.hasStoredActor then
-    Sexbound_Common.removeActor()
+  if status.statusProperty("sexbound_sex") ~= true then
+    if self.sexbound.hasStoredActor and not self.sexbound.isTransformed then
+      Sexbound.API.Util.sendMessage( self.sexbound.loungeId, "main-remove-actor", entity.id() )
+      
+      self.sexbound.hasStoredActor = false
+    end
   end
 end
