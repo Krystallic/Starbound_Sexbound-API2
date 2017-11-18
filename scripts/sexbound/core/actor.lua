@@ -241,12 +241,6 @@ function Sexbound.Core.Actor:reset(actorNumber, position)
   
   parts.climax = "/artwork/humanoid/climax/climax-" .. animationState .. ".png:climax"
   
-  --if emote.data.list[actorNumber] then
-    --parts.emote = "/humanoid/" .. species .. "/emote.png:" .. emote.data.list[actorNumber]
-  --else
-    --parts.emote = defaultPath
-  --end
-  
   local showPregnant = false
   
   -- Show pregnant player?
@@ -259,7 +253,7 @@ function Sexbound.Core.Actor:reset(actorNumber, position)
     showPregnant = true
   end
   
-  if showPregnant and pregnantConfig and pregnantConfig.isPregnant then
+  if showPregnant and self:getPregnant():isPregnant() then
     parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. "_pregnant.png:" .. animationState
   else
     parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. ".png:" .. animationState
@@ -322,9 +316,9 @@ function Sexbound.Core.Actor:resetGlobalAnimatorTags(actorNumber)
   animator.setGlobalTag("part-" .. role .. "-facial-hair", default)
   animator.setGlobalTag("part-" .. role .. "-facial-mask", default)
   
-  animator.setGlobalTag(role .. "-bodyDirectives", default)
-  animator.setGlobalTag(role .. "-emoteDirectives", default)
-  animator.setGlobalTag(role .. "-hairDirectives", default)
+  animator.setGlobalTag(role .. "-bodyDirectives", "")
+  animator.setGlobalTag(role .. "-emoteDirectives", "")
+  animator.setGlobalTag(role .. "-hairDirectives", "")
 end
 
 --- Resets all transformations for this Actor.
@@ -398,6 +392,28 @@ function Sexbound.Core.Actor:storage(name)
   if name then return self.actor.storage[name] end
   
   return self.actor.storage
+end
+
+--- Merge specified config into this Actor instance's storage.
+-- @param config
+function Sexbound.Core.Actor:insertStorage(config)
+  self.actor.storage = util.mergeTable(self.actor.storage, config or {})
+  
+  self:syncStorage()
+end
+
+--- Overwrite specified storage option name with specified config.
+-- @param name
+-- @param config
+function Sexbound.Core.Actor:overwriteStorage(name, config)
+  self.actor.storage[name] = config
+  
+  self:syncStorage()
+end
+
+--- Send message to update the Actor's storage.
+function Sexbound.Core.Actor:syncStorage()
+  Sexbound.API.Util.sendMessage(self:id(), "sexbound-sync-storage", self:storage())
 end
 
 --- Translates a specified animator part.

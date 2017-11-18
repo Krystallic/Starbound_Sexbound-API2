@@ -13,6 +13,8 @@ function init()
   -- Initializes the NPC
   Sexbound_Common.init()
   
+  sb.logInfo(sb.printJson( storage.pregnant ))
+  
   -- Initialize message handlers.
   Sexbound_NPC.initMessageHandlers()
   

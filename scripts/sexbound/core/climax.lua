@@ -77,6 +77,11 @@ function Sexbound.Core.Climax:config()
   return self.climax.config
 end
 
+--- Returns the climaxing status for this instance.
+function Sexbound.Core.Climax:isClimaxing()
+  return self.climax.isClimaxing
+end
+
 --- Returns the max possible climax points.
 function Sexbound.Core.Climax:maxPoints()
   return self.climax.config.maxPoints
@@ -94,6 +99,10 @@ function Sexbound.Core.Climax:beginClimax()
   self.climax.cooldown = self:refreshCooldown()
   
   self.particleEffect = Sexbound.API.Positions.currentPosition():getData().climaxParticles[ self.parent:actorNumber() ][ self.parent:gender() ]
+  
+  for _,actor in ipairs(Sexbound.API.Actors.getActors()) do
+    actor:getPregnant():tryBecomePregnant()
+  end
   
   Sexbound.API.Status.setStatus("climaxing" , true)
 end

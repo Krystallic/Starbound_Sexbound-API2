@@ -5,7 +5,7 @@ Sexbound.Core.Log.__index = Sexbound.Core.Log
 
 --- Instantiates a new instance of Log.
 -- @param[opt] options
-function Sexbound.Core.Log.new(...)
+function Sexbound.Core.Log.new(options)
   local self = setmetatable({}, Sexbound.Core.Log)
 
   self.options = options or {moduleName = "Unknown Module"}
