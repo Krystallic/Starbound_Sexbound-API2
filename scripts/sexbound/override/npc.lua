@@ -30,6 +30,17 @@ function update(dt)
   
   -- Update status effects.
   Sexbound_NPC.updateStatuses()
+  
+  if storage.pregnant and not isEmpty(storage.pregnant) then
+    Sexbound_Common.tryToGiveBirth(function()
+      Sexbound_NPC.giveBirth()
+    end)
+  end
+end
+
+--- Spawns a new NPC.
+Sexbound_NPC.giveBirth = function()
+  world.spawnNpc(entity.position(), npc.species(), npc.npcType(), mcontroller.facingDirection(), nil) -- level 1
 end
 
 --- Initializes message handlers.

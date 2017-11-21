@@ -232,24 +232,14 @@ function Sexbound.Core.Actor:reset(actorNumber, position)
   
   local role = self.actor.role
   
-  -- Set moan based on actor 2 gender
-  --if actor.data.count == 2 and actorNumber == 2 then 
-    --sex.setMoanGender(gender)
-  --end
-  
   local parts = {}
   
   parts.climax = "/artwork/humanoid/climax/climax-" .. animationState .. ".png:climax"
   
   local showPregnant = false
   
-  -- Show pregnant player?
-  if self:entityType() == "player" and Sexbound.API.getParameter("pregnant.showPregnantPlayer") then
-    showPregnant = true
-  end
-  
-  -- Show pregnant npc?
-  if self:entityType() == "npc" and Sexbound.API.getParameter("pregnant.showPregnantOther") then
+  -- Check pregnancy fetish is enabled/
+  if Sexbound.API.getParameter("pregnant.enablePregnancyFetish") then
     showPregnant = true
   end
   

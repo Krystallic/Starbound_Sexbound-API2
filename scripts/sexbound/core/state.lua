@@ -152,7 +152,7 @@ function climaxState.update(dt, stateData)
 end
 
 function climaxState.leavingState(stateData)
-
+  Sexbound.API.Status.setStatus("climaxing", false)
 end
 
 --[Exit State]--------------------------------------------------------------------------------------
@@ -191,5 +191,5 @@ function exitState.update(dt, stateData)
 end
 
 function exitState.leavingState(stateData)
-
+  Sexbound.API.Status.setStatus("reseting", false)
 end

@@ -28,6 +28,23 @@ Sexbound_Common.update = function(dt)
   sexbound_old_update(dt)
 end
 
+--- Attempt to invoke entity to give birth.
+Sexbound_Common.tryToGiveBirth = function(callback)
+  local worldTime = world.day() + world.timeOfDay()
+  
+  for i,v in ipairs(storage.pregnant) do
+    local birthTime = v.birthDate + v.birthTime
+    
+    if worldTime >= birthTime then
+      if type(callback) == "function" then
+        callback()
+      end
+      
+      table.remove(storage.pregnant, i)
+    end
+  end
+end
+
 Sexbound_Common.initMessageHandlers = function()
   message.setHandler("sexbound-sync-storage", function(_,_,args)
     storage = util.mergeTable(storage, args or {})
