@@ -33,8 +33,6 @@ end
 
 function smash()
   if not self.isSmashing then
-    sb.logInfo("Smashing!")
-  
     self.isSmashing = true
   
     object.smash(true)
