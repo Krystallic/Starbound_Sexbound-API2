@@ -156,7 +156,7 @@ function Sexbound.Core.SexTalk:sayRandom()
     -- Reset the sextalk timer
     self.timer.sextalk = 0
   else
-    self.log:warn("Object was given non-string data to say.")
+    -- self.log:warn("Object was given non-string data to say.")
   end
 end
 

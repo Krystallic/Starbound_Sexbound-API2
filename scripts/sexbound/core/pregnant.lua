@@ -47,6 +47,8 @@ function Sexbound.Core.Pregnant:becomePregnant()
     })
     
     self.parent:overwriteStorage("pregnant", pregnant)
+    
+    self.pregnant.data = self.parent:storage().pregnant
   end
 end
 

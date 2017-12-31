@@ -27,47 +27,45 @@ end
 --- Updates this instance.
 -- @param dt
 function Sexbound.Core.Climax:update(dt)
-  if Sexbound.API.Status.isHavingSex() then
-    if not self.climax.isClimaxing and not Sexbound.API.Status.isReseting() then
-      local multiplier = Sexbound.API.Positions.currentPosition():getData().climaxMultiplier[self.parent:actorNumber()] or 1
-    
-      local increase = util.randomInRange(self.climax.config.defaultIncrease)
-    
-      self.climax.config.currentPoints = util.clamp(self.climax.config.currentPoints + increase * multiplier * dt, self.climax.config.minPoints, self.climax.config.maxPoints)
-    end
-    
-    if self.climax.isClimaxing and not Sexbound.API.Status.isHavingSex() then
-      Sexbound.API.Status.setStatus("climaxing" , false)
-      
-      self.climax.config.currentPoints = 0
-    end
-    
-    if self.climax.isClimaxing then
-      self.timer.shoot = self.timer.shoot + dt
-    
-      if self.timer.shoot >= self.climax.cooldown then
-        -- Play "cum sound" by default
-        animator.playSound("climax")
-      
-        -- Burst cum particles
-        animator.burstParticleEmitter( self.particleEffect )
-        
-        -- Reset shoot timer
-        self.timer.shoot = 0
-        
-        -- Refresh next shoot timeout
-        self:refreshCooldown()
-      end
-    
-      local decrease = self.climax.config.defaultDecrease
+  if not Sexbound.API.Status.isHavingSex() then return end
+
+  if not self.climax.isClimaxing and not Sexbound.API.Status.isReseting() then
+    local multiplier = Sexbound.API.Positions.currentPosition():getData().climaxMultiplier[self.parent:actorNumber()] or 1
   
-      self.climax.config.currentPoints = util.clamp(self.climax.config.currentPoints - decrease * dt, self.climax.config.minPoints, self.climax.config.maxPoints)
+    local increase = util.randomInRange(self.climax.config.defaultIncrease)
+  
+    self.climax.config.currentPoints = util.clamp(self.climax.config.currentPoints + increase * multiplier * dt, self.climax.config.minPoints, self.climax.config.maxPoints)
+  end
+  
+  if self.climax.isClimaxing and not Sexbound.API.Status.isHavingSex() then
+    Sexbound.API.Status.setStatus("climaxing" , false)
+    
+    self.climax.config.currentPoints = 0
+  end
+  
+  if self.climax.isClimaxing then
+    self.timer.shoot = self.timer.shoot + dt
+  
+    if self.timer.shoot >= self.climax.cooldown then
+      -- Play "cum sound" by default
+      animator.playSound("climax")
+    
+      -- Burst cum particles
+      animator.burstParticleEmitter( self.particleEffect )
       
-      if self.climax.config.currentPoints == 0 then
-        self.climax.isClimaxing = false
+      -- Reset shoot timer
+      self.timer.shoot = 0
       
-        Sexbound.API.Status.setStatus("climaxing" , false)
-      end
+      -- Refresh next shoot timeout
+      self:refreshCooldown()
+    end
+  
+    local decrease = self.climax.config.defaultDecrease
+
+    self.climax.config.currentPoints = util.clamp(self.climax.config.currentPoints - decrease * dt, self.climax.config.minPoints, self.climax.config.maxPoints)
+    
+    if self.climax.config.currentPoints == 0 then
+      self:endClimax()
     end
   end
 end
@@ -92,7 +90,7 @@ function Sexbound.Core.Climax:currentPoints()
   return self.climax.config.currentPoints
 end
 
---- Causes the actor to begin climaxing.
+--- Begins the climax.
 function Sexbound.Core.Climax:beginClimax()
   self.climax.isClimaxing = true
   
@@ -100,11 +98,18 @@ function Sexbound.Core.Climax:beginClimax()
   
   self.particleEffect = Sexbound.API.Positions.currentPosition():getData().climaxParticles[ self.parent:actorNumber() ][ self.parent:gender() ]
   
+  Sexbound.API.Status.setStatus("climaxing" , true)
+end
+
+--- Ends the climax.
+function Sexbound.Core.Climax:endClimax()
   for _,actor in ipairs(Sexbound.API.Actors.getActors()) do
     actor:getPregnant():tryBecomePregnant()
   end
+
+  self.climax.isClimaxing = false
   
-  Sexbound.API.Status.setStatus("climaxing" , true)
+  Sexbound.API.Status.setStatus("climaxing" , false)
 end
 
 -- Refreshes the cooldown time for this module.
