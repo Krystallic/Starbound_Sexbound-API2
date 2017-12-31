@@ -56,6 +56,10 @@ end
 
 --- Private: Initialize Positions.
 local function Sexbound_API_InitPositions()
+  local configFileName = Sexbound.API.getParameter("position.configFile", "/positions/positions.config")
+
+  local positionsConfig = root.assetJson(configFileName)
+
   self.sexboundData.positions = {}
   
   -- Initialize idle positions.
@@ -64,9 +68,15 @@ local function Sexbound_API_InitPositions()
   self.sexboundData.positions.idle.positionIndex = 1
   
   for _,v in ipairs(Sexbound.API.getParameter("position.idle")) do
-    table.insert(self.sexboundData.positions.idle, Sexbound.Core.Position.new(v))
+    local pConfigFileName = positionsConfig[v].configFile or "/positions/idle.position"
+  
+    local pConfig = root.assetJson(pConfigFileName)
     
-    self.sexboundData.positions.idle.positionCount = self.sexboundData.positions.idle.positionCount + 1
+    if type(pConfig) == "table" then
+      table.insert(self.sexboundData.positions.idle, Sexbound.Core.Position.new(pConfig))
+      
+      self.sexboundData.positions.idle.positionCount = self.sexboundData.positions.idle.positionCount + 1
+    end
   end
   
   -- Initialize sex positions.
@@ -75,9 +85,15 @@ local function Sexbound_API_InitPositions()
   self.sexboundData.positions.sex.positionIndex = 1
   
   for _,v in ipairs(Sexbound.API.getParameter("position.sex")) do
-    table.insert(self.sexboundData.positions.sex, Sexbound.Core.Position.new(v))
-    
-    self.sexboundData.positions.sex.positionCount = self.sexboundData.positions.sex.positionCount + 1
+    local pConfigFileName = positionsConfig[v].configFile or "/positions/from_behind.position"
+  
+    local pConfig = root.assetJson(pConfigFileName)
+  
+    if type(pConfig) == "table" then
+      table.insert(self.sexboundData.positions.sex, Sexbound.Core.Position.new(pConfig))
+      
+      self.sexboundData.positions.sex.positionCount = self.sexboundData.positions.sex.positionCount + 1
+    end
   end
 end
 
