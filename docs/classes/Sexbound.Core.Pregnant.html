@@ -75,6 +75,54 @@
 	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:update">Sexbound.Core.Pregnant:update (dt)</a></td>
 	<td class="summary">Update this instance.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:getConfig">Sexbound.Core.Pregnant:getConfig ()</a></td>
+	<td class="summary">Returns a reference to this instance's config.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:getCurrentPregnancies">Sexbound.Core.Pregnant:getCurrentPregnancies ()</a></td>
+	<td class="summary">Returns a reference to an array of current pregnancies for this Actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:getCurrentPregnancyCount">Sexbound.Core.Pregnant:getCurrentPregnancyCount ()</a></td>
+	<td class="summary">Returns the count of current pregnancies for this Actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:getCurrentPregnancy">Sexbound.Core.Pregnant:getCurrentPregnancy (index)</a></td>
+	<td class="summary">Returns a reference to a table of data for a specific pregnancy.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:lastCurrentPregnancy">Sexbound.Core.Pregnant:lastCurrentPregnancy ()</a></td>
+	<td class="summary">Returns a reference to the last current pregnancy.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:becomePregnant">Sexbound.Core.Pregnant:becomePregnant ()</a></td>
+	<td class="summary">Makes this instance's Actor become pregnant.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:isPregnant">Sexbound.Core.Pregnant:isPregnant ()</a></td>
+	<td class="summary">Returns whether of not this instance's Actor is pregnant.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:tryBecomePregnant">Sexbound.Core.Pregnant:tryBecomePregnant (callback)</a></td>
+	<td class="summary">Try to make actor become pregnant.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:isImpregnationPossible">Sexbound.Core.Pregnant:isImpregnationPossible ()</a></td>
+	<td class="summary">Returns the possibility for a pregnancy in current position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:isMateCompatible">Sexbound.Core.Pregnant:isMateCompatible ()</a></td>
+	<td class="summary">Returns whether or not this instance's parent actor is compatible with its mate.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:createRandomBirthDate">Sexbound.Core.Pregnant:createRandomBirthDate ()</a></td>
+	<td class="summary">Returns a random birth date and day count.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Core.Pregnant:createRandomBirthTime">Sexbound.Core.Pregnant:createRandomBirthTime ()</a></td>
+	<td class="summary">Returns a random birth time.</td>
+	</tr>
 </table>
 
 <br/>
@@ -124,6 +172,196 @@
 
 
 </dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:getConfig"></a>
+    <strong>Sexbound.Core.Pregnant:getConfig ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to this instance's config.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:getCurrentPregnancies"></a>
+    <strong>Sexbound.Core.Pregnant:getCurrentPregnancies ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to an array of current pregnancies for this Actor.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:getCurrentPregnancyCount"></a>
+    <strong>Sexbound.Core.Pregnant:getCurrentPregnancyCount ()</strong>
+    </dt>
+    <dd>
+    Returns the count of current pregnancies for this Actor.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:getCurrentPregnancy"></a>
+    <strong>Sexbound.Core.Pregnant:getCurrentPregnancy (index)</strong>
+    </dt>
+    <dd>
+    Returns a reference to a table of data for a specific pregnancy.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:lastCurrentPregnancy"></a>
+    <strong>Sexbound.Core.Pregnant:lastCurrentPregnancy ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to the last current pregnancy.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:becomePregnant"></a>
+    <strong>Sexbound.Core.Pregnant:becomePregnant ()</strong>
+    </dt>
+    <dd>
+    Makes this instance's Actor become pregnant.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:isPregnant"></a>
+    <strong>Sexbound.Core.Pregnant:isPregnant ()</strong>
+    </dt>
+    <dd>
+    Returns whether of not this instance's Actor is pregnant.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:tryBecomePregnant"></a>
+    <strong>Sexbound.Core.Pregnant:tryBecomePregnant (callback)</strong>
+    </dt>
+    <dd>
+    Try to make actor become pregnant.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">callback</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:isImpregnationPossible"></a>
+    <strong>Sexbound.Core.Pregnant:isImpregnationPossible ()</strong>
+    </dt>
+    <dd>
+    Returns the possibility for a pregnancy in current position.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:isMateCompatible"></a>
+    <strong>Sexbound.Core.Pregnant:isMateCompatible ()</strong>
+    </dt>
+    <dd>
+    Returns whether or not this instance's parent actor is compatible with its mate.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:createRandomBirthDate"></a>
+    <strong>Sexbound.Core.Pregnant:createRandomBirthDate ()</strong>
+    </dt>
+    <dd>
+    Returns a random birth date and day count.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        birthDate, dayCount
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Core.Pregnant:createRandomBirthTime"></a>
+    <strong>Sexbound.Core.Pregnant:createRandomBirthTime ()</strong>
+    </dt>
+    <dd>
+    Returns a random birth time.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        birthTime
+    </ol>
+
+
+
+
+</dd>
 </dl>
 
 
@@ -131,7 +369,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-11-17 10:08:17 </i>
+<i style="float:right;">Last updated 2018-03-02 23:55:39 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
