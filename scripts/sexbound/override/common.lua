@@ -8,6 +8,8 @@ sexbound_old_init = init
 Sexbound_Common.init = function()
   status.setStatusProperty("sexbound_sex", false)
 
+  status.setStatusProperty("sexbound_abortion", false)
+  
   sexbound_old_init()
   
   Sexbound_Common.initMessageHandlers()
@@ -26,6 +28,29 @@ end
 sexbound_old_update = update
 Sexbound_Common.update = function(dt)
   sexbound_old_update(dt)
+  
+  -- Check for abortion
+  if status.statusProperty("sexbound_abortion") == true then
+    Sexbound_Common.abortPregnancy()
+  end
+end
+
+-- Attempts to abort all current pregnancies.
+Sexbound_Common.abortPregnancy = function()
+  status.setStatusProperty("sexbound_abortion", false)
+  
+  if storage.pregnant == nil then return end
+  
+  storage.pregnant = nil
+  
+  -- Send radio message to inform player of abortion
+  if entity.entityType() == "player" then
+    world.sendEntityMessage(entity.id(), "queueRadioMessage", {
+      messageId = "Pregnant:Abort",
+      unique    = false,
+      text      = "All vital scans indicate that you are no longer pregnant!"
+    })
+  end
 end
 
 --- Attempt to invoke entity to give birth.
