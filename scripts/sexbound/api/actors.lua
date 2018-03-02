@@ -9,12 +9,19 @@ function Sexbound.API.Actors.addActor(actor, storeActor)
   self.log:info("Storing new actor.")
   
   table.insert(self.sexboundData.actors, Sexbound.Core.Actor.new( actor, storeActor ))
-  
-  self.sexboundData.actorCount = self.sexboundData.actorCount + 1
 
-  Sexbound.API.Actors.resetAll()
+  self.sexboundData.actorCount = self.sexboundData.actorCount + 1
   
   if self.sexboundData.actorCount > 1 then self.sexboundData.status.havingSex = true end
+  
+  -- Automatically shift actor roles based on gender
+  if self.sexboundData.actorCount == 2 then
+    if self.sexboundData.actors[1]:gender() == "female" and self.sexboundData.actors[2]:gender() == "male" then
+      Sexbound.API.Actors.switchRole()
+    end
+  end
+  
+  Sexbound.API.Actors.resetAll()
 end
 
 --- Returns a reference to all actors.
