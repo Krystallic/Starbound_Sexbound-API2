@@ -22,8 +22,8 @@ function update(dt)
   Sexbound_Player.updateStatuses()
   
   if storage.pregnant and not isEmpty(storage.pregnant) then
-    Sexbound_Common.tryToGiveBirth(function()
-      Sexbound_Player.giveBirth()
+    Sexbound_Common.tryToGiveBirth(function(index)
+      Sexbound_Player.giveBirth(index)
     end)
   end
 end
@@ -128,9 +128,33 @@ Sexbound_Player.buildIdentityFromPortrait = function(portraitData)
   return identity
 end
 
---- Spawns a new Player.
-Sexbound_Player.giveBirth = function()
-  world.spawnNpc(entity.position(), player.species(), "villager", -1, nil) -- level 1
+--- Spawns a new NPC as sexbound_familymember type.
+Sexbound_Player.giveBirth = function(index)
+  -- Make sure the gender has been set to a random gender ('male' or 'female').
+  storage.pregnant[index].gender = storage.pregnant[index].gender or util.randomChoice({"male", "female"})
+
+  local gender = storage.pregnant[index].gender
+  
+  -- Make sure that the mother's name is set to the correct player's name.
+  storage.pregnant[index].motherName = storage.pregnant[index].motherName or world.entityName(player.id())
+  
+  -- Set the mother's player id
+  storage.pregnant[index].playerId = player.id()
+  
+  local parameters = {}
+  
+  parameters.identity = {}
+  parameters.identity.gender = gender
+  parameters.statusControllerSettings = {
+    statusProperties = {
+      sexbound_birthday = storage.pregnant[index]
+    }
+  }
+  parameters.uniqueId = sb.makeUuid()
+
+  world.spawnNpc(entity.position(), player.species(), "sexbound_familymember", -1, nil, parameters) -- level 1
+  
+  table.remove(storage.pregnant, index)
 end
 
 --- Returns a filtered string. Used to filter desired data out of directive strings.

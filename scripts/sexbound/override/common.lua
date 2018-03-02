@@ -62,10 +62,8 @@ Sexbound_Common.tryToGiveBirth = function(callback)
     
     if worldTime >= birthTime then
       if type(callback) == "function" then
-        callback()
+        callback(i)
       end
-      
-      table.remove(storage.pregnant, i)
     end
   end
 end

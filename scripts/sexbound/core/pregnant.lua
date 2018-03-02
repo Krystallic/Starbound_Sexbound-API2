@@ -68,15 +68,19 @@ function Sexbound.Core.Pregnant:becomePregnant()
   -- Try to insert new pregnancy.
   if not self:isPregnant() or self:getConfig().allowMultipleImpregnations then
     local birthDate, dayCount = self:createRandomBirthDate()
-    local birthTime = self:createRandomBirthTime()
-
+    local birthTime   = self:createRandomBirthTime()
+    local birthGender = self:createRandomBirthGender()
+    local motherName  = self.parent:identity("name")
+    
     local currentPregnancies = self:getCurrentPregnancies() or {}
     
     -- Insert new pregnancy into current pregnancies
     table.insert(currentPregnancies, {
-      birthDate = birthDate,
-      birthTime = birthTime,
-      dayCount  = dayCount
+      birthGender = birthGender,
+      birthDate   = birthDate,
+      birthTime   = birthTime,
+      dayCount    = dayCount,
+      motherName  = motherName
     })
     
     self.parent:overwriteStorage("pregnant", currentPregnancies)
@@ -186,6 +190,10 @@ function Sexbound.Core.Pregnant:isMateCompatible()
   end
   
   return false
+end
+
+function Sexbound.Core.Pregnant:createRandomBirthGender()
+  return util.randomChoice({"male", "female"})
 end
 
 --- Returns a random birth date and day count.

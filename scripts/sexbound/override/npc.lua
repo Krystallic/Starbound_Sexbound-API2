@@ -32,15 +32,36 @@ function update(dt)
   Sexbound_NPC.updateStatuses()
   
   if storage.pregnant and not isEmpty(storage.pregnant) then
-    Sexbound_Common.tryToGiveBirth(function()
-      Sexbound_NPC.giveBirth()
+    Sexbound_Common.tryToGiveBirth(function(index)
+      Sexbound_NPC.giveBirth(index)
     end)
   end
 end
 
 --- Spawns a new NPC.
-Sexbound_NPC.giveBirth = function()
-  world.spawnNpc(entity.position(), npc.species(), npc.npcType(), mcontroller.facingDirection(), nil) -- level 1
+Sexbound_NPC.giveBirth = function(index)
+  -- Make sure the gender has been set to a random gender ('male' or 'female').
+  storage.pregnant[index].gender = storage.pregnant[index].gender or util.randomChoice({"male", "female"})
+
+  local gender = storage.pregnant[index].gender
+  
+  -- Make sure that the mother's name is set to the correct player's name.
+  storage.pregnant[index].motherName = storage.pregnant[index].motherName or npc.humanoidIdentity().name
+  
+  local parameters = {}
+  
+  parameters.identity = {}
+  parameters.identity.gender = gender
+  parameters.statusControllerSettings = {
+    statusProperties = {
+      sexbound_birthday = storage.pregnant[index]
+    }
+  }
+  parameters.uniqueId = sb.makeUuid()
+  
+  world.spawnNpc(entity.position(), npc.species(), npc.npcType(), mcontroller.facingDirection(), nil, parameters) -- level 1
+  
+  table.remove(storage.pregnant, index)
 end
 
 --- Initializes message handlers.
@@ -210,4 +231,54 @@ Sexbound_NPC.updateStatuses = function()
       self.sexbound.hasStoredActor = false
     end
   end
+  
+    -- If the status property 'sexbound_birthday' is not 'default'
+  if status.statusProperty("sexbound_birthday") and status.statusProperty("sexbound_birthday") ~= "default" then
+    Sexbound_NPC.announceBirth()
+  end
+end
+
+Sexbound_NPC.announceBirth = function()
+  local birthData = status.statusProperty("sexbound_birthday")
+  
+  local motherName = birthData.motherName  or "UNKNOWN"
+  local name = npc.humanoidIdentity().name or "UNKNOWN"
+  local gender = npc.humanoidIdentity().gender
+  
+  local text = "^green;" .. motherName .. "^reset; has just given birth to a "
+  
+  local altText = "You have just given birth to a "
+  
+  if gender == "male" then
+    text = text .. "^blue;boy^reset; named ^green;" .. name .. "^reset;!"
+    
+    altText = altText .. "^blue;boy^reset; named ^green;" .. name .. "^reset;!"
+  end
+  
+  if gender == "female" then
+    text = text .. "^pink;girl^reset; named ^green;" .. name .. "^reset;!"
+    
+    altText = altText .. "^pink;girl^reset; named ^green;" .. name .. "^reset;!"
+  end
+  
+  if birthData.playerId then
+    world.sendEntityMessage(birthData.playerId, "queueRadioMessage", {
+      messageId = "Sexbound_Event:Birth",
+      unique = false,
+      text = altText
+    })
+  end
+  
+  for _,playerId in ipairs(world.players()) do
+    if playerId ~= birthData.playerId then
+      world.sendEntityMessage(playerId, "queueRadioMessage", {
+        messageId = "Sexbound_Event:Birth",
+        unique = false,
+        text = text
+      })
+    end
+  end
+  
+  -- Clear status property
+  status.setStatusProperty("sexbound_birthday", "default")
 end
