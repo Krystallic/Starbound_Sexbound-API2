@@ -20,6 +20,12 @@ function update(dt)
   Sexbound_Common.update(dt)
   
   Sexbound_Player.updateStatuses()
+  
+  if storage.pregnant and not isEmpty(storage.pregnant) then
+    Sexbound_Common.tryToGiveBirth(function()
+      Sexbound_Player.giveBirth()
+    end)
+  end
 end
 
 Sexbound_Player.initMessageHandlers = function()
@@ -39,6 +45,8 @@ end
 --- Returns a table consisting of identifying information about the player character.
 -- @param portraitData
 Sexbound_Player.buildIdentityFromPortrait = function(portraitData)
+  sb.logInfo(sb.printJson(portraitData))
+
   local identity = {
     bodyDirectives = "",
     emoteDirectives = "",
@@ -56,7 +64,13 @@ Sexbound_Player.buildIdentityFromPortrait = function(portraitData)
     hairDirectives = ""
   }
 
-  identity.gender = player.gender()
+  -- Store player's name
+  identity.name    = world.entityName(player.id())
+  
+  -- Store player's gender
+  identity.gender  = player.gender()
+  
+  -- Store player's species
   identity.species = player.species()
   
   local genderId = 1
@@ -112,6 +126,11 @@ Sexbound_Player.buildIdentityFromPortrait = function(portraitData)
   end)
 
   return identity
+end
+
+--- Spawns a new Player.
+Sexbound_Player.giveBirth = function()
+  world.spawnNpc(entity.position(), player.species(), "villager", -1, nil) -- level 1
 end
 
 --- Returns a filtered string. Used to filter desired data out of directive strings.
