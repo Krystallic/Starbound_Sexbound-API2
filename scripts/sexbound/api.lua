@@ -154,7 +154,7 @@ function Sexbound.API.init()
   self.sexboundData = {}
 
   -- Load configuration from mod
-  self.sexboundData.config = util.mergeTable(root.assetJson("/scripts/sexbound/default.config"), config.getParameter("sexboundConfig", {}))
+  self.sexboundData.config = util.mergeTable(root.assetJson("/sexbound.config"), config.getParameter("sexboundConfig", {}))
 
   -- Sets this object to be interactive when interactive is true
   object.setInteractive(config.getParameter("interactive", false))
