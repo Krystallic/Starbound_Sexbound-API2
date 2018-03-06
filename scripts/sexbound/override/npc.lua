@@ -12,14 +12,20 @@ Sexbound_NPC = {}
 function init()
   -- Initializes the NPC
   Sexbound_Common.init()
-  
+    
   sb.logInfo(sb.printJson( storage.pregnant ))
   
   -- Initialize message handlers.
   Sexbound_NPC.initMessageHandlers()
   
   -- Restore the NPCs previous storage
-  storage = util.mergeTable(storage, config.getParameter("sexbound.previousStorage", {}))
+  -- storage = util.mergeTable(storage, config.getParameter("sexbound.previousStorage", {}))
+  
+  if (type(status.statusProperty("sexbound_previous_storage")) == "table") then
+    storage = util.mergeTable(storage, status.statusProperty("sexbound_previous_storage", {}))
+    
+    status.setStatusProperty("sexbound_previous_storage", "default")
+  end  
 end
 
 --- Hook - Update
@@ -39,29 +45,28 @@ function update(dt)
 end
 
 --- Spawns a new NPC.
-Sexbound_NPC.giveBirth = function(index)
+Sexbound_NPC.giveBirth = function(birthData)
   -- Make sure the gender has been set to a random gender ('male' or 'female').
-  storage.pregnant[index].gender = storage.pregnant[index].gender or util.randomChoice({"male", "female"})
-
-  local gender = storage.pregnant[index].gender
+  birthData.birthGender = birthData.birthGender or util.randomChoice({"male", "female"})
   
   -- Make sure that the mother's name is set to the correct player's name.
-  storage.pregnant[index].motherName = storage.pregnant[index].motherName or npc.humanoidIdentity().name
+  birthData.motherName  = birthData.motherName  or npc.humanoidIdentity().name
   
   local parameters = {}
   
   parameters.identity = {}
-  parameters.identity.gender = gender
+  parameters.identity.gender = birthData.birthGender
   parameters.statusControllerSettings = {
     statusProperties = {
-      sexbound_birthday = storage.pregnant[index]
+      sexbound_birthday = birthData
     }
   }
+  
   parameters.uniqueId = sb.makeUuid()
   
   world.spawnNpc(entity.position(), npc.species(), npc.npcType(), mcontroller.facingDirection(), nil, parameters) -- level 1
   
-  table.remove(storage.pregnant, index)
+  
 end
 
 --- Initializes message handlers.

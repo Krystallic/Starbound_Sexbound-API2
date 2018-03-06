@@ -154,7 +154,7 @@ function Sexbound.API.init()
   self.sexboundData = {}
 
   -- Load configuration from mod
-  self.sexboundData.config = util.mergeTable(root.assetJson("/sexbound.config"), config.getParameter("sexboundConfig", {}))
+  self.sexboundData.config = util.mergeTable(root.assetJson("/scripts/sexbound/default.config"), config.getParameter("sexboundConfig", {}))
 
   -- Sets this object to be interactive when interactive is true
   object.setInteractive(config.getParameter("interactive", false))
@@ -283,16 +283,18 @@ function Sexbound.API.respawnStoredActor()
     
     -- Initialize parameters to send to spawned NPC.
     local parameters = {
-      scriptConfig = {
-        sexbound = {
-          previousStorage = storage.actor.storage
+      statusControllerSettings = {
+        statusProperties = {
+          sexbound_previous_storage = storage.actor.storage
         }
       }
     }
     
     -- Restore actor's unique ID.
     if (storage.actor.uniqueId and not world.findUniqueEntity(storage.actor.uniqueId):result()) then
-      parameters.scriptConfig.uniqueId = storage.actor.uniqueId
+      parameters.scriptConfig = {
+        uniqueId = storage.actor.uniqueId
+      }
     end
     
     world.spawnNpc(position, storage.actor.identity.species, storage.actor.type, storage.actor.level, storage.actor.seed, parameters)

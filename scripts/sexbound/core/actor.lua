@@ -419,23 +419,23 @@ end
 --- Processes gender value.
 -- @param gender male, female, or something else (future)
 function Sexbound.Core.Actor:validateGender(gender)
-  local validatedGender = util.find(Sexbound.API.getParameter("supportedPlayerGenders"), function(v)
+  local validatedGender = util.find(Sexbound.API.getParameter("sex.supportedPlayerGenders"), function(v)
     if (gender == v) then return v end
   end)
   
   if not validatedGender then
-    return Sexbound.API.getParameter("defaultPlayerGender") -- default is 'male'
+    return Sexbound.API.getParameter("sex.defaultPlayerGender") -- default is 'male'
   else return validatedGender end
 end
 
 --- Processes species value.
 -- @param species name of species
 function Sexbound.Core.Actor:validateSpecies(species)
-  local validatedSpecies = util.find(Sexbound.API.getParameter("supportedPlayerSpecies"), function(v)
+  local validatedSpecies = util.find(Sexbound.API.getParameter("sex.supportedPlayerSpecies"), function(v)
    if (species == v) then return v end
   end)
   
   if not validatedSpecies then
-    return Sexbound.API.getParameter("defaultPlayerSpecies") -- default is 'human'
+    return Sexbound.API.getParameter("sex.defaultPlayerSpecies") -- default is 'human'
   else return validatedSpecies end
 end

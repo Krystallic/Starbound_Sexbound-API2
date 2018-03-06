@@ -131,30 +131,26 @@ end
 --- Spawns a new NPC as sexbound_familymember type.
 Sexbound_Player.giveBirth = function(index)
   -- Make sure the gender has been set to a random gender ('male' or 'female').
-  storage.pregnant[index].gender = storage.pregnant[index].gender or util.randomChoice({"male", "female"})
-
-  local gender = storage.pregnant[index].gender
+  birthData.birthGender = birthData.birthGender or util.randomChoice({"male", "female"})
   
   -- Make sure that the mother's name is set to the correct player's name.
-  storage.pregnant[index].motherName = storage.pregnant[index].motherName or world.entityName(player.id())
+  birthData.motherName  = birthData.motherName  or npc.humanoidIdentity().name
   
   -- Set the mother's player id
-  storage.pregnant[index].playerId = player.id()
+  birthData.playerId = player.id()
   
   local parameters = {}
   
   parameters.identity = {}
-  parameters.identity.gender = gender
+  parameters.identity.gender = birthData.birthGender
   parameters.statusControllerSettings = {
     statusProperties = {
-      sexbound_birthday = storage.pregnant[index]
+      sexbound_birthday = birthData
     }
   }
   parameters.uniqueId = sb.makeUuid()
 
   world.spawnNpc(entity.position(), player.species(), "sexbound_familymember", -1, nil, parameters) -- level 1
-  
-  table.remove(storage.pregnant, index)
 end
 
 --- Returns a filtered string. Used to filter desired data out of directive strings.

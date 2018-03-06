@@ -154,8 +154,11 @@ end
 
 --- Try to make actor become pregnant.
 function Sexbound.Core.Pregnant:tryBecomePregnant(callback)
-  if self:isImpregnationPossible() and self:isMateCompatible() then
-    return self:becomePregnant()
+  -- Check if mate must be compatible to become pregnant
+  if self:getConfig().enableCompatibleMates and not self:isMateCompatible() then return end
+  
+  if self:isImpregnationPossible() then
+      return self:becomePregnant()
   end
 end
 

@@ -61,8 +61,12 @@ Sexbound_Common.tryToGiveBirth = function(callback)
     local birthTime = v.birthDate + v.birthTime
     
     if worldTime >= birthTime then
+      local birthData = util.mergeTable({}, v)
+      
+      table.remove(storage.pregnant, i)
+    
       if type(callback) == "function" then
-        callback(i)
+        callback(birthData)
       end
     end
   end
