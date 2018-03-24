@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Sexbound API v2</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Sexbound.html">Sexbound</a></li>
+  <li><a href="../classes/Sexbound.Actor.html">Sexbound.Actor</a></li>
+  <li><a href="../classes/Sexbound.Actor.Plugin.html">Sexbound.Actor.Plugin</a></li>
+  <li><a href="../classes/Sexbound.Actor.PluginMgr.html">Sexbound.Actor.PluginMgr</a></li>
+  <li><a href="../classes/Sexbound.Log.html">Sexbound.Log</a></li>
+  <li><a href="../classes/Sexbound.Actor.Climax.html">Sexbound.Actor.Climax</a></li>
+  <li><strong>Sexbound.Actor.Emote</strong></li>
+  <li><a href="../classes/Sexbound.Actor.Moan.html">Sexbound.Actor.Moan</a></li>
+  <li><a href="../classes/Sexbound.Actor.Pregnant.html">Sexbound.Actor.Pregnant</a></li>
+  <li><a href="../classes/Sexbound.Actor.SexTalk.html">Sexbound.Actor.SexTalk</a></li>
+  <li><a href="../classes/Sexbound.Position.html">Sexbound.Position</a></li>
+  <li><a href="../classes/Sexbound.Positions.html">Sexbound.Positions</a></li>
+  <li><a href="../classes/Sexbound.Messenger.html">Sexbound.Messenger</a></li>
+  <li><a href="../classes/Sexbound.Message.html">Sexbound.Message</a></li>
+  <li><a href="../classes/Sexbound.MessageQueue.html">Sexbound.MessageQueue</a></li>
+  <li><a href="../classes/Sexbound.Node.html">Sexbound.Node</a></li>
+  <li><a href="../classes/Sexbound.StateMachine.html">Sexbound.StateMachine</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Sexbound.Util.html">Sexbound.Util</a></li>
+  <li><a href="../modules/Sexbound.API.html">Sexbound.API</a></li>
+  <li><a href="../modules/Sexbound.API.Actors.html">Sexbound.API.Actors</a></li>
+  <li><a href="../modules/Sexbound.API.Nodes.html">Sexbound.API.Nodes</a></li>
+  <li><a href="../modules/Sexbound.API.StateMachine.html">Sexbound.API.StateMachine</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Sexbound.Actor.Emote</code></h1>
+<p>Sexbound.Actor.Emote Class Module.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3.0</li>
+        <li><strong>Author</strong>: Loxodon</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:new">Sexbound.Actor.Emote:new (parent, config)</a></td>
+	<td class="summary">Instantiates a new instance of Emote.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:changeAnimationState">Sexbound.Actor.Emote:changeAnimationState (stateName)</a></td>
+	<td class="summary">Changes the animation state for the parent actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:refreshCooldown">Sexbound.Actor.Emote:refreshCooldown ()</a></td>
+	<td class="summary">Refreshes the cooldown time for this module.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:reset">Sexbound.Actor.Emote:reset ()</a></td>
+	<td class="summary">Reset the actor's emote.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:setIsMoaning">Sexbound.Actor.Emote:setIsMoaning (value)</a></td>
+	<td class="summary">Sets the 'isMoaning' status for this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:setIsTalking">Sexbound.Actor.Emote:setIsTalking (value)</a></td>
+	<td class="summary">Sets the 'isTalking' status for this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:showBlabber">Sexbound.Actor.Emote:showBlabber ()</a></td>
+	<td class="summary">Shows the 'blabber' animation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:showHappy">Sexbound.Actor.Emote:showHappy ()</a></td>
+	<td class="summary">Shows the 'happy' animation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:showMoan">Sexbound.Actor.Emote:showMoan ()</a></td>
+	<td class="summary">Shows a random animation for moan that specified in the configuration file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:showNone">Sexbound.Actor.Emote:showNone ()</a></td>
+	<td class="summary">Shows nothing.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:showRandom">Sexbound.Actor.Emote:showRandom ()</a></td>
+	<td class="summary">Shows a random emote animation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Emote:uninit">Sexbound.Actor.Emote:uninit ()</a></td>
+	<td class="summary">Uninitializes this instance.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Sexbound.Actor.Emote:new"></a>
+    <strong>Sexbound.Actor.Emote:new (parent, config)</strong>
+    </dt>
+    <dd>
+    Instantiates a new instance of Emote.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parent</span>
+
+        </li>
+        <li><span class="parameter">config</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:changeAnimationState"></a>
+    <strong>Sexbound.Actor.Emote:changeAnimationState (stateName)</strong>
+    </dt>
+    <dd>
+    Changes the animation state for the parent actor.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stateName</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:refreshCooldown"></a>
+    <strong>Sexbound.Actor.Emote:refreshCooldown ()</strong>
+    </dt>
+    <dd>
+    Refreshes the cooldown time for this module.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:reset"></a>
+    <strong>Sexbound.Actor.Emote:reset ()</strong>
+    </dt>
+    <dd>
+    Reset the actor's emote.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:setIsMoaning"></a>
+    <strong>Sexbound.Actor.Emote:setIsMoaning (value)</strong>
+    </dt>
+    <dd>
+    Sets the 'isMoaning' status for this instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:setIsTalking"></a>
+    <strong>Sexbound.Actor.Emote:setIsTalking (value)</strong>
+    </dt>
+    <dd>
+    Sets the 'isTalking' status for this instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:showBlabber"></a>
+    <strong>Sexbound.Actor.Emote:showBlabber ()</strong>
+    </dt>
+    <dd>
+    Shows the 'blabber' animation.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:showHappy"></a>
+    <strong>Sexbound.Actor.Emote:showHappy ()</strong>
+    </dt>
+    <dd>
+    Shows the 'happy' animation.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:showMoan"></a>
+    <strong>Sexbound.Actor.Emote:showMoan ()</strong>
+    </dt>
+    <dd>
+    Shows a random animation for moan that specified in the configuration file.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:showNone"></a>
+    <strong>Sexbound.Actor.Emote:showNone ()</strong>
+    </dt>
+    <dd>
+    Shows nothing.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:showRandom"></a>
+    <strong>Sexbound.Actor.Emote:showRandom ()</strong>
+    </dt>
+    <dd>
+    Shows a random emote animation.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Emote:uninit"></a>
+    <strong>Sexbound.Actor.Emote:uninit ()</strong>
+    </dt>
+    <dd>
+    Uninitializes this instance.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-03-24 03:10:48 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Sexbound API v2</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>Sexbound</strong></li>
+  <li><a href="../classes/Sexbound.Actor.html">Sexbound.Actor</a></li>
+  <li><a href="../classes/Sexbound.Actor.Plugin.html">Sexbound.Actor.Plugin</a></li>
+  <li><a href="../classes/Sexbound.Actor.PluginMgr.html">Sexbound.Actor.PluginMgr</a></li>
+  <li><a href="../classes/Sexbound.Log.html">Sexbound.Log</a></li>
+  <li><a href="../classes/Sexbound.Actor.Climax.html">Sexbound.Actor.Climax</a></li>
+  <li><a href="../classes/Sexbound.Actor.Emote.html">Sexbound.Actor.Emote</a></li>
+  <li><a href="../classes/Sexbound.Actor.Moan.html">Sexbound.Actor.Moan</a></li>
+  <li><a href="../classes/Sexbound.Actor.Pregnant.html">Sexbound.Actor.Pregnant</a></li>
+  <li><a href="../classes/Sexbound.Actor.SexTalk.html">Sexbound.Actor.SexTalk</a></li>
+  <li><a href="../classes/Sexbound.Position.html">Sexbound.Position</a></li>
+  <li><a href="../classes/Sexbound.Positions.html">Sexbound.Positions</a></li>
+  <li><a href="../classes/Sexbound.Messenger.html">Sexbound.Messenger</a></li>
+  <li><a href="../classes/Sexbound.Message.html">Sexbound.Message</a></li>
+  <li><a href="../classes/Sexbound.MessageQueue.html">Sexbound.MessageQueue</a></li>
+  <li><a href="../classes/Sexbound.Node.html">Sexbound.Node</a></li>
+  <li><a href="../classes/Sexbound.StateMachine.html">Sexbound.StateMachine</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Sexbound.Util.html">Sexbound.Util</a></li>
+  <li><a href="../modules/Sexbound.API.html">Sexbound.API</a></li>
+  <li><a href="../modules/Sexbound.API.Actors.html">Sexbound.API.Actors</a></li>
+  <li><a href="../modules/Sexbound.API.Nodes.html">Sexbound.API.Nodes</a></li>
+  <li><a href="../modules/Sexbound.API.StateMachine.html">Sexbound.API.StateMachine</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Sexbound</code></h1>
+<p>Sexbound Class Module.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3.0</li>
+        <li><strong>Author</strong>: Loxodon</li>
+    </ul>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:becomeNode">Sexbound:becomeNode ()</a></td>
+	<td class="summary">Adds new node and tracks it as being this object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:handleInteract">Sexbound:handleInteract (args)</a></td>
+	<td class="summary">Handles a player interaction request.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:loadConfig">Sexbound:loadConfig ()</a></td>
+	<td class="summary">Returns loaded global configuration as a table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:resetAllActors">Sexbound:resetAllActors ()</a></td>
+	<td class="summary">Resets all actors.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:switchActorRoles">Sexbound:switchActorRoles ()</a></td>
+	<td class="summary">Shifts the actors in actor data list to the right.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Sexbound:becomeNode"></a>
+    <strong>Sexbound:becomeNode ()</strong>
+    </dt>
+    <dd>
+    Adds new node and tracks it as being this object.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:handleInteract"></a>
+    <strong>Sexbound:handleInteract (args)</strong>
+    </dt>
+    <dd>
+    Handles a player interaction request.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">args</span>
+         interact arguments
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">function</span> onInteraction(args) Sexbound.handleInteract(args) <span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Sexbound:loadConfig"></a>
+    <strong>Sexbound:loadConfig ()</strong>
+    </dt>
+    <dd>
+    Returns loaded global configuration as a table.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:resetAllActors"></a>
+    <strong>Sexbound:resetAllActors ()</strong>
+    </dt>
+    <dd>
+    Resets all actors.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:switchActorRoles"></a>
+    <strong>Sexbound:switchActorRoles ()</strong>
+    </dt>
+    <dd>
+    Shifts the actors in actor data list to the right.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-03-24 03:10:48 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

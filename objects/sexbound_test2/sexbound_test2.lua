@@ -1,4 +1,4 @@
-require "/scripts/sexbound.lua"
+require "/scripts/sexbound/lib/sexbound.lua"
 
 function init()
   Sexbound.API.init()

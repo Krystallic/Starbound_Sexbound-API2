@@ -1,6 +1,8 @@
-require "/scripts/sexbound.lua"
+require "/scripts/sexbound/v2/api.lua"
 
 function init()
+  Sexbound.API.init()
+
   -- Check if mindControl is in storage before setting it.
   if storage.mindControl then
     smash()
@@ -9,9 +11,7 @@ function init()
   
   storage.mindControl = config.getParameter("mindControl")
   
-  Sexbound.API.init()
-  
-  Sexbound.API.becomeNode()
+  Sexbound.API.Nodes.becomeNode()
 end
 
 function update(dt)
@@ -21,7 +21,7 @@ function update(dt)
     if storage.mindControl then
       local worldTime = world.day() + world.timeOfDay()
       
-      if not Sexbound.API.Status.getStatus("havingSex") and worldTime >= storage.mindControl.timeout then
+      if not Sexbound.API.StateMachine:getStatus("havingSex") and worldTime >= storage.mindControl.timeout then
         smash()
       end
     end
@@ -41,7 +41,7 @@ function smash()
 end
 
 function die()
-  Sexbound.API.respawnStoredActor()
+  Sexbound.API.handleDie()
 end
 
 function uninit()

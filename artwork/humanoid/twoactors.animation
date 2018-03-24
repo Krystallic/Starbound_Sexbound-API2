@@ -756,6 +756,8 @@
         
         "partStates" : {
           "actor1Emote" : {
+            "none" : {},
+          
             "blabber" : {
               "properties" : {
                 "image" : "/humanoid/<actor1-species>/emote.png:blabber.<frame><actor1-emoteDirectives>"
@@ -1355,6 +1357,8 @@
         
         "partStates" : {
           "actor2Emote" : {
+            "none" : {},
+          
             "blabber" : {
               "properties" : {
                 "image" : "/humanoid/<actor2-species>/emote.png:blabber.<frame><actor2-emoteDirectives>"

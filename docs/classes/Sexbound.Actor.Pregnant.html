@@ -1,0 +1,409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Sexbound API v2</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Sexbound.html">Sexbound</a></li>
+  <li><a href="../classes/Sexbound.Actor.html">Sexbound.Actor</a></li>
+  <li><a href="../classes/Sexbound.Actor.Plugin.html">Sexbound.Actor.Plugin</a></li>
+  <li><a href="../classes/Sexbound.Actor.PluginMgr.html">Sexbound.Actor.PluginMgr</a></li>
+  <li><a href="../classes/Sexbound.Log.html">Sexbound.Log</a></li>
+  <li><a href="../classes/Sexbound.Actor.Climax.html">Sexbound.Actor.Climax</a></li>
+  <li><a href="../classes/Sexbound.Actor.Emote.html">Sexbound.Actor.Emote</a></li>
+  <li><a href="../classes/Sexbound.Actor.Moan.html">Sexbound.Actor.Moan</a></li>
+  <li><strong>Sexbound.Actor.Pregnant</strong></li>
+  <li><a href="../classes/Sexbound.Actor.SexTalk.html">Sexbound.Actor.SexTalk</a></li>
+  <li><a href="../classes/Sexbound.Position.html">Sexbound.Position</a></li>
+  <li><a href="../classes/Sexbound.Positions.html">Sexbound.Positions</a></li>
+  <li><a href="../classes/Sexbound.Messenger.html">Sexbound.Messenger</a></li>
+  <li><a href="../classes/Sexbound.Message.html">Sexbound.Message</a></li>
+  <li><a href="../classes/Sexbound.MessageQueue.html">Sexbound.MessageQueue</a></li>
+  <li><a href="../classes/Sexbound.Node.html">Sexbound.Node</a></li>
+  <li><a href="../classes/Sexbound.StateMachine.html">Sexbound.StateMachine</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Sexbound.Util.html">Sexbound.Util</a></li>
+  <li><a href="../modules/Sexbound.API.html">Sexbound.API</a></li>
+  <li><a href="../modules/Sexbound.API.Actors.html">Sexbound.API.Actors</a></li>
+  <li><a href="../modules/Sexbound.API.Nodes.html">Sexbound.API.Nodes</a></li>
+  <li><a href="../modules/Sexbound.API.StateMachine.html">Sexbound.API.StateMachine</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Sexbound.Actor.Pregnant</code></h1>
+<p>Sexbound.Actor.Pregnant Class Module.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3.0</li>
+        <li><strong>Author</strong>: Loxodon</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:new">Sexbound.Actor.Pregnant:new (parent, config)</a></td>
+	<td class="summary">Instantiates a new instance of Pregnant.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:onMessage">Sexbound.Actor.Pregnant:onMessage (message)</a></td>
+	<td class="summary">Handles message events.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:createRandomBirthGender">Sexbound.Actor.Pregnant:createRandomBirthGender ()</a></td>
+	<td class="summary">Returns a random birth gender.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:createRandomBirthDate">Sexbound.Actor.Pregnant:createRandomBirthDate ()</a></td>
+	<td class="summary">Returns a random birth date and day count.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:createRandomBirthTime">Sexbound.Actor.Pregnant:createRandomBirthTime ()</a></td>
+	<td class="summary">Returns a random birth time.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:getCurrentPregnancies">Sexbound.Actor.Pregnant:getCurrentPregnancies (index)</a></td>
+	<td class="summary">Returns a reference to this Actor's current pregnancies table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:getCurrentPregnancyCount">Sexbound.Actor.Pregnant:getCurrentPregnancyCount ()</a></td>
+	<td class="summary">Returns the count of current pregnancies for this Actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:getCompatibleMates">Sexbound.Actor.Pregnant:getCompatibleMates ()</a></td>
+	<td class="summary">Returns a list of compatible mates for this actor.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:isImpregnationPossible">Sexbound.Actor.Pregnant:isImpregnationPossible ()</a></td>
+	<td class="summary">Returns the possibility for a pregnancy in current position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:isOtherCompatible">Sexbound.Actor.Pregnant:isOtherCompatible (otherActor)</a></td>
+	<td class="summary">Returns if this actor is a compatible mate for the other actor</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:isPregnant">Sexbound.Actor.Pregnant:isPregnant ()</a></td>
+	<td class="summary">Returns whether of not this instance's Actor is pregnant.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:lastCurrentPregnancy">Sexbound.Actor.Pregnant:lastCurrentPregnancy ()</a></td>
+	<td class="summary">Returns a reference to the last current pregnancy.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:becomePregnant">Sexbound.Actor.Pregnant:becomePregnant ()</a></td>
+	<td class="summary">Makes this instance's Actor become pregnant.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor.Pregnant:tryBecomePregnant">Sexbound.Actor.Pregnant:tryBecomePregnant (otherActor)</a></td>
+	<td class="summary">Attempts to make this actor become pregnant.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:new"></a>
+    <strong>Sexbound.Actor.Pregnant:new (parent, config)</strong>
+    </dt>
+    <dd>
+    Instantiates a new instance of Pregnant.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parent</span>
+
+        </li>
+        <li><span class="parameter">config</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:onMessage"></a>
+    <strong>Sexbound.Actor.Pregnant:onMessage (message)</strong>
+    </dt>
+    <dd>
+    Handles message events.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">message</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:createRandomBirthGender"></a>
+    <strong>Sexbound.Actor.Pregnant:createRandomBirthGender ()</strong>
+    </dt>
+    <dd>
+    Returns a random birth gender.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        birthGender
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:createRandomBirthDate"></a>
+    <strong>Sexbound.Actor.Pregnant:createRandomBirthDate ()</strong>
+    </dt>
+    <dd>
+    Returns a random birth date and day count.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        birthDate, dayCount
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:createRandomBirthTime"></a>
+    <strong>Sexbound.Actor.Pregnant:createRandomBirthTime ()</strong>
+    </dt>
+    <dd>
+    Returns a random birth time.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        birthTime
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:getCurrentPregnancies"></a>
+    <strong>Sexbound.Actor.Pregnant:getCurrentPregnancies (index)</strong>
+    </dt>
+    <dd>
+    Returns a reference to this Actor's current pregnancies table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:getCurrentPregnancyCount"></a>
+    <strong>Sexbound.Actor.Pregnant:getCurrentPregnancyCount ()</strong>
+    </dt>
+    <dd>
+    Returns the count of current pregnancies for this Actor.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:getCompatibleMates"></a>
+    <strong>Sexbound.Actor.Pregnant:getCompatibleMates ()</strong>
+    </dt>
+    <dd>
+    Returns a list of compatible mates for this actor.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:isImpregnationPossible"></a>
+    <strong>Sexbound.Actor.Pregnant:isImpregnationPossible ()</strong>
+    </dt>
+    <dd>
+    Returns the possibility for a pregnancy in current position.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:isOtherCompatible"></a>
+    <strong>Sexbound.Actor.Pregnant:isOtherCompatible (otherActor)</strong>
+    </dt>
+    <dd>
+    Returns if this actor is a compatible mate for the other actor
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">otherActor</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:isPregnant"></a>
+    <strong>Sexbound.Actor.Pregnant:isPregnant ()</strong>
+    </dt>
+    <dd>
+    Returns whether of not this instance's Actor is pregnant.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:lastCurrentPregnancy"></a>
+    <strong>Sexbound.Actor.Pregnant:lastCurrentPregnancy ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to the last current pregnancy.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:becomePregnant"></a>
+    <strong>Sexbound.Actor.Pregnant:becomePregnant ()</strong>
+    </dt>
+    <dd>
+    Makes this instance's Actor become pregnant.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor.Pregnant:tryBecomePregnant"></a>
+    <strong>Sexbound.Actor.Pregnant:tryBecomePregnant (otherActor)</strong>
+    </dt>
+    <dd>
+    Attempts to make this actor become pregnant.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">otherActor</span>
+        Prevent actor from impregnating itself.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-03-24 03:10:48 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
