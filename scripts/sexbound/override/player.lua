@@ -1,16 +1,19 @@
-require "/scripts/vec2.lua"
+--- Sexbound.Player Module.
+-- @module Sexbound.Player
 
-require "/scripts/sexbound/lib/sexbound/util.lua"
+require "/scripts/vec2.lua" -- Chucklefish's vector script
+
+require "/scripts/sexbound/util.lua"
 
 Sexbound.Player = {}
-Sexbound.Player.__index = Sexbound.Player
+Sexbound.Player_mt = { __index = Sexbound.Player }
 
 --- Hook (init)
 Sexbound_Old_Init = init
 function init()
   Sexbound_Old_Init()
 
-  self.sb_player = Sexbound.Player.new()
+  self.sb_player = Sexbound.Player:new()
 end
 
 --- Hook (update)
@@ -21,13 +24,13 @@ function update(dt)
   self.sb_player:update(dt)
 end
 
-function Sexbound.Player.new()
+function Sexbound.Player:new()
   local self = setmetatable({
     _controllerId = nil,
     _hasSetupActor = false,
     _loungeId = nil,
     _mindControl = { damageSourceKind = "sexbound_mind_control" }
-  }, Sexbound.Player)
+  }, Sexbound.Player_mt)
 
   self:initMessageHandlers()
   

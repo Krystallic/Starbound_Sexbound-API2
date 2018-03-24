@@ -8,13 +8,14 @@ Sexbound_mt = { __index = Sexbound }
 require "/scripts/util.lua"
 require "/scripts/vec2.lua"
 
+require "/scripts/sexbound/util.lua"
+
 require "/scripts/sexbound/lib/sexbound/actor.lua"
 require "/scripts/sexbound/lib/sexbound/log.lua"
 require "/scripts/sexbound/lib/sexbound/node.lua"
 require "/scripts/sexbound/lib/sexbound/messenger.lua"
 require "/scripts/sexbound/lib/sexbound/positions.lua"
 require "/scripts/sexbound/lib/sexbound/statemachine.lua"
-require "/scripts/sexbound/lib/sexbound/util.lua"
 
 --- Returns a reference to a new instance of this class.
 function Sexbound:new()

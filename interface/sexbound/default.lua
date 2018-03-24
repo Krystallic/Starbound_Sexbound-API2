@@ -3,7 +3,7 @@ require "/scripts/rect.lua"
 require "/scripts/util.lua"
 require "/scripts/vec2.lua"
 
-require "/scripts/sexbound/lib/sexbound/util.lua"
+require "/scripts/sexbound/util.lua"
 
 require "/interface/sexbound/climax/climax.lua"
 require "/interface/sexbound/positions/positions.lua"

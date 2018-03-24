@@ -15,11 +15,8 @@ function Sexbound.Actor.Emote:new( parent, config )
   local self = setmetatable({
     _logPrefix = "EMOT",
     _config    = config,
-    _isTalking = false,
-    _isMoaning = false,
-    _moaningTimeout = 2,
-    _talkingTimeout = 3,
-    _timer = {emote = 0, talking = 0, moaning = 0}
+    _timeout   = {emote = 2, talking = 3, moaning = 2},
+    _timer     = {emote = 0, talking = 0, moaning = 0}
   }, Sexbound.Actor.Emote_mt)
 
   self:init(parent, self._logPrefix, function()
@@ -31,53 +28,82 @@ end
 
 function Sexbound.Actor.Emote:onMessage(message)
   if message:getType() == "Sexbound:Moan:Moan" then
-    self:setIsMoaning(true)
+    self:moan()
   end
   
   if message:getType() == "Sexbound:SexTalk:Talk" then
-    self:setIsTalking(true)
+    self:talk()
   end
+end
+
+function Sexbound.Actor.Emote:moan()
+  local actor = self:getParent()
+
+  actor:addStatus("moaning")
+  actor:removeStatus("talking")
+  
+  self:showMoan()
+end
+
+function Sexbound.Actor.Emote:talk()
+  local actor = self:getParent()
+
+  actor:addStatus("talking")
+  actor:removeStatus("moaning")
+
+  self:showBlabber()
+end
+
+function Sexbound.Actor.Emote:update(dt)
+  local actor = self:getParent()
+  
+  if actor:hasStatus("moaning") or actor:hasStatus("talking") then
+    util.each({"moaning", "talking"}, function(index, status)
+      if actor:hasStatus(status) then
+        self._timer[status] = self._timer[status] + dt
+        
+        if self._timer[status] >= self._timeout[status] then
+          self:showNone()
+          
+          self._timer[status] = 0
+          actor:removeStatus(status)
+        end
+      end
+    end)
+    
+    return
+  end
+  
+  self._timer.emote = self._timer.emote + dt
+  
+  if self._timer.emote >= self._cooldown then
+    self._timer.emote = 0
+    
+    self:showRandom()
+  end
+end
+
+function Sexbound.Actor.Emote:onUpdateIdleState(dt)
+  self:update(dt)
+end
+
+function Sexbound.Actor.Emote:onExitIdleState(dt)
+  self:showNone()
 end
 
 function Sexbound.Actor.Emote:onUpdateSexState(dt)
-  if self._isMoaning or self._isTalking then
-    -- The actor is moaning 
-    if self._isMoaning then
-      self._timer.moaning = self._timer.moaning + dt
-      
-      if self._timer.moaning >= self._moaningTimeout then
-        self:showNone()
-      
-        -- Reset the moaning timer
-        self._timer.moaning = 0
-        self._isMoaning = false
-      end
-    end
-    
-    -- The actor is talking
-    if self._isTalking then
-      self._timer.talking = self._timer.talking + dt
-      
-      if self._timer.talking >= self._talkingTimeout then
-        self:showNone()
-        
-        -- Reset the talking timer
-        self._timer.talking = 0
-        self._isTalking = false
-      end
-    end
-  else
-    self._timer.emote = self._timer.emote + dt
-    
-    if self._timer.emote >= self._cooldown then
-      self._timer.emote = 0
-      
-      self:showRandom()
-    end
-  end
+  self:update(dt)
 end
 
-function Sexbound.Actor.Emote:onExitSexState()
+function Sexbound.Actor.Emote:onExitSexState(dt)
+  self:showNone()
+end
+
+function Sexbound.Actor.Emote:onUpdateClimaxState(dt)
+  self:update(dt)
+end
+
+function Sexbound.Actor.Emote:onExitClimaxState()
   self:showNone()
 end
 
@@ -103,22 +129,8 @@ function Sexbound.Actor.Emote:reset()
   self:showNone()
 end
 
---- Sets the 'isMoaning' status for this instance.
-function Sexbound.Actor.Emote:setIsMoaning(value)
-  self._isMoaning = value
-  
-  self:showMoan()
-end
-
---- Sets the 'isTalking' status for this instance.
-function Sexbound.Actor.Emote:setIsTalking(value)
-  self._isTalking = value
-end
-
 --- Shows the 'blabber' animation.
 function Sexbound.Actor.Emote:showBlabber()
-  self._isTalking = true
-
   self:changeAnimationState("blabber")
 end
 

@@ -16,7 +16,7 @@ file = {
   'scripts/sexbound/lib/sexbound/messenger/messagequeue.lua',
   'scripts/sexbound/lib/sexbound/node.lua',
   'scripts/sexbound/lib/sexbound/statemachine.lua',
-  'scripts/sexbound/lib/sexbound/util.lua',
+  'scripts/sexbound/util.lua',
   
   'scripts/sexbound/v2/api.lua',
   'scripts/sexbound/v2/api/actors.lua',

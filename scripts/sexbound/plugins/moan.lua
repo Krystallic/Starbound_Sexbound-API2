@@ -70,7 +70,11 @@ function Sexbound.Actor.Moan:onUpdateSexState(dt)
   self._timer.moan = self._timer.moan + dt
   
   if self:getTimer("moan") >= self:getCooldown() then
-    Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:Moan:Moan", {})
+    local actor = self:getParent()
+  
+    local emote = actor:getPlugins("emote")
+  
+    Sexbound.Messenger.get("main"):send(self, emote, "Sexbound:Moan:Moan", {})
 
     -- Play a random sound effect.
     self:playRandom()

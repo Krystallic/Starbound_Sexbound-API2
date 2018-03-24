@@ -1,19 +1,19 @@
 --- Sexbound.NPC Module.
 -- @module Sexbound.NPC
 
-require "/scripts/vec2.lua"
+require "/scripts/vec2.lua" -- Chucklefish's vector script
 
-require "/scripts/sexbound/lib/sexbound/util.lua"
+require "/scripts/sexbound/util.lua"
 
 Sexbound.NPC = {}
-Sexbound.NPC.__index = Sexbound.NPC
+Sexbound.NPC_mt = { __index = Sexbound.NPC }
 
 --- Hook (init)
 Sexbound_Old_Init = init
 function init()
   Sexbound_Old_Init()
 
-  self.sb_npc = Sexbound.NPC.new()
+  self.sb_npc = Sexbound.NPC:new()
 end
 
 --- Hook (update)
@@ -24,11 +24,11 @@ function update(dt)
   self.sb_npc:update(dt)
 end
 
-function Sexbound.NPC.new()
+function Sexbound.NPC:new()
   local self = setmetatable({
     _hasSetupActor = false,
     _mindControl = {damageSourceKind = "sexbound_mind_control"}
-  }, Sexbound.NPC)
+  }, Sexbound.NPC_mt)
 
   self:restorePreviousStorage()
   

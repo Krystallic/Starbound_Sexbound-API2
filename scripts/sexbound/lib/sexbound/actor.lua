@@ -195,6 +195,10 @@ function Sexbound.Actor:getRole()
   return self._role
 end
 
+function Sexbound.Actor:addStatus(name)
+  table.insert(self._config.statusList, name)
+end
+
 function Sexbound.Actor:hasStatus(name)
   for _,status in ipairs(self._config.statusList) do
     if (status == name) then
@@ -211,10 +215,6 @@ function Sexbound.Actor:findStatus(name)
       return name
     end
   end
-end
-
-function Sexbound.Actor:addStatus(name)
-  table.insert(self._config.statusList, name)
 end
 
 function Sexbound.Actor:removeStatus(name)

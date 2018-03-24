@@ -177,7 +177,11 @@ function Sexbound.Actor.SexTalk:sayRandom(...)
   if type(dialog) == "string" then
     object.say(dialog)
     
-    Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:SexTalk:Talk", {})
+    local actor = self:getParent()
+    
+    local emote = actor:getPlugins("emote")
+    
+    Sexbound.Messenger.get("main"):send(self, emote, "Sexbound:SexTalk:Talk", {})
   end
 end
 
