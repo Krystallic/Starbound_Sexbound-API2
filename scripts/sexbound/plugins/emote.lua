@@ -158,5 +158,7 @@ end
 
 --- Uninitializes this instance.
 function Sexbound.Actor.Emote:uninit()
+  self:getLog():info("Uniniting.")
+
   self:showNone()
 end

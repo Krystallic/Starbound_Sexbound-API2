@@ -436,9 +436,9 @@ function Sexbound.Actor:resetGlobalAnimatorTags()
   animator.setGlobalTag("part-" .. role .. "-facial-hair", default)
   animator.setGlobalTag("part-" .. role .. "-facial-mask", default)
   
-  animator.setGlobalTag(role .. "-bodyDirectives", "")
-  animator.setGlobalTag(role .. "-emoteDirectives", "")
-  animator.setGlobalTag(role .. "-hairDirectives", "")
+  --animator.setGlobalTag(role .. "-bodyDirectives", "")
+  --animator.setGlobalTag(role .. "-emoteDirectives", "")
+  --animator.setGlobalTag(role .. "-hairDirectives", "")
 end
 
 --- Rotates a specified animator part.
@@ -474,6 +474,14 @@ function Sexbound.Actor:setup(actor)
   
   self._config.statusList = {"default"}
   
+  if self:getEntityType() == "player" then
+    local entityId = self:getEntityId()
+  
+    Sexbound.Util.sendMessage(entityId, "sexbound-show-ui", {
+      controllerId = self:getParent():getEntityId()
+    })
+  end
+  
   self:setActorNumber(self:getParent():getActorCount())
 end
 
@@ -498,11 +506,9 @@ end
 
 --- Uninitializes this instance.
 function Sexbound.Actor:uninit()
-  for _,plugin in ipairs(self:getPlugins()) do
-    if type(plugin.uninit) == "function" then
-      plugin:uninit()
-    end
-  end
+  util.each(self:getPlugins(), function(index, plugin)
+    plugin:uninit()
+  end)
 end
 
 --- Processes gender value.

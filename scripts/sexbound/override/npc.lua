@@ -13,7 +13,11 @@ Sexbound_Old_Init = init
 function init()
   Sexbound_Old_Init()
 
-  self.sb_npc = Sexbound.NPC:new()
+  if not pcall(function()
+    self.sb_npc = Sexbound.NPC:new()
+  end) then
+    sb.logInfo("There was an error in the Sexbound file that overrides NPC.")
+  end
 end
 
 --- Hook (update)
@@ -21,7 +25,11 @@ Sexbound_Old_Update = update
 function update(dt)
   Sexbound_Old_Update(dt)
   
-  self.sb_npc:update(dt)
+  if not pcall(function()
+    self.sb_npc:update(dt)
+  end) then
+    sb.logInfo("There was an error in the Sexbound file that overrides NPC.")
+  end
 end
 
 function Sexbound.NPC:new()
@@ -30,6 +38,10 @@ function Sexbound.NPC:new()
     _mindControl = {damageSourceKind = "sexbound_mind_control"}
   }, Sexbound.NPC_mt)
 
+  self:initMessageHandlers()
+  
+  self:initStatusProperties()
+  
   self:restorePreviousStorage()
   
   return self
@@ -152,6 +164,14 @@ function Sexbound.NPC:giveBirth(birthData)
   world.spawnNpc(entity.position(), npc.species(), npc.npcType(), mcontroller.facingDirection(), nil, parameters) -- level 1
 end
 
+function Sexbound.NPC:initStatusProperties()
+  status.setStatusProperty("sexbound_mind_control", false)
+
+  status.setStatusProperty("sexbound_sex", false)
+
+  status.setStatusProperty("sexbound_abortion", false)
+end
+
 function Sexbound.NPC:hasOwnerUuid()
   if storage and storage.ownerUuid then return true end
   return false
@@ -169,10 +189,6 @@ function Sexbound.NPC:initMessageHandlers()
   
   message.setHandler("sexbound-sync-storage", function(_,_,args)
     storage = util.mergeTable(storage, args or {})
-  end)
- 
-  message.setHandler("sexbound-ui-dismiss", function(_,_,args)
-    -- Do something when UI says player has dismissed it.
   end)
 end
 

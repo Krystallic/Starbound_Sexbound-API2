@@ -12,7 +12,7 @@ require "/scripts/sexbound/v2/api/nodes.lua"
 require "/scripts/sexbound/v2/api/statemachine.lua"
 
 Sexbound.API.init = function()
-  self._sexbound = Sexbound:new()
+  self._sexbound = Sexbound.new()
 end
 
 Sexbound.API.getConfig = function()

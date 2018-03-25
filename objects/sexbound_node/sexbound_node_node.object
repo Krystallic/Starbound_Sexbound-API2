@@ -33,8 +33,6 @@
       "frames" : 1,
       "animationCycle" : 1.0,
 
-      "renderLayer" : "player",
-      
       "spaceScan" : 0.1,
       
       "anchors" : [ "bottom" ]

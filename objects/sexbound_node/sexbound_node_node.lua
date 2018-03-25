@@ -1,6 +1,8 @@
 require "/scripts/sexbound/util.lua"
 
 function init()
+  object.setInteractive(config.getParameter("interactive", false))
+
   -- Handle Setup Actor
   message.setHandler("sexbound-setup-actor", function(_,_,args)
     Sexbound.Util.sendMessage(config.getParameter("controllerId"), "sexbound-setup-actor", args)

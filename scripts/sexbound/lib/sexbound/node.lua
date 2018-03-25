@@ -12,6 +12,7 @@ Sexbound.Node_mt = {__index = Sexbound.Node}
 function Sexbound.Node.new(parent, tilePosition, placeObject)
   local self = setmetatable({
     _controllerId = parent:getEntityId(),
+    _controllerUniqueId = parent:getUniqueId(),
     _logPrefix    = "NODE",
     _name         = "sexbound_node_node",
     _parent       = parent,
@@ -61,7 +62,7 @@ function Sexbound.Node:create(tilePosition)
   self._uniqueId = sb.makeUuid()
 
   local params = {
-    controllerId = self._controllerId,
+    controllerId = self._controllerUniqueId,
     uniqueId     = self._uniqueId
   }
   
@@ -90,7 +91,7 @@ function Sexbound.Node:id()
 end
 
 --- Returns the uniqueId for this Node's object.
-function Sexbound.Node:uniqueId()
+function Sexbound.Node:getUniqueId()
   return self._uniqueId
 end
 
@@ -111,6 +112,6 @@ end
 --- Uninitializes this instance.
 function Sexbound.Node:uninit()
   if self:id() then
-    Sexbound.Util.sendMessage(self:id(), "node-uninit")
+    Sexbound.Util.sendMessage(self:id(), "sexbound-node-uninit")
   end
 end

@@ -18,7 +18,7 @@ require "/scripts/sexbound/lib/sexbound/positions.lua"
 require "/scripts/sexbound/lib/sexbound/statemachine.lua"
 
 --- Returns a reference to a new instance of this class.
-function Sexbound:new()
+function Sexbound.new()
   local self = setmetatable({
     _logPrefix = "MAIN",
     _actors = {},
@@ -28,6 +28,16 @@ function Sexbound:new()
     _nodes = {},
     _nodeCount = 0
   }, Sexbound_mt)
+
+  if not storage.uuid then
+    storage.uuid = config.getParameter("uniqueId", storage.uuid) or sb.makeUuid()
+    
+    object.setUniqueId(storage.uuid)
+  end
+
+  object.setInteractive(config.getParameter("interactive", false))
+  
+  self._uniqueId = storage.uuid
   
   -- Load global config
   self._config = self:loadConfig()
@@ -274,12 +284,10 @@ function Sexbound:updateAnimationRate(dt)
 end
 
 function Sexbound:uninit()
-  while self._nodeCount > 0 do
-    self._nodes[1]:uninit()
+  for i,node in ipairs(self._nodes) do
+    node:uninit()
   
-    table.remove(self._nodes, 1)
-  
-    self._nodeCount = self._nodeCount - 1
+    table.remove(self._nodes, i)
   end
 end
 
@@ -355,4 +363,8 @@ end
 
 function Sexbound:getStateMachine()
   return self._stateMachine
+end
+
+function Sexbound:getUniqueId()
+  return self._uniqueId
 end

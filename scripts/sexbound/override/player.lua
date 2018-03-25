@@ -13,7 +13,11 @@ Sexbound_Old_Init = init
 function init()
   Sexbound_Old_Init()
 
-  self.sb_player = Sexbound.Player:new()
+  if not pcall(function()
+    self.sb_player = Sexbound.Player:new()
+  end) then
+    sb.logInfo("There was an error in the Sexbound file that overrides player.")
+  end
 end
 
 --- Hook (update)
@@ -21,7 +25,11 @@ Sexbound_Old_Update = update
 function update(dt)
   Sexbound_Old_Update(dt)
   
-  self.sb_player:update(dt)
+  if not pcall(function()
+    self.sb_player:update(dt)
+  end) then
+    sb.logInfo("There was an error in the Sexbound file that overrides player.")
+  end
 end
 
 function Sexbound.Player:new()
@@ -107,17 +115,20 @@ end
 function Sexbound.Player:initMessageHandlers()
   message.setHandler("sexbound-lounge", function(_, _, args)
     local anchor = 0
+
+    self._loungeId = args.loungeId
     
-    -- Lounge the player in the object's first anchor.
-    player.lounge(args.loungeId, anchor)
-    
+    player.lounge(self._loungeId, anchor) -- Lounge the player in the object's first anchor
+  end)
+  
+  message.setHandler("sexbound-show-ui", function(_, _, args)
     self._controllerId = args.controllerId
-    
+  
     -- Show the Sexbound UI.
     local config = root.assetJson( "/interface/sexbound/default.config" )
   
     config.config.controllerId = self._controllerId
-  
+    
     player.interact("ScriptPane", config)
   end)
   
@@ -279,7 +290,7 @@ function Sexbound.Player:restorePreviousStorage()
 end
 
 function Sexbound.Player:setupActor()
-  local msgId = self._controllerId or self._loungeId
+  local msgId = self._loungeId
 
   if not msgId then return end
   
