@@ -83,11 +83,19 @@ function Sexbound.Actor.Emote:update(dt)
   end
 end
 
+function Sexbound.Actor.Emote:onEnterIdleState()
+  self:showNone()
+end
+
 function Sexbound.Actor.Emote:onUpdateIdleState(dt)
   self:update(dt)
 end
 
-function Sexbound.Actor.Emote:onExitIdleState(dt)
+function Sexbound.Actor.Emote:onExitIdleState()
+  self:showNone()
+end
+
+function Sexbound.Actor.Emote:onEnterSexState()
   self:showNone()
 end
 
@@ -95,8 +103,12 @@ function Sexbound.Actor.Emote:onUpdateSexState(dt)
   self:update(dt)
 end
 
-function Sexbound.Actor.Emote:onExitSexState(dt)
+function Sexbound.Actor.Emote:onExitSexState()
   self:showNone()
+end
+
+function Sexbound.Actor.Emote:onEnterClimaxState()
+  self:showHappy()
 end
 
 function Sexbound.Actor.Emote:onUpdateClimaxState(dt)

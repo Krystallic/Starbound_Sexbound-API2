@@ -106,95 +106,6 @@ function Sexbound.Actor:onUpdateSexState(dt)
   end)
 end
 
---- Returns this Actor's current number.
-function Sexbound.Actor:getActorNumber()
-  return self._actorNumber
-end
-
-function Sexbound.Actor:setActorNumber(value)
-  self._actorNumber = value
-end
-
-function Sexbound.Actor:getConfig()
-  return self._config
-end
-
-function Sexbound.Actor:getLogPrefix()
-  return self._logPrefix
-end
-
-function Sexbound.Actor:getLog()
-  return self._log
-end
-
-function Sexbound.Actor:getParent()
-  return self._parent
-end
-
-function Sexbound.Actor:getName()
-  return self._config.identity.name
-end
-
-function Sexbound.Actor:getPluginMgr()
-  return self._pluginmgr
-end
-
-function Sexbound.Actor:getPlugins(name)
-  if name then return self:getPluginMgr():getPlugins(name) end
-
-  return self:getPluginMgr():getPlugins()
-end
-
---- Returns this Actor's entity type.
-function Sexbound.Actor:getEntityType()
-  return self:getConfig().entityType
-end
-
---- Returns a validated facial hair folder name.
-function Sexbound.Actor:getFacialHairFolder()
-  return self:getIdentity("facialHairFolder") or self:getIdentity("facialHairGroup") or ""
-end
-
---- Returns a validated facial hair type.
-function Sexbound.Actor:getFacialHairType()
-  return self:getIdentity("facialHairType") or "1"
-end
-
---- Returns a validated facial mask folder name.
-function Sexbound.Actor:getFacialMaskFolder()
-  return self:getIdentity("facialMaskFolder") or self:getIdentity("facialMaskGroup") or ""
-end
-
---- Returns a validated facial mask type.
-function Sexbound.Actor:getFacialMaskType()
-  return self:getIdentity("facialMaskType") or "1"
-end
-
---- Returns this Actor's gender.
-function Sexbound.Actor:getGender()
-  return self:getIdentity().gender
-end
-
---- Returns a validated hair folder name.
-function Sexbound.Actor:getHairFolder()
-  return self:getIdentity().hairFolder or self:getIdentity("hairGroup") or "hair"
-end
-
---- Returns a validated hair type.
-function Sexbound.Actor:getHairType()
-  return self:getIdentity("hairType") or "1"
-end
-
---- Returns this Actor's id.
-function Sexbound.Actor:getEntityId()
-  return self:getConfig().id
-end
-
---- Returns this Actor's current role.
-function Sexbound.Actor:getRole()
-  return self._role
-end
-
 function Sexbound.Actor:addStatus(name)
   table.insert(self._config.statusList, name)
 end
@@ -331,9 +242,10 @@ function Sexbound.Actor:reset()
   
   -- Set the directives.
   local directives = {
-    body = self:getIdentity("bodyDirectives") or "",
-    emote = self:getIdentity("emoteDirectives") or "",
-    hair = self:getIdentity("hairDirectives") or "",
+    body       = self:getIdentity("bodyDirectives") or "",
+    -- brightness = self:getParent():getConfig()
+    emote      = self:getIdentity("emoteDirectives") or "",
+    hair       = self:getIdentity("hairDirectives") or "",
     facialHair = self:getIdentity("facialHairDirectives") or "",
     facialMask = self:getIdentity("facialMaskDirectives") or ""
   }
@@ -533,4 +445,95 @@ function Sexbound.Actor:validateSpecies(species)
   if not validatedSpecies then
     return self:getParent():getConfig().sex.defaultPlayerSpecies -- default is 'human'
   else return validatedSpecies end
+end
+
+-- Getters / Setters
+
+--- Returns this Actor's current number.
+function Sexbound.Actor:getActorNumber()
+  return self._actorNumber
+end
+
+function Sexbound.Actor:setActorNumber(value)
+  self._actorNumber = value
+end
+
+function Sexbound.Actor:getConfig()
+  return self._config
+end
+
+function Sexbound.Actor:getLogPrefix()
+  return self._logPrefix
+end
+
+function Sexbound.Actor:getLog()
+  return self._log
+end
+
+function Sexbound.Actor:getName()
+  return self:getConfig().identity.name
+end
+
+function Sexbound.Actor:getParent()
+  return self._parent
+end
+
+function Sexbound.Actor:getPluginMgr()
+  return self._pluginmgr
+end
+
+function Sexbound.Actor:getPlugins(name)
+  if name then return self:getPluginMgr():getPlugins(name) end
+
+  return self:getPluginMgr():getPlugins()
+end
+
+--- Returns this Actor's entity type.
+function Sexbound.Actor:getEntityType()
+  return self:getConfig().entityType
+end
+
+--- Returns a validated facial hair folder name.
+function Sexbound.Actor:getFacialHairFolder()
+  return self:getIdentity("facialHairFolder") or self:getIdentity("facialHairGroup") or ""
+end
+
+--- Returns a validated facial hair type.
+function Sexbound.Actor:getFacialHairType()
+  return self:getIdentity("facialHairType") or "1"
+end
+
+--- Returns a validated facial mask folder name.
+function Sexbound.Actor:getFacialMaskFolder()
+  return self:getIdentity("facialMaskFolder") or self:getIdentity("facialMaskGroup") or ""
+end
+
+--- Returns a validated facial mask type.
+function Sexbound.Actor:getFacialMaskType()
+  return self:getIdentity("facialMaskType") or "1"
+end
+
+--- Returns this Actor's gender.
+function Sexbound.Actor:getGender()
+  return self:getIdentity().gender
+end
+
+--- Returns a validated hair folder name.
+function Sexbound.Actor:getHairFolder()
+  return self:getIdentity().hairFolder or self:getIdentity("hairGroup") or "hair"
+end
+
+--- Returns a validated hair type.
+function Sexbound.Actor:getHairType()
+  return self:getIdentity("hairType") or "1"
+end
+
+--- Returns this Actor's id.
+function Sexbound.Actor:getEntityId()
+  return self:getConfig().id
+end
+
+--- Returns this Actor's current role.
+function Sexbound.Actor:getRole()
+  return self._role
 end

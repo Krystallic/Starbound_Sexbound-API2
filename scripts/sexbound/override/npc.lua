@@ -221,9 +221,6 @@ function Sexbound.NPC:setupActor(store)
     
     identity = npc.humanoidIdentity(),
     
-    -- Store the Player / NPC's name.
-    name = npc.humanoidIdentity().name,    
-    
     type = npc.npcType(),
     
     seed = npc.seed(),

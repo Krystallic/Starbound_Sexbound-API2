@@ -170,7 +170,7 @@ function Sexbound.Player:buildIdentityFromPortrait(portraitData)
   }
 
   -- Store player's name
-  identity.name    = world.entityName( player.id() )
+  identity.name    = world.entityName( player.id() ) or "Unknown"
   
   -- Store player's gender
   identity.gender  = player.gender()
@@ -299,9 +299,6 @@ function Sexbound.Player:setupActor()
   local actorData = {
     -- Store id
     id = player.id(),
-    
-    -- Store the Player / NPC's name
-    name = world.entityName( player.id() ),
     
     -- Store the Player's current storage table
     storage = storage,
