@@ -8,12 +8,15 @@ Sexbound.Actor.PluginMgr_mt = { __index = Sexbound.Actor.PluginMgr }
 function Sexbound.Actor.PluginMgr:new( parent )
   local self = setmetatable({
     _logPrefix = "PMGR",
-    _parent = parent
+    _parent = parent,
+    _root   = parent:getParent()
   }, Sexbound.Actor.PluginMgr_mt )
   
   self._config  = self:loadConfig()
   
   self._plugins = self:loadPlugins()
+  
+  self._log = Sexbound.Log:new(self._logPrefix, self._root:getConfig())
   
   return self
 end
@@ -70,6 +73,10 @@ end
 
 function Sexbound.Actor.PluginMgr:getLoaded(name)
   return self:getConfig()[name].loaded
+end
+
+function Sexbound.Actor.PluginMgr:getLog()
+  return self._log
 end
 
 function Sexbound.Actor.PluginMgr:getParent()
