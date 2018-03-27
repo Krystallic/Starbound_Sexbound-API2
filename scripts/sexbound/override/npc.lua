@@ -1,12 +1,12 @@
 --- Sexbound.NPC Module.
 -- @module Sexbound.NPC
 
-require "/scripts/vec2.lua" -- Chucklefish's vector script
-
-require "/scripts/sexbound/util.lua"
+require "/scripts/sexbound/override/common.lua"
 
 Sexbound.NPC = {}
 Sexbound.NPC_mt = { __index = Sexbound.NPC }
+
+SexboundErrorCounter = 0
 
 --- Hook (init)
 Sexbound_Old_Init = init
@@ -25,15 +25,20 @@ Sexbound_Old_Update = update
 function update(dt)
   Sexbound_Old_Update(dt)
   
-  if not pcall(function()
-    self.sb_npc:update(dt)
-  end) then
-    sb.logInfo("There was an error in the Sexbound file that overrides NPC.")
+  if SexboundErrorCounter < 5 then
+    if not pcall(function()
+      self.sb_npc:update(dt)
+    end) then
+      SexboundErrorCounter = SexboundErrorCounter + 1
+      
+      sb.logInfo("There was an error in the Sexbound file that overrides NPC.")
+    end
   end
 end
 
 function Sexbound.NPC:new()
   local self = setmetatable({
+    _common = Sexbound.Common:new(),
     _hasSetupActor = false,
     _mindControl = {damageSourceKind = "sexbound_mind_control"}
   }, Sexbound.NPC_mt)
@@ -45,6 +50,11 @@ function Sexbound.NPC:new()
   self:restorePreviousStorage()
   
   return self
+end
+
+
+function Sexbound.NPC:getCommon()
+  return self._common
 end
 
 function Sexbound.NPC:update(dt)
@@ -78,7 +88,7 @@ function Sexbound.NPC:update(dt)
   -- If the status property 'sexbound_sex' is cleared.
   if status.statusProperty("sexbound_sex") ~= true then
     if self._hasStoredActor and not self._isTransformed then
-      Sexbound.Util.sendMessage( self._loungeId, "main-remove-actor", entity.id() )
+      Sexbound.Util.sendMessage( self._loungeId, "sexbound-remove-actor", entity.id() )
       
       self._hasStoredActor = false
     end
@@ -97,42 +107,59 @@ function Sexbound.NPC:update(dt)
 end
 
 function Sexbound.NPC:announceBirth()
-  local birthData  = status.statusProperty("sexbound_birthday")
+  local common = self:getCommon()
   
-  local motherName = birthData.motherName  or "UNKNOWN"
-  local myName     = npc.humanoidIdentity().name or "UNKNOWN"
-  local myGender   = npc.humanoidIdentity().gender
+  local notifications = common:getNotifications() or {}
+
+  local plugins  = notifications.plugins or {}
+  local pregnant = plugins.pregnant or {}
+
+  local message = pregnant.birthMessage1 or ""
   
-  local text = "^green;" .. motherName .. "^reset; has just given birth to a "
+  local birthData = status.statusProperty("sexbound_birthday")
   
-  local altText = "You have just given birth to a "
+  local babyName = npc.humanoidIdentity().name or "UNKNOWN"
+  babyName = "^green;" .. babyName .. "^reset;"
   
-  if myGender == "male" then
-    text = text .. "^blue;boy^reset; named ^green;" .. myName .. "^reset;!"
-    
-    altText = altText .. "^blue;boy^reset; named ^green;" .. myName .. "^reset;!"
+  local babyGender = npc.humanoidIdentity().gender
+  
+  if babyGender == "male" then
+    babyGender = "^blue;boy^reset;"
   end
   
-  if myGender == "female" then
-    text = text .. "^pink;girl^reset; named ^green;" .. myName .. "^reset;!"
-    
-    altText = altText .. "^pink;girl^reset; named ^green;" .. myName .. "^reset;!"
+  if babyGender == "female" then
+    babyGender = "^pink;girl^reset;"
   end
+  
+  message = util.replaceTag(message, "babyname", babyName)
+  
+  message = util.replaceTag(message, "babygender", babyGender)
   
   if birthData.playerId then
     world.sendEntityMessage(birthData.playerId, "queueRadioMessage", {
       messageId = "Sexbound_Event:Birth",
-      unique = false,
-      text = altText
+      unique    = false,
+      text      = message
     })
   end
+  
+  local motherName = birthData.motherName or "UNKNOWN"
+  motherName = "^green;" .. motherName .. "^reset;"
+  
+  message = pregnant.birthMessage2 or ""
+  
+  message = util.replaceTag(message, "name", motherName)
+  
+  message = util.replaceTag(message, "babyname", babyName)
+  
+  message = util.replaceTag(message, "babygender", babyGender)
   
   for _,playerId in ipairs(world.players()) do
     if playerId ~= birthData.playerId then
       world.sendEntityMessage(playerId, "queueRadioMessage", {
         messageId = "Sexbound_Event:Birth",
-        unique = false,
-        text = text
+        unique    = false,
+        text      = message
       })
     end
   end
@@ -143,25 +170,22 @@ end
 
 --- Spawns a new NPC.
 function Sexbound.NPC:giveBirth(birthData)
-  -- Make sure the gender has been set to a random gender ('male' or 'female').
-  birthData.birthGender = birthData.birthGender or util.randomChoice({"male", "female"})
-  
   -- Make sure that the mother's name is set to the correct player's name.
   birthData.motherName  = birthData.motherName  or npc.humanoidIdentity().name
   
   local parameters = {}
   
-  parameters.identity = {}
-  parameters.identity.gender = birthData.birthGender
   parameters.statusControllerSettings = {
     statusProperties = {
       sexbound_birthday = birthData
     }
   }
   
-  parameters.uniqueId = sb.makeUuid()
+  local level = 1
   
-  world.spawnNpc(entity.position(), npc.species(), npc.npcType(), mcontroller.facingDirection(), nil, parameters) -- level 1
+  parameters.uniqueId = sb.makeUuid()
+
+  world.spawnNpc(entity.position(), npc.species(), npc.npcType(), level, nil, parameters) -- level 1
 end
 
 function Sexbound.NPC:initStatusProperties()

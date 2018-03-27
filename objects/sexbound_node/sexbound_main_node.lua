@@ -11,7 +11,9 @@ function init()
   
   storage.mindControl = config.getParameter("mindControl")
   
-  Sexbound.API.Nodes.becomeNode()
+  local sitPosition   = config.getParameter("sitPosition")
+  
+  Sexbound.API.Nodes.becomeNode(sitPosition)
 end
 
 function update(dt)

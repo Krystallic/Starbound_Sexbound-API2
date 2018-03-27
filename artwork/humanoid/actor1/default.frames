@@ -13,7 +13,12 @@
   "aliases" : {
     "default.default" : "idle.1",
     "default.1"       : "idle.1",
+    "idle.default"    : "idle.1",
     
+    "idle_laying.1"       : "cowgirl.1",
+    "idle_laying.default" : "cowgirl.1",
+    
+    "position1.default" : "behind.1",
     "position1.1" : "behind.1",
     "position1.2" : "behind.2",
     "position1.3" : "behind.3",
@@ -22,6 +27,7 @@
     "position1.6" : "behind.2",
     "position1.7" : "behind.1",
     
+    "position2.default" : "doggy.1",
     "position2.1" : "doggy.1",
     "position2.2" : "doggy.2",
     "position2.3" : "doggy.3",
@@ -30,6 +36,7 @@
     "position2.6" : "doggy.2",
     "position2.7" : "doggy.1",
     
+    "position3.default" : "cowgirl.1",
     "position3.1" : "cowgirl.1",
     "position3.2" : "cowgirl.2",
     "position3.3" : "cowgirl.3",
@@ -38,13 +45,19 @@
     "position3.6" : "cowgirl.2",
     "position3.7" : "cowgirl.1",
     
+    "position1-climax.default" : "behind.4",
     "position1-climax.1" : "behind.4",
+    "position1-reset.default" : "behind.4",
     "position1-reset.1"  : "behind.4",
     
+    "position2-climax.default" : "doggy.4",
     "position2-climax.1" : "doggy.4",
+    "position2-reset.default" : "doggy.4",
     "position2-reset.1" : "doggy.4",
     
+    "position3-climax.default" : "cowgirl.4",
     "position3-climax.1" : "cowgirl.4",
+    "position3-reset.default" : "cowgirl.4",
     "position3-reset.1" : "cowgirl.4"
   }
 }

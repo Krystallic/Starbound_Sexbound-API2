@@ -147,7 +147,7 @@ function Sexbound.Actor.Pregnant:lastCurrentPregnancy()
 end
 
 --- Makes this instance's Actor become pregnant.
-function Sexbound.Actor.Pregnant:becomePregnant()
+function Sexbound.Actor.Pregnant:becomePregnant(otherActor)
   self:getLog():info("Actor has been impregnanted: " .. self:getParent():getName())
 
   local birthDate, dayCount = self:createRandomBirthDate()
@@ -168,59 +168,77 @@ function Sexbound.Actor.Pregnant:becomePregnant()
   
   self:getParent():overwriteStorage("pregnant", currentPregnancies)
   
-  -- Update reference to pregnancy data
-  self._currentPregnancies = self:getParent():getStorage().pregnant
-
-  -- Send players a message to highlight the new pregnancy
-  self:sendSuccessMessage()
+  self._currentPregnancies = self:getParent():getStorage("pregnant") or {}
+  
+  if not isEmpty(self._currentPregnancies) then
+    self:sendSuccessMessage(otherActor)
+  end
 end
 
 -- Use radio broadcast to inform the player of pregnancy.
-function Sexbound.Actor.Pregnant:sendSuccessMessage()
+function Sexbound.Actor.Pregnant:sendSuccessMessage(otherActor)
+  local notifications = self:getConfig().notifications
+  local langcode = self:getRoot():getLanguageSettings().languageCode
+  notifications = util.replaceTag(notifications, "langcode", langcode)
+  
+  if not pcall(function()
+    notifications = root.assetJson(notifications)
+  end) then
+    self:getLog():error("Unable to load notifications dialog!")
+    return
+  end
+
+  notifications = notifications.plugins  or {}
+  notifications = notifications.pregnant or {}
+  
   local messageId = "Pregnant:Success"
 
-  local strDayCount = "day."
-  
   local lastCurrentPregnancy = self:lastCurrentPregnancy()
   
   local dayCount = lastCurrentPregnancy.dayCount
   
-  local otherActor = nil
+  local message = notifications.impregnatedMessage1
   
-  if dayCount > 1 then strDayCount = "days." end
-  
-  for _,actor in ipairs(self:getRoot():getActors()) do
-    if actor:getEntityId() ~= self:getParent():getEntityId() then
-      -- Set reference to other Actor
-      otherActor = actor
-      
-      -- Send message when the other actor is a player
-      if otherActor:getEntityType() == "player" then
-        local text = "You just impregnanted ^green;" .. self:getParent():getIdentity("name") .. 
-        "^reset;, and she will give birth in ^red;" .. dayCount .. "^reset; " .. 
-        strDayCount
-        
-        world.sendEntityMessage(actor:getEntityId(), "queueRadioMessage", {
-          messageId = messageId,
-          unique    = false,
-          text      = text
-        })
-      end
-    end
+  if dayCount > 1 then
+    message = notifications.impregnatedMessage2
   end
   
-  -- Send Radio Message to the parent Actor if they are not an NPC.
-  if self:getParent():getEntityType() == "player" then
-    local otherActorName = otherActor:getIdentity("name") or "UNKNOWN"
+  local actor = self:getParent()
   
-    local text = "Oppsy! You were just impregnated by ^green;" ..  otherActorName ..
-    "^reset;, and you will give birth in ^red;" .. dayCount .. "^reset; " ..
-    strDayCount
+  local name = "^green;" .. actor:getName() .. "^reset;"
   
-    world.sendEntityMessage(self:getParent():getEntityId(), "queueRadioMessage", {
+  local dayCountText = "^red;" .. dayCount .. "^reset;"
+  
+  message = util.replaceTag(message, "name", name)
+  
+  message = util.replaceTag(message, "daycount", dayCountText)
+
+  if otherActor:getEntityType() == "player" then
+    world.sendEntityMessage(otherActor:getEntityId(), "queueRadioMessage", {
       messageId = messageId,
       unique    = false,
-      text      = text
+      text      = message
+    })
+  end
+  
+  message = notifications.impregnatedMessage3
+  
+  if dayCount > 1 then
+    message = notifications.impregnatedMessage4
+  end
+  
+  local name = "^green;" .. otherActor:getName() .. "^reset;"
+  
+  message = util.replaceTag(message, "name", name)
+  
+  message = util.replaceTag(message, "daycount", dayCountText)
+  
+  -- Send Radio Message to the parent Actor if they are not an NPC.
+  if actor:getEntityType() == "player" then
+    world.sendEntityMessage(actor:getEntityId(), "queueRadioMessage", {
+      messageId = messageId,
+      unique    = false,
+      text      = message
     })
   end
 end
@@ -235,7 +253,7 @@ function Sexbound.Actor.Pregnant:tryBecomePregnant(otherActor)
   -- Check if mate must be compatible to become pregnant
   if self:isImpregnationPossible() and self:isOtherCompatible(otherActor) then
     if not self:isPregnant() or self:getConfig().allowMultipleImpregnations then
-      self:becomePregnant()
+      self:becomePregnant(otherActor)
     end
   end
 end

@@ -182,10 +182,6 @@ function Sexbound.Actor:applyTransformations()
     if positionConfig["rotate" .. part] ~= nil then
       self:rotatePart(part, positionConfig["rotate" .. part][actorNumber])
     end
-      
-    if positionConfig["flip" .. part] ~= nil and positionConfig["flip" .. part][actorNumber] == true then
-      self:flipPart(part)
-    end
   end
 end
 
@@ -212,7 +208,9 @@ end
 -- @param name
 -- @param value
 function Sexbound.Actor:overwriteStorage(name, value)
-  self._config.storage[name] = value
+  if self:getConfig().storage then
+    self:getConfig().storage[name] = value
+  end
   
   self:syncStorage()
 end
@@ -229,7 +227,7 @@ function Sexbound.Actor:reset()
   self:resetTransformations()
   
   self:applyTransformations()
-    
+  
   if self.sextalk then
     -- Refresh sextalk dialog pool.
     self.sextalk:refreshDialogPool()
@@ -243,28 +241,46 @@ function Sexbound.Actor:reset()
   -- Set the directives.
   local directives = {
     body       = self:getIdentity("bodyDirectives") or "",
-    -- brightness = self:getParent():getConfig()
+    head       = self:getIdentity("bodyDirectives") or "",
     emote      = self:getIdentity("emoteDirectives") or "",
     hair       = self:getIdentity("hairDirectives") or "",
     facialHair = self:getIdentity("facialHairDirectives") or "",
     facialMask = self:getIdentity("facialMaskDirectives") or ""
   }
-
+  
+  directives.body = directives.body .. directives.hair
+  directives.head = directives.head .. directives.hair
+  
+  local actorNumber = self:getActorNumber()
+  local role = self:getRole()
+  
+  -- Apply flip to head directives
+  if type(positionConfig.flipHead) == "table" and positionConfig.flipHead[actorNumber] == true then
+    util.each({"head", "emote", "hair", "facialHair", "facialMask"}, function(index, directive)
+      directives[directive] = directives[directive] .. "?flipx"
+    end)
+  end
+  
+  -- Apply flip to body directives
+  if type(positionConfig.flipBody) == "table" and positionConfig.flipBody[actorNumber] == true then
+    util.each({"body"}, function(index, directive)
+      directives[directive] = directives[directive] .. "?flipx"
+    end)
+  end
+  
   -- Validate and set the actor's gender.
   local gender  = self:validateGender(self:getGender())
   
   -- Validate and set the actor's species.
   local species = self:validateSpecies(self:getSpecies())
 
-  local animationState = positionConfig.animationState or "idle"
+  local animationName = positionConfig.animationName
 
-  local role = self:getRole()
-  
   local parts = {}
   
-  parts.climax = "/artwork/humanoid/climax/climax-" .. animationState .. ".png:climax"
+  parts.climax = "/artwork/humanoid/climax/climax-" .. animationName .. ".png:climax"
   
-  parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. ".png:" .. animationState
+  parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. ".png:" .. animationName
   
   local plugins = self:getConfig().plugins
   
@@ -275,15 +291,15 @@ function Sexbound.Actor:reset()
     local canShow = pregnantConfig.enablePregnancyFetish
     
     if canShow and pregnant:isPregnant() then
-      parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. "_pregnant.png:" .. animationState
+      parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. "_pregnant.png:" .. animationName
     end
   end
   
-  parts.head = "/artwork/humanoid/" .. role .. "/" .. species .. "/head_" .. gender .. ".png:normal" .. directives.body .. directives.hair
+  parts.head     = "/artwork/humanoid/" .. role .. "/" .. species .. "/head_" .. gender .. ".png:normal" .. directives.head
   
-  parts.armFront = "/artwork/humanoid/" .. role .. "/" .. species .. "/arm_front.png:" .. animationState
+  parts.armFront = "/artwork/humanoid/" .. role .. "/" .. species .. "/arm_front.png:" .. animationName
   
-  parts.armBack  = "/artwork/humanoid/" .. role .. "/" .. species .. "/arm_back.png:" .. animationState
+  parts.armBack  = "/artwork/humanoid/" .. role .. "/" .. species .. "/arm_back.png:"  .. animationName
   
   if self:getIdentity("facialHairType") ~= "" then
     parts.facialHair = "/humanoid/" .. species .. "/" .. self:getIdentity("facialHairFolder") .. "/" .. self:getIdentity("facialHairType") .. ".png:normal" .. directives.facialHair
@@ -298,7 +314,7 @@ function Sexbound.Actor:reset()
   end
   
   if self:getIdentity("hairType") ~= nil then
-    parts.hair = "/humanoid/" .. species .. "/" .. self:getIdentity("hairFolder") .. "/" .. self:getIdentity("hairType") .. ".png:normal" .. directives.body .. directives.hair
+    parts.hair = "/humanoid/" .. species .. "/" .. self:getIdentity("hairFolder") .. "/" .. self:getIdentity("hairType") .. ".png:normal" .. directives.head
   else
     parts.hair = defaultPath
   end
@@ -397,9 +413,15 @@ function Sexbound.Actor:setup(actor)
   self:setActorNumber(self:getParent():getActorCount())
 end
 
---- Send message to update the Actor's storage.
+--- Use the Actor's entityId to Send message to update its storage.
 function Sexbound.Actor:syncStorage()
-  Sexbound.Util.sendMessage(self:getEntityId(), "sexbound-sync-storage", self:getStorage())
+  local entityId = self:getEntityId()
+  local exists = world.entityExists(entityId)
+  local storage = self:getStorage()
+  
+  if exists and type(storage) == "table" then
+    Sexbound.Util.sendMessage(entityId, "sexbound-sync-storage", storage)
+  end
 end
 
 --- Translates a specified animator part.

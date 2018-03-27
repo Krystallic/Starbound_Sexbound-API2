@@ -109,7 +109,7 @@ function Sexbound.Positions:loadIdlePositions(sexboundConfig)
   }
 
   for _,v in ipairs(sexboundConfig.position.idle or {}) do
-    local _configFileName = self._config[v].configFile or "/positions/idle.position"
+    local _configFileName = self._config[v].configFile or "/positions/idle.config"
   
     local _config = root.assetJson(_configFileName)
     
@@ -131,7 +131,7 @@ function Sexbound.Positions:loadSexPositions(sexboundConfig)
   }
 
   for _,v in ipairs(sexboundConfig.position.sex or {}) do
-    local _configFileName = self._config[v].configFile or "/positions/from_behind.position"
+    local _configFileName = self._config[v].configFile or "/positions/from_behind.config"
   
     local _config = root.assetJson(_configFileName)
   
@@ -169,6 +169,24 @@ function Sexbound.Positions:resetIndex()
   self._index = 1
 end
 
+function Sexbound.Positions:previousPosition()
+  self._index = self._index - 1
+  
+  self:switchPosition(self._index)
+end
+
+function Sexbound.Positions:nextPosition()
+  self._index = self._index + 1
+  
+  self:switchPosition(self._index)
+end
+
+function Sexbound.Positions:switchRandomSexPosition()
+  local randomIndex = util.randomIntInRange({1, self._positions.sex.count})
+  
+  self:switchPosition(randomIndex)
+end
+
 --- Switches to the specified position.
 -- @param index
 function Sexbound.Positions:switchPosition(index)
@@ -183,7 +201,8 @@ function Sexbound.Positions:switchPosition(index)
   self:nextSustainedInterval()
   
   -- Set new animation state to match the position.
-  animator.setAnimationState("main", self._positions.sex.positions[self._index]:getConfig().animationState)
+  animator.setAnimationState("props", self._positions.sex.positions[self._index]:getConfig().animationState)
+  animator.setAnimationState("actors", self._positions.sex.positions[self._index]:getConfig().animationState)
   
   -- Send undelayed broadcast
   Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:Positions:SwitchPosition", self:getCurrentPosition(), false)

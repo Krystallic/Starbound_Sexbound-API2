@@ -23,6 +23,7 @@
     "actor1-species"          : "human",
     "actor1-gender"           : "female",
     "actor1-bodyDirectives"   : "",
+    "actor1-headDirectives"   : "",
     "actor1-emoteDirectives"  : "",
     "actor1-hairDirectives"   : "",
     "actor1-hairFolder"       : "hair",
@@ -35,6 +36,7 @@
     "actor2-species"          : "human",
     "actor2-gender"           : "female",
     "actor2-bodyDirectives"   : "",
+    "actor2-headDirectives"   : "",
     "actor2-emoteDirectives"  : "",
     "actor2-hairDirectives"   : "",
     "actor2-hairFolder"       : "hair",
@@ -47,9 +49,11 @@
 
   "animatedParts" : {
     "stateTypes" : {
-      "main" : {
-        "properties" :{},
-        "default" : "idle",
+      "props" : {
+        "default" : "none",
+        "properties" : {
+          "immediateSoundRangeMultiplier" : 0.2
+        },
         "states" : {
           "none" : {},
           
@@ -58,24 +62,102 @@
             "cycle"  : 1,
             "mode"   : "loop"
           },
-                    
+          
+          "idle_laying" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position1" : {
+            "frames" : 7,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position1-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position1-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position2" : {
+            "frames" : 7,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position2-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position2-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position3" : {
+            "frames" : 7,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position3-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position3-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          }
+        }
+      },
+      
+      "actors" : {
+        "default" : "none",
+        "properties" : {
+          "immediateSoundRangeMultiplier" : 0.2
+        },
+        "states" : {
+          "none" : {},
+          
+          "idle" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+                
+          "idle_laying" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+                
           "position1" : {
             "frames" : 7,
             "cycle"  : 1,
             "mode"   : "loop",
-            "properties" : {
-              "immediateSoundRangeMultiplier" : 0.2
-            },
             "frameProperties" : {
               "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
           "position1-climax" : {
-            "frames" : 12,
-            "cycle" : 4,
-            "mode" : "transition",
-            "transition" : "position1-reset"
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "position1-reset" : {
@@ -88,19 +170,15 @@
             "frames" : 7,
             "cycle"  : 1,
             "mode"   : "loop",
-            "properties" : {
-              "immediateSoundRangeMultiplier" : 0.2
-            },
             "frameProperties" : {
               "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
           "position2-climax" : {
-            "frames" : 12,
-            "cycle" : 4,
-            "mode" : "transition",
-            "transition" : "position2-reset"
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "position2-reset" : {
@@ -113,19 +191,15 @@
             "frames" : 7,
             "cycle"  : 1,
             "mode"   : "loop",
-            "properties" : {
-              "immediateSoundRangeMultiplier" : 0.2
-            },
             "frameProperties" : {
               "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
           "position3-climax" : {
-            "frames" : 12,
-            "cycle" : 4,
-            "mode" : "transition",
-            "transition" : "position3-reset"
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "position3-reset" : {
@@ -138,6 +212,7 @@
       
       "actor1Emote" : {
         "default" : "none",
+        
         "states" : {
           "none" : {},
           
@@ -156,8 +231,8 @@
           
           "happyEnd" : {
             "frames" : 1,
-            "cycle" : 1,
-            "mode" : "loop"
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "laugh" : {
@@ -175,8 +250,8 @@
           
           "ohEnd" : {
             "frames" : 1,
-            "cycle" : 1,
-            "mode" : "loop"
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "oooh" : {
@@ -188,8 +263,8 @@
           
           "ooohEnd" : {
             "frames" : 1,
-            "cycle" : 1,
-            "mode" : "loop"
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "sad" : {
@@ -202,6 +277,7 @@
       
       "actor2Emote" : {
         "default" : "none",
+        
         "states" : {
           "none" : {},
           
@@ -220,8 +296,8 @@
           
           "happyEnd" : {
             "frames" : 1,
-            "cycle" : 1,
-            "mode" : "loop"
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "laugh" : {
@@ -239,8 +315,8 @@
           
           "ohEnd" : {
             "frames" : 1,
-            "cycle" : 1,
-            "mode" : "loop"
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "oooh" : {
@@ -252,8 +328,8 @@
           
           "ooohEnd" : {
             "frames" : 1,
-            "cycle" : 1,
-            "mode" : "loop"
+            "cycle"  : 1,
+            "mode"   : "loop"
           },
           
           "sad" : {
@@ -266,492 +342,329 @@
     },
     
     "parts" : {
-       /*"node" : {
+      "actors" : {
         "properties" : {
-          "centered" : false,
-          "zLevel" : 50
-        },
-        
-        "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "/objects/sexbound_node/sexbound_node.png:default.1"
-              }
-            },
-            
-            "position1" : {
-              "properties" : {
-                "image" : "/objects/sexbound_node/sexbound_node.png:default.1"
-              }
-            }
-          }
+          "centered" : true,
+          "offset"   : [0, 2.625],
+          "transformationGroups" : ["actors"]          
         }
-      },*/
-
-/* Actor 1 */
-      
+      },
+    
+      /* Actor 1 */
+      "actor1" : {
+        "properties" : {
+          "centered" : true,
+          "anchorPart" : "actors"      
+        }
+      },
+    
+      /* Actor 1 Body */
       "actor1-body" : {
         "properties" : {
-          "centered" : false,
-          "offset" : [-2.25, -0.125],
+          "centered"   : true,
+          "anchorPart" : "actor1",
+          "image"      : "<part-actor1-body>.<frame><actor1-bodyDirectives>",
           "transformationGroups" : [ "actor1Body" ],
           "zLevel" : 8
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
+          "actors" : {
+            "idle" : {},
+            
+            "idle_laying" : {
               "properties" : {
-                "image" : "<part-actor1-body>.1<actor1-bodyDirectives><actor1-hairDirectives>"
+                "offset" : [-0.5, 0]
               }
             },
             
             "position1" : {
               "properties" : {
-                "image" : "<part-actor1-body>.<frame><actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-2.75, -0.125]
+                "offset" : [-0.5, 0]
               }
             },
             
             "position1-climax" : {
               "properties" : {
-                "image" : "<part-actor1-body>.1<actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-2.75, -0.125]
+                "offset" : [-0.5, 0]
               }
             },
             
             "position1-reset" : {
               "properties" : {
-                "image" : "<part-actor1-body>.1<actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-2.75, -0.125]
+                "offset" : [-0.5, 0]
               }
             },
             
             "position2" : {
               "properties" : {
-                "image" : "<part-actor1-body>.<frame><actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-3.0, -0.125]
+                "offset" : [-0.75, 0]
               }
             },
             
             "position2-climax" : {
               "properties" : {
-                "image" : "<part-actor1-body>.1<actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-3.0, -0.125]
+                "offset" : [-0.75, 0]
               }
             },
             
             "position2-reset" : {
               "properties" : {
-                "image" : "<part-actor1-body>.1<actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-3.0, -0.125]
+                "offset" : [-0.75, 0]
               }
             },
             
             "position3" : {
               "properties" : {
-                "image" : "<part-actor1-body>.<frame><actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-2.75, -0.125]
+                "offset" : [-0.5, 0]
               }
             },
             
             "position3-climax" : {
               "properties" : {
-                "image" : "<part-actor1-body>.1<actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-2.75, -0.125]
+                "offset" : [-0.5, 0]
               }
             },
             
             "position3-reset" : {
               "properties" : {
-                "image" : "<part-actor1-body>.1<actor1-bodyDirectives><actor1-hairDirectives>",
-                "offset" : [-2.75, -0.125]
+                "offset" : [-0.5, 0]
               }
             }
           }
         }
       },
       
+      /* Actor 1 Front Arm */
       "actor1-arm-front" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor1-body",
+          "image"      : "<part-actor1-arm-front>.<frame><actor1-bodyDirectives>",
           "zLevel" : 17
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-front>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
     
+      /* Actor 1 Head */
       "actor1-head" : {
         "properties" : {
-          "centered" : false,
-          "offset" : [-2.25, -0.125],
+          "centered"   : true,
+          "anchorPart" : "actor1-body",
+          "image"      : "<part-actor1-head>",
           "transformationGroups" : [ "actor1Head" ],
           "zLevel" : 2
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
+          "actors" : {
+            "idle" : {},
+            
+            "idle_laying" : {
               "properties" : {
-                "image" : "<part-actor1-head>"
+                "offset" : [-2, 0.75]
               }
             },
             
             "position1" : {
-              "properties" : {
-                "image" : "<part-actor1-head>"
-              },
               "frameProperties" : {
-                "offset" : [[-2.75, -0.125], [-2.75, -0.125], [-2.625, -0.125], [-2.625, -0.125], [-2.625, -0.125], [-2.75, -0.125], [-2.75, -0.125]]
+                "offset" : [[0,0], [0,0], [0.125, 0], [0.125, 0], [0.125, 0], [0,0], [0,0]]
               }
             },
             
             "position1-climax" : {
               "properties" : {
-                "image" : "<part-actor1-head>",
-                "offset" : [-2.75, -0.125]
+                "offset" : [0,0]
               }
             },
             
             "position1-reset" : {
               "properties" : {
-                "image" : "<part-actor1-head>",
-                "offset" : [-2.75, -0.125]
+                "offset" : [0,0]
               }
             },
             
             "position2" : {
               "properties" : {
-                "image" : "<part-actor1-head>"
+                "offset" : [0.125, -0.5]
               },
               "frameProperties" : {
-                "offset" : [[-3.0, -0.625], [-3.0, -0.625], [-2.875, -0.625], [-2.875, -0.625], [-2.875, -0.625], [-3.0, -0.625], [-3.0, -0.625]]
+                "offset" : [[0.125, -0.5], [0.125, -0.5], [0.25, -0.5], [0.25, -0.5], [0.25, -0.5], [0.125, -0.5], [0.125, -0.5]]
               }
             },
             
             "position2-climax" : {
               "properties" : {
-                "image" : "<part-actor1-head>",
-                "offset" : [-3.0, -0.625]
+                "offset" : [0.125, -0.5]
               }
             },
             
             "position2-reset" : {
               "properties" : {
-                "image" : "<part-actor1-head>",
-                "offset" : [-3.0, -0.625]
+                "offset" : [0.125, -0.5]
               }
             },
             
             "position3" : {
               "properties" : {
-                "image" : "<part-actor1-head>",
-                "offset" : [-2.25, -1.875]
+                "offset" : [-2, 0.75]
               }
             },
             
             "position3-climax" : {
               "properties" : {
-                "image" : "<part-actor1-head>",
-                "offset" : [-2.25, -1.875]
+                "offset" : [-2, 0.75]
               }
             },
             
             "position3-reset" : {
               "properties" : {
-                "image" : "<part-actor1-head>",
-                "offset" : [-2.25, -1.875]
+                "offset" : [-2, 0.75]
               }
             }
           }
         }
       },
     
+      /* Actor 1 Hair */
       "actor1-hair" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor1-head",
-          "zLevel" : 3
+          "image"      : "<part-actor1-hair>",
+          "zLevel"     : 3
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-hair>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
     
+      /* Actor 1 Facial Hair */
       "actor1-facial-hair" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor1-head",
-          "zLevel" : 4
+          "image"      : "<part-actor1-facial-hair>",
+          "zLevel"     : 4
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-hair>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
     
+      /* Actor 1 Facial Mask */
       "actor1-facial-mask" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor1-head",
-          "zLevel" : 5
+          "image"      : "<part-actor1-facial-mask>",
+          "zLevel"     : 5
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-facial-mask>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
     
+      /* Actor 1 Emote */
       "actor1-emote" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor1-head",
-          "zLevel" : 6
+          "zLevel"     : 6
         },
         
         "partStates" : {
@@ -815,544 +728,347 @@
         }
       },
     
+      /* Actor 1 Back Arm */
       "actor1-arm-back" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor1-body",
-          "zLevel" : 7
+          "image"      : "<part-actor1-arm-back>.<frame><actor1-bodyDirectives>",
+          "zLevel"     : 7
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.<frame><actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor1-arm-back>.1<actor1-bodyDirectives><actor1-hairDirectives>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
 
-/* Actor 2 */
+      /* Actor 2 */
       
+      "actor2" : {
+        "properties" : {
+          "centered" : true,
+          "anchorPart" : "actors"      
+        }
+      },
+      
+      /* Actor 2 Body */
       "actor2-body" : {
         "properties" : {
-          "centered" : false,
-          "offset" : [-2.25, -0.125],
-          "transformationGroups" : [ "actor2Body" ],
-          "zLevel" : 15
+          "centered"   : true,
+          "anchorPart" : "actor2",
+          "image"      : "<part-actor2-body>.<frame><actor2-bodyDirectives>",
+          "zLevel"     : 15,
+          "transformationGroups" : [ "actor2Body" ]
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor2-body>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
+            
+            "idle_laying" : {},
             
             "position1" : {
               "properties" : {
-                "image" : "<part-actor2-body>.<frame><actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-1.75, -0.125]
+                "offset" : [0.5, 0]
               }
             },
             
             "position1-climax" : {
               "properties" : {
-                "image" : "<part-actor2-body>.1<actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-1.75, -0.125]
+                "offset" : [0.5, 0]
               }
             },
             
             "position1-reset" : {
               "properties" : {
-                "image" : "<part-actor2-body>.1<actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-1.75, -0.125]
+                "offset" : [0.5, 0]
               }
             },
             
             "position2" : {
               "properties" : {
-                "image" : "<part-actor2-body>.<frame><actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-1.75, -0.125]
+                "offset" : [0.5, 0]
               }
             },
             
             "position2-climax" : {
               "properties" : {
-                "image" : "<part-actor2-body>.1<actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-1.75, -0.125]
+                "offset" : [0.5, 0]
               }
             },
             
             "position2-reset" : {
               "properties" : {
-                "image" : "<part-actor2-body>.1<actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-1.75, -0.125]
+                "offset" : [0.5, 0]
               }
             },
             
             "position3" : {
               "properties" : {
-                "image" : "<part-actor2-body>.<frame><actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-2, -0.125]
+                "offset" : [0, 0]
               }
             },
             
             "position3-climax" : {
               "properties" : {
-                "image" : "<part-actor2-body>.1<actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-2, -0.125]
+                "offset" : [0, 0]
               }
             },
             
             "position3-reset" : {
               "properties" : {
-                "image" : "<part-actor2-body>.1<actor2-bodyDirectives><actor2-hairDirectives>",
-                "offset" : [-2, -0.125]
+                "offset" : [0, 0]
               }
             }
           }
         }
       },
       
+      /* Actor 2 Front Arm */
       "actor2-arm-front" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor2-body",
-          "zLevel" : 17
+          "image"      : "<part-actor2-arm-front>.<frame><actor2-bodyDirectives>",
+          "zLevel"     : 17
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-front>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
       
+      /* Actor 2 Head */
       "actor2-head" : {
         "properties" : {
-          "centered" : false,
-          "offset" : [-2.25, -0.125],
-          "transformationGroups" : [ "actor2Head" ],
-          "zLevel" : 9
+          "centered"   : true,
+          "anchorPart" : "actor2-body",
+          "image"      : "<part-actor2-head>",
+          "zLevel"     : 9,
+          "transformationGroups" : [ "actor2Head" ]
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor2-head>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
+            
+            "idle_laying" : {},
             
             "position1" : {
-              "properties" : {
-                "image" : "<part-actor2-head>"
-              },
               "frameProperties" : {
-                "offset" : [[-1.125, -0.25], [-1.125, -0.25], [-1.0, -0.25], [-0.875, -0.25], [-1.0, -0.25], [-1.125, -0.25], [-1.125, -0.25]]
+                "offset" : [[0.625, -0.125], [0.625, -0.125], [0.75, -0.125], [0.875, -0.125], [0.75, -0.125], [0.625, -0.125], [0.625, -0.125]]
               }
             },
             
             "position1-climax" : {
               "properties" : {
-                "image" : "<part-actor2-head>",
-                "offset" : [-1.125, -0.25]
+                "offset" : [0.625, -0.125]
               }
             },
             
             "position1-reset" : {
               "properties" : {
-                "image" : "<part-actor2-head>",
-                "offset" : [-1.125, -0.25]
+                "offset" : [0.625, -0.125]
               }
             },
             
             "position2" : {
-              "properties" : {
-                "image" : "<part-actor2-head>",
-                "offset" : [-4.25, -1.375]
-              },
               "frameProperties" : {
-                "offset" : [[-4.25, -1.375], [-4.25, -1.375], [-4.375, -1.375], [-4.375, -1.375], [-4.375, -1.375], [-4.25, -1.375], [-4.25, -1.375]]
+                "offset" : [[0.5, -1.25], [0.5, -1.25], [0.625, -1.25], [0.625, -1.25], [0.625, -1.25], [0.5, -1.25], [0.5, -1.25]]
               }
             },
             
             "position2-climax" : {
               "properties" : {
-                "image" : "<part-actor2-head>",
-                "offset" : [-4.25, -1.375]
+                "offset" : [0.5, -1.25]
               }
             },
             
             "position2-reset" : {
               "properties" : {
-                "image" : "<part-actor2-head>",
-                "offset" : [-4.25, -1.375]
+                "offset" : [0.5, -1.25]
               }
             },
             
             "position3" : {
-              "properties" : {
-                "image" : "<part-actor2-head>"
-              },
               "frameProperties" : {
-                "offset" : [[-3.25, -0.625], [-3.125, -0.625], [-3.125, -0.625], [-3.125, -0.75], [-3.125, -0.625], [-3.125, -0.625], [-3.25, -0.625]]
+                "offset" : [[0, -0.5], [-0.125, -0.5], [-0.125, -0.5], [-0.125, -0.625], [-0.125, -0.5], [-0.125, -0.5], [0, -0.5]]
               }
             },
             
             "position3-climax" : {
               "properties" : {
-                "image" : "<part-actor2-head>",
-                "offset" : [-3.25, -0.625]
+                "offset" : [0, -0.5]
               }
             },
             
             "position3-reset" : {
               "properties" : {
-                "image" : "<part-actor2-head>",
-                "offset" : [-3.25, -0.625]
+                "offset" : [0, -0.5]
               }
             }
           }
         }
       },
       
+      /* Actor 2 Hair */
       "actor2-hair" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor2-head",
-          "zLevel" : 10
+          "image"      : "<part-actor2-hair>",
+          "zLevel"     : 10
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-hair>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
       
+      /* Actor 2 Facial Hair */
       "actor2-facial-hair" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor2-head",
-          "zLevel" : 11
+          "image"      : "<part-actor2-facial-hair>",
+          "zLevel"     : 11
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-hair>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
       
+      /* Actor 2 Facial Mask */
       "actor2-facial-mask" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor2-head",
-          "zLevel" : 12
+          "image"      : "<part-actor2-facial-mask>",
+          "zLevel"     : 12
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-facial-mask>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       },
       
+      /* Actor 2 Emote */
       "actor2-emote" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor2-head",
-          "zLevel" : 13
+          "zLevel"     : 13
         },
         
         "partStates" : {
@@ -1416,74 +1132,38 @@
         }
       },
       
+      /* Actor 2 Arm Back */
       "actor2-arm-back" : {
         "properties" : {
-          "centered" : false,
+          "centered"   : true,
           "anchorPart" : "actor2-body",
-          "zLevel" : 14
+          "image"      : "<part-actor2-arm-back>.<frame><actor2-bodyDirectives>",
+          "zLevel"     : 14
         },
         
         "partStates" : {
-          "main" : {
-            "idle" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+          "actors" : {
+            "idle" : {},
             
-            "position1" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "idle_laying" : {},
             
-            "position1-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position1" : {},
             
-            "position1-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position1-climax" : {},
             
-            "position2" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position1-reset" : {},
             
-            "position2-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position2" : {},
             
-            "position2-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position2-climax" : {},
             
-            "position3" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.<frame><actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position2-reset" : {},
             
-            "position3-climax" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            },
+            "position3" : {},
             
-            "position3-reset" : {
-              "properties" : {
-                "image" : "<part-actor2-arm-back>.1<actor2-bodyDirectives><actor2-hairDirectives>"
-              }
-            }
+            "position3-climax" : {},
+            
+            "position3-reset" : {}
           }
         }
       }
@@ -1491,21 +1171,22 @@
   },
   
   "transformationGroups" : {
-    "actor1Body"       : { "interpolated" : false },
-    "actor1Head"       : { "interpolated" : false },
-    "actor2Body"       : { "interpolated" : false },
-    "actor2Head"       : { "interpolated" : false }
+    "actors"           : { "interpolated" : true },
+    "actor1Body"       : { "interpolated" : true },
+    "actor1Head"       : { "interpolated" : true },
+    "actor2Body"       : { "interpolated" : true },
+    "actor2Head"       : { "interpolated" : true }
   },
   
   "particleEmitters" : {
-    "malecum1_1" : {
+    "actor1-position1-climax-male" : {
       "anchorPart" : "actor1-body",
       "burstCount" : 10,
       "particles" : [
         {
           "particle" : {
             "type" : "ember",
-            "position" : [2.875, 1.5],
+            "position" : [0.125, -1.125],
             "size" : 1.25,
             "color" : [255, 255, 255, 255],
             "fade" : 0.7,
@@ -1526,14 +1207,43 @@
       ]
     },
    
-    "malecum1_2" : {
+    "actor1-position1-climax-female" : {
+      "anchorPart" : "actor1-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [0.125, -1.5],
+            "size" : 0.75,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [0.0, 0.0],
+            "finalVelocity" : [0.0, -1.0],
+            "fullbright" : true,
+            "approach" : [0, 1],
+            "timeToLive" : 0.75,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.15,
+              "approach" : [0, 2],
+              "initialVelocity" : [0.1, 0.25],
+              "finalVelocity" : [0.1, 0.0]
+            }
+          }
+        }
+      ]
+    },
+   
+    "actor2-position1-climax-male" : {
       "anchorPart" : "actor2-body",
       "burstCount" : 10,
       "particles" : [
         {
           "particle" : {
             "type" : "ember",
-            "position" : [3.5, 1.375],
+            "position" : [0.875, -1.25],
             "size" : 1.25,
             "color" : [255, 255, 255, 255],
             "fade" : 0.7,
@@ -1553,56 +1263,27 @@
         }
       ]
     },
-    
-    "femalecum1_1" : {
-      "anchorPart" : "actor1-body",
-      "burstCount" : 10,
-      "particles" : [
-        {
-          "particle" : {
-            "type" : "ember",
-            "position" : [2.875, 1.25],
-            "size" : 1.25,
-            "color" : [255, 255, 255, 255],
-            "fade" : 0.7,
-            "initialVelocity" : [0.0, 0.0],
-            "finalVelocity" : [0.0, -6.0],
-            "fullbright" : true,
-            "approach" : [0, 6],
-            "timeToLive" : 3,
-            "layer" : "front",
-            "collidesForeground" : true,
-            "variance" : {
-              "size" : 0.5,
-              "approach" : [0, 2],
-              "initialVelocity" : [0.1, 0.25],
-              "finalVelocity" : [0.1, 0.0]
-            }
-          }
-        }
-      ]
-    },
-    
-    "femalecum1_2" : {
+   
+    "actor2-position1-climax-female" : {
       "anchorPart" : "actor2-body",
       "burstCount" : 10,
       "particles" : [
         {
           "particle" : {
             "type" : "ember",
-            "position" : [2.875, 1.25],
-            "size" : 1.25,
+            "position" : [-0.625, -1.625],
+            "size" : 0.75,
             "color" : [255, 255, 255, 255],
             "fade" : 0.7,
             "initialVelocity" : [0.0, 0.0],
-            "finalVelocity" : [0.0, -6.0],
+            "finalVelocity" : [0.0, -1.0],
             "fullbright" : true,
-            "approach" : [0, 6],
-            "timeToLive" : 3,
+            "approach" : [0, 1],
+            "timeToLive" : 0.75,
             "layer" : "front",
             "collidesForeground" : true,
             "variance" : {
-              "size" : 0.5,
+              "size" : 0.15,
               "approach" : [0, 2],
               "initialVelocity" : [0.1, 0.25],
               "finalVelocity" : [0.1, 0.0]
@@ -1611,7 +1292,234 @@
         }
       ]
     },
-  
+
+    "actor1-position2-climax-male" : {
+      "anchorPart" : "actor1-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [0.125, -1.625],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [-3.0, 1.25],
+            "finalVelocity" : [-0.7, -10.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [1.25, 0.25]
+            }
+          }
+        }
+      ]
+    },
+   
+    "actor1-position2-climax-female" : {
+      "anchorPart" : "actor1-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [0.25, -2],
+            "size" : 0.75,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [0.0, 0.0],
+            "finalVelocity" : [0.0, -1.0],
+            "fullbright" : true,
+            "approach" : [0, 1],
+            "timeToLive" : 0.75,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.15,
+              "approach" : [0, 2],
+              "initialVelocity" : [0.1, 0.25],
+              "finalVelocity" : [0.1, 0.0]
+            }
+          }
+        }
+      ]
+    },
+   
+    "actor2-position2-climax-male" : {
+      "anchorPart" : "actor2-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [0.75, -2],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [3.0, 1.25],
+            "finalVelocity" : [0.7, -10.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [1.25, 0.25]
+            }
+          }
+        }
+      ]
+    },
+   
+    "actor2-position2-climax-female" : {
+      "anchorPart" : "actor2-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [-1, -1.75],
+            "size" : 0.75,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [0.0, 0.0],
+            "finalVelocity" : [0.0, -1.0],
+            "fullbright" : true,
+            "approach" : [0, 1],
+            "timeToLive" : 0.75,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.15,
+              "approach" : [0, 2],
+              "initialVelocity" : [0.1, 0.25],
+              "finalVelocity" : [0.1, 0.0]
+            }
+          }
+        }
+      ]
+    },
+    
+    "actor1-position3-climax-male" : {
+      "anchorPart" : "actor1-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [1.25, -1.875],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [3.0, 1.25],
+            "finalVelocity" : [0.7, -10.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [1.25, 0.25]
+            }
+          }
+        }
+      ]
+    },
+   
+    "actor1-position3-climax-female" : {
+      "anchorPart" : "actor1-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [1.375, -1.875],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [3.0, 1.25],
+            "finalVelocity" : [0.7, -10.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [1.25, 0.25]
+            }
+          }
+        }
+      ]
+    },
+   
+    "actor2-position3-climax-male" : {
+      "anchorPart" : "actor2-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [-0.75, -1.25],
+            "size" : 1.25,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [-3.0, 1.25],
+            "finalVelocity" : [-0.7, -10.0],
+            "fullbright" : true,
+            "approach" : [0, 6],
+            "timeToLive" : 3,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.5,
+              "approach" : [0, 2],
+              "initialVelocity" : [1.25, 0.25]
+            }
+          }
+        }
+      ]
+    },
+   
+    "actor2-position3-climax-female" : {
+      "anchorPart" : "actor2-body",
+      "burstCount" : 10,
+      "particles" : [
+        {
+          "particle" : {
+            "type" : "ember",
+            "position" : [-0.375, -2.0],
+            "size" : 0.75,
+            "color" : [255, 255, 255, 255],
+            "fade" : 0.7,
+            "initialVelocity" : [0.0, 0.0],
+            "finalVelocity" : [0.0, -1.0],
+            "fullbright" : true,
+            "approach" : [0, 1],
+            "timeToLive" : 0.75,
+            "layer" : "front",
+            "collidesForeground" : true,
+            "variance" : {
+              "size" : 0.15,
+              "approach" : [0, 2],
+              "initialVelocity" : [0.1, 0.25],
+              "finalVelocity" : [0.1, 0.0]
+            }
+          }
+        }
+      ]
+    },
+    
     "emotehappy" : {
       "emissionRate" : 1,
       "particles" : [

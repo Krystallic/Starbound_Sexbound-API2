@@ -5,14 +5,14 @@
 
 Sexbound.API.Nodes = {}
 
-Sexbound.API.Nodes.addNode = function( tilePosition )
+Sexbound.API.Nodes.addNode = function( tilePosition, sitPosition )
   if self._sexbound then
-    self._sexbound:addNode( tilePosition )
+    self._sexbound:addNode( tilePosition, sitPosition )
   end
 end
 
-Sexbound.API.Nodes.becomeNode = function()
+Sexbound.API.Nodes.becomeNode = function( sitPosition )
   if self._sexbound then
-    self._sexbound:becomeNode()
+    self._sexbound:becomeNode(sitPosition)
   end
 end

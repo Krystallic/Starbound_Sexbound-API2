@@ -11,23 +11,60 @@ function Sexbound.StateMachine.new( parent )
   local self = setmetatable({
     _logPrefix = "STMN",
     _parent = parent,
-    _states = { "idleState", "sexState", "climaxState", "exitState" },
+    _states = { "nullState", "idleState", "sexState", "climaxState", "exitState" },
     _status = {
-      havingSex = false,
       climaxing = false,
+      havingSex = false,
+      idle      = false,
       reseting  = false
-    }
+    },
+    _positionTimer = 0,
+    _positionTimeout = 10,
+    _positionTimeoutRange = {30, 50},
   }, Sexbound.StateMachine_mt)
   
   Sexbound.Messenger.get("main"):addBroadcastRecipient( self )
   
   self._log = Sexbound.Log:new(self._logPrefix, self._parent:getConfig())
   
+  self._positionTimeout = util.randomIntInRange(self._positionTimeoutRange)
+  
   self._stateDefinitions = {
+    --[Null State]----------------------------------------------------------------------------------
+    nullState = {
+      enter = function()
+        if not self:isIdle() and not self:isHavingSex() and not self:isReseting() then
+          return {}
+        end
+      end,
+      
+      enteringState = function(stateData)
+        self:getLog():info("Entering Null State.")
+        
+        if animator and not pcall(function ()
+          animator.setAnimationState("actors", "none", true)
+        end) then
+          self:getLog():error("The animator could not enter the 'none' animation state.")
+        end
+      end,
+      
+      update = function(dt, stateData)
+        -- Exit condition
+        if self:getParent():getActorCount() > 0 then
+          self:setStatus("idle", true)
+          return true
+        end
+      end,
+      
+      leavingState = function(stateData)
+      
+      end
+    },
+  
     --[Idle State]----------------------------------------------------------------------------------
     idleState = {
       enter = function()
-        if not self:getStatus("havingSex") then
+        if self:isIdle() and not self:isHavingSex() then
           return {
             actors = self:getParent():getActors()
           }
@@ -37,17 +74,18 @@ function Sexbound.StateMachine.new( parent )
       enteringState = function(stateData)
         self:getLog():info("Entering Idle State.")
         
-        local animationState = parent:getConfig().animationStateIdle
-        
-        if (animator) then
-          if not pcall(function ()
-            animator.setAnimationState("main", animationState, true)
-          end) then
-            self:getLog():error("The animator could not enter the animation state : " .. animationState)
-          end
-        end
-        
         self:getParent():getPositions():resetIndex()
+        
+        local positionConfig = self:getParent():getPositions():getCurrentPosition():getConfig()
+        
+        local animationState = positionConfig.animationState or self:getParent():getConfig().animationStateIdle
+        
+        if animator and not pcall(function ()
+          animator.setAnimationState("props", animationState, true)
+          animator.setAnimationState("actors", animationState, true)
+        end) then
+          self:getLog():error("The animator could not enter the animation state : " .. animationState)
+        end
         
         self:getParent():resetAllActors()
         
@@ -59,7 +97,13 @@ function Sexbound.StateMachine.new( parent )
       end,
       
       update = function(dt, stateData)
-        -- Exit condition
+        -- Exit condition #1
+        if self:getParent():getActorCount() < 1 then
+          self:setStatus("idle", false)
+          return true
+        end
+      
+        -- Exit condition #2
         if self:getParent():getActorCount() > 1 then
           self:setStatus("havingSex", true)
           return true
@@ -83,22 +127,38 @@ function Sexbound.StateMachine.new( parent )
     sexState = {
       enter = function()
         if self:getStatus("havingSex") and not self:getStatus("climaxing") and not self:getStatus("reseting") then
+          local actors  = self:getParent():getActors()
+          
+          local npcOnly = true
+          
+          for _,actor in ipairs(actors) do
+            if actor:getEntityType() == "player" then
+              npcOnly = false
+            end
+          end
+        
           return {
-            actors = self:getParent():getActors()
+            actors  = actors,
+            npcOnly = npcOnly
           }
         end
       end,
       
       enteringState = function(stateData)
         self:getLog():info("Entering Sex State.")
-      
+
+        if stateData.npcOnly then
+          self:getParent():getPositions():switchRandomSexPosition()
+        end
+        
         local positionConfig = self:getParent():getPositions():getCurrentPosition():getConfig()
         
         local animationState = positionConfig.animationState or self:getParent():getConfig().animationStateSex
         
         if not pcall(function ()
           if positionConfig.animationState then
-            animator.setAnimationState("main", animationState, true)
+            animator.setAnimationState("props", animationState, true)
+            animator.setAnimationState("actors", animationState, true)
           end
         end) then
           self:getLog():error("The animator could not enter the animation state : " .. animationState)
@@ -129,7 +189,24 @@ function Sexbound.StateMachine.new( parent )
         self:getParent():updateAnimationRate(dt)
         
         for _,actor in ipairs(stateData.actors) do
+          if actor:getEntityType() == "player" then
+            stateData.npcOnly = false
+          end
+        
           actor:onUpdateSexState(dt)
+        end
+        
+        -- Allow NPC only acts to switch positions
+        if npcOnly then
+          self._positionTimer = self._positionTimer + dt
+          
+          if self._positionTimer >= self._positionTimeout then
+            self:getParent():getPositions():switchRandomSexPosition()
+          
+            self._positionTimer = 0
+            
+            self._positionTimeout = util.randomIntInRange(self._positionTimeoutRange)
+          end
         end
       end,
       
@@ -160,7 +237,8 @@ function Sexbound.StateMachine.new( parent )
         local animationState = positionConfig.climaxAnimationState or self:getParent():getConfig().animationStateClimax
         
         if not pcall(function()
-          animator.setAnimationState("main", animationState, true)
+          animator.setAnimationState("props", animationState, true)
+          animator.setAnimationState("actors", animationState, true)
         end) then
           self:getLog():error("The animator could not enter the animation state : " .. animationState)
         end
@@ -214,7 +292,8 @@ function Sexbound.StateMachine.new( parent )
         local animationState = self:getParent():getConfig().animationStateExit
         
         if not pcall(function()
-          animator.setAnimationState("main", animationState, true)
+          animator.setAnimationState("props", animationState, true)
+          animator.setAnimationState("actors", animationState, true)
         end) then
           self:getLog():error("The animator could not enter the animation state : " .. animationState)
         end
@@ -285,6 +364,10 @@ end
 
 function Sexbound.StateMachine:setStatus(name, value)
   self._status[name] = value
+end
+
+function Sexbound.StateMachine:isIdle()
+  return self:getStatus("idle")
 end
 
 function Sexbound.StateMachine:isClimaxing()

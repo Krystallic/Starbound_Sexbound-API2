@@ -3,9 +3,13 @@ require "/scripts/sexbound/v2/api.lua"
 function init()
   Sexbound.API.init()
   
-  Sexbound.API.Nodes.addNode({1,0})
-  Sexbound.API.Nodes.addNode({2,0})
-
+  local sitPositions  = config.getParameter("sexboundConfig.sitPositions")
+  
+  local nodePositions = config.getParameter("sexboundConfig.nodePositions")
+  
+  Sexbound.API.Nodes.addNode(nodePositions[1], sitPositions[1])
+  Sexbound.API.Nodes.addNode(nodePositions[2], sitPositions[2])
+  
   local testNPC = {
     id = -99999,
     entityType = "npc",

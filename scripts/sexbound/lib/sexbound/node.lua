@@ -9,12 +9,13 @@ Sexbound.Node_mt = {__index = Sexbound.Node}
 -- @param parent
 -- @param tilePosition
 -- @param placeObject
-function Sexbound.Node.new(parent, tilePosition, placeObject)
+function Sexbound.Node.new(parent, tilePosition, sitPosition, placeObject)
   local self = setmetatable({
     _controllerId = parent:getEntityId(),
     _controllerUniqueId = parent:getUniqueId(),
     _logPrefix    = "NODE",
     _name         = "sexbound_node_node",
+    _sitPosition  = sitPosition or {4, 20},
     _parent       = parent,
     _placeObject  = placeObject
   }, Sexbound.Node_mt)
@@ -22,6 +23,9 @@ function Sexbound.Node.new(parent, tilePosition, placeObject)
   Sexbound.Messenger.get("main"):addBroadcastRecipient( self )
   
   self._log = Sexbound.Log:new(self._logPrefix, self._parent:getConfig())
+  
+  -- Adjust sit position based on object's facing direction
+  self._sitPosition[1] = self._sitPosition[1] * object.direction()
   
   tilePosition = tilePosition or {0,0}
 
@@ -51,9 +55,9 @@ end
 --- Updates this instance.
 -- @param dt
 function Sexbound.Node:update(dt)
- if self._placeObject and not self:exists() then
-   self:create(self._tilePosition)
- end
+  if self._placeObject and not self:exists() then
+    self:create(self._tilePosition)
+  end
 end
 
 --- Attempt to place a new sexbound node object at specified tile position.
@@ -62,11 +66,12 @@ function Sexbound.Node:create(tilePosition)
   self._uniqueId = sb.makeUuid()
 
   local params = {
+    sitPosition  = self._sitPosition,
     controllerId = self._controllerUniqueId,
     uniqueId     = self._uniqueId
   }
   
-  if not world.objectAt(tilePosition) then
+  if not self:exists() then
     world.placeObject(self._name, tilePosition, object.direction(), params)
   end
 end
@@ -74,9 +79,20 @@ end
 function Sexbound.Node:exists()
   local entityId = world.objectAt(self._tilePosition)
   
-  if entityId then
-    return self._uniqueId == world.entityUniqueId(entityId)
+  if not entityId then return false end
+  
+  local entityType = world.entityType(entityId)
+  
+  if entityType == "sexbound_node_node" then
+    if world.entityUniqueId(entityId) == self._uniqueId then
+      return true
+    else
+      Sexbound.Util.sendMessage(entityId, "sexbound-node-uninit")
+      return true
+    end
   end
+  
+  return false
 end
 
 --- Returns the entityId for this node.
@@ -111,7 +127,9 @@ end
 
 --- Uninitializes this instance.
 function Sexbound.Node:uninit()
-  if self:id() then
-    Sexbound.Util.sendMessage(self:id(), "sexbound-node-uninit")
+  local msgId = self:getUniqueId() or self:id()
+  
+  if msgId then
+    Sexbound.Util.sendMessage(msgId, "sexbound-node-uninit")
   end
 end

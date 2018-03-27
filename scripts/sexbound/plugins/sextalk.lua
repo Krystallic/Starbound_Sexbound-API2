@@ -25,14 +25,16 @@ function Sexbound.Actor.SexTalk:new( parent, config )
     self._cooldown = self:refreshCooldown()
   end)
   
-  self._dialog = self:loadDialog()
-
+  self._dialog        = self:loadDialog()
+  self._defaultDialog = self:loadDefaultDialog()
+  
   return self
 end
 
 function Sexbound.Actor.SexTalk:onMessage(message)
   if message:getType() == "Sexbound:Positions:SwitchPosition" then
-    self._dialog = self:loadDialog()
+    self._dialog        = self:loadDialog()
+    self._defaultDialog = self:loadDefaultDialog()
 
     self:sayRandom()
   end
@@ -44,7 +46,8 @@ end
 
 function Sexbound.Actor.SexTalk:onEnterSexState()
   self._dialog = self:loadDialog()
-
+  self._defaultDialog = self:loadDefaultDialog()
+    
   self:resetTimer()
   
   self:sayRandom()
@@ -78,7 +81,7 @@ function Sexbound.Actor.SexTalk:onUpdateClimaxState(dt)
   end
 end
 
-function Sexbound.Actor.SexTalk:loadDialog()
+function Sexbound.Actor.SexTalk:loadDefaultDialog()
   local main = self:getRoot()
   local langCode  = main:getLanguageSettings().languageCode
   local positions = main:getPositions()
@@ -88,7 +91,6 @@ function Sexbound.Actor.SexTalk:loadDialog()
   local dialog = positionConfig.dialog or {}
     
   local actor = self:getParent()
-  local species = actor:getSpecies()
   local gender = actor:getGender()
 
   -- Get file path for default dialog
@@ -103,12 +105,25 @@ function Sexbound.Actor.SexTalk:loadDialog()
     defaultDialogConfig = root.assetJson(defaultDialog)
   end) then
     self:getLog():error("Unable to load default dialog file!")
-  end
-
-  if not dialog[species] then
     return defaultDialogConfig
   end
+
+  return defaultDialogConfig
+end
+
+function Sexbound.Actor.SexTalk:loadDialog()
+  local main = self:getRoot()
+  local langCode  = main:getLanguageSettings().languageCode
+  local positions = main:getPositions()
+  local position  = positions:getCurrentPosition()
+  local positionConfig  = position:getConfig()
   
+  local dialog = positionConfig.dialog or {}
+    
+  local actor = self:getParent()
+  local species = actor:getSpecies()
+  local gender = actor:getGender()
+
   -- Try to get file path for species specific dialog
   local speciesDialog = dialog[species] or dialog["default"]
   speciesDialog = util.replaceTag(speciesDialog, "gender", gender)
@@ -121,18 +136,15 @@ function Sexbound.Actor.SexTalk:loadDialog()
     speciesDialogConfig = root.assetJson(speciesDialog)
   end) then
     self:getLog():error("Unable to load dialog file for species : " .. species)
+    return speciesDialogConfig
   end
   
-  return util.mergeTable(defaultDialogConfig, speciesDialogConfig)
+  return speciesDialogConfig
 end
 
-function Sexbound.Actor.SexTalk:sayRandom(...)
-  local arg = arg or {}
-  local statusPriorityForActor = arg[1]
-  local statusPriorityForOther = arg[2]
-
+function Sexbound.Actor.SexTalk:sayRandom(statusPriorityForActor, statusPriorityForOther)
   local dialog = self:getDialog() or {}
-  local defaultDialog = self:getDialog() or {}
+  local defaultDialog = self:getDefaultDialog() or {}
   
   local otherActor = self:getOtherActor()
   if otherActor == nil then return {} end
@@ -197,6 +209,10 @@ end
 
 function Sexbound.Actor.SexTalk:getDialog()
   return self._dialog
+end
+
+function Sexbound.Actor.SexTalk:getDefaultDialog()
+  return self._defaultDialog
 end
 
 function Sexbound.Actor.SexTalk:getDialogPool()

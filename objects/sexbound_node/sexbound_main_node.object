@@ -14,7 +14,7 @@
   
   "objectType" : "loungeable",
   "sitFlipDirection" : false,
-  "sitPosition" : [4, 20],
+  "sitPosition" : [0, 20],
   "sitOrientation" : "lay",
   "sitAngle" : 0,
   
@@ -32,6 +32,7 @@
       "dualImage" : "sexbound_node.png:default.1",
 
       "imagePosition" : [0, 0],
+      "animationPosition" : [4, 0],
       "frames" : 1,
       "animationCycle" : 1.0,
       

@@ -31,6 +31,10 @@ function Sexbound.Actor.Emote:onMessage(message)
     self:moan()
   end
   
+  if message:getType() == "Sexbound:PrepareRemoveActor" then
+    self:showNone()
+  end
+  
   if message:getType() == "Sexbound:SexTalk:Talk" then
     self:talk()
   end
@@ -88,7 +92,7 @@ function Sexbound.Actor.Emote:onEnterIdleState()
 end
 
 function Sexbound.Actor.Emote:onUpdateIdleState(dt)
-  self:update(dt)
+  -- self:update(dt)
 end
 
 function Sexbound.Actor.Emote:onExitIdleState()

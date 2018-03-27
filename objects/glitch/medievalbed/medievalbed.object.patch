@@ -1,0 +1,193 @@
+[
+  {
+    "op" : "remove",
+    "path" : "/objectType"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitFlipDirection"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitPosition"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitOrientation"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitAngle"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitCoverImage"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitEmote"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitStatusEffects"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitEffectEmitters"
+  },
+
+  {
+    "op" : "add",
+    "path" : "/interactive",
+    "value" : true
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/mouthPosition",
+    "value" : [0, 4]
+  },
+  
+  {
+    "op" : "replace",
+    "path" : "/orientations",
+    "value" : [{
+      "dualImage" : "medievalbed.png:<color>",
+      
+      "imagePosition" : [-24, 0],
+      "animationPosition" : [0, 0],
+      
+      "frames" : 1,
+      "animationCycle" : 1.0,
+
+      "spaces" : [[-3, 0], [-3, 1], [-2, 0], [-2, 1], [-1, 1], [0, 1], [1,0], [1,1], [2,0], [2,1]],
+      
+      "anchors" : [ "bottom" ]
+    }]
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/scripts",
+    "value" : ["/scripts/sexbound/twoactors.lua"]
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/sexboundConfig",
+    "value" : {
+      "requiredVersion" : "2.0.0",
+      
+      "animation" : {
+        "flipped" : true
+      },
+          
+      "nodePositions" : [[-1, 0], [0, 0]],
+      
+      "sitPositions"  : [[8, 20], [0, 20]],
+      
+      "position" : {
+        "idle" : [
+          "idle_laying"
+        ],
+        "sex" : [
+          "from_behind",
+          "doggy",
+          "cowgirl"
+        ]
+      }
+    }
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/animation",
+    "value" : "/artwork/humanoid/twoactors.animation"
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/animationCustom",
+    "value" : {
+      "animatedParts" : {
+        "stateTypes" : {
+          "props" : {
+            "states" : {
+              "position3" : {
+                "properties" : {
+                  "immediateSoundRangeMultiplier" : 0.2
+                },
+                "frameProperties" : {
+                  "immediateSound" : ["", "", "", "/sfx/sexbound/thud.ogg"]
+                }
+              }
+            }
+          }
+        },
+      
+        "parts" : {
+          "bed" : {
+            "properties" : {
+              "centered" : true,
+              "offset" : [0, 1.5],
+              "zLevel" : -1,
+              "image" : "/objects/glitch/medievalbed/medievalbed.png:default"
+            },
+            
+            "partStates" : {
+              "props" : {
+                "position1" : {
+                  "frameProperties" : {
+                    "offset" : [[0, 1.5], [-0.125, 1.5], [-0.25, 1.5], [-0.25, 1.5], [-0.25, 1.5], [-0.125, 1.5], [0, 1.5]]
+                  }
+                },
+                
+                "position2" : {
+                  "properties" : {
+                    "zLevel" : 100
+                  },
+                  "frameProperties" : {
+                    "offset" : [[0, 1.5], [-0.125, 1.5], [-0.25, 1.5], [-0.25, 1.5], [-0.25, 1.5], [-0.125, 1.5], [0, 1.5]]
+                  }
+                },
+                
+                "position2-climax" : {
+                  "properties" : {
+                    "zLevel" : 100
+                  }
+                },
+                
+                "position2-reset" : {
+                  "properties" : {
+                    "zLevel" : 100
+                  }
+                },
+                
+                "position3" : {
+                  "frameProperties" : {
+                    "offset" : [[0, 1.75], [0, 1.625], [0, 1.5], [0, 1.5], [0, 1.5], [0, 1.625], [0, 1.75]]
+                  }
+                }
+              }
+            }
+          },
+          
+          "actors" : {
+            "properties" : {
+              "anchorPart" : "bed",
+              "offset" : [0.25, 2.375]
+            }
+          }
+        }
+      }
+    }
+  }
+]

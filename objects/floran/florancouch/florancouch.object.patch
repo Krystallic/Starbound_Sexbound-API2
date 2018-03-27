@@ -1,0 +1,156 @@
+[
+  {
+    "op" : "remove",
+    "path" : "/objectType"
+  },
+  
+  {
+    "op" : "remove",
+    "path" : "/sitFlipDirection"
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/interactive",
+    "value" : true
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/mouthPosition",
+    "value" : [0, 4]
+  },
+  
+  {
+    "op" : "replace",
+    "path" : "/orientations",
+    "value" : [{
+      "image" : "florancouch.png:<color>",
+      
+      "imagePosition" : [-24, 0],
+      "animationPosition" : [0, 0],
+      "direction" : "left",
+      "flipImages" : true,
+      
+      "frames" : 1,
+      "animationCycle" : 1.0,
+
+      "spaces" : [[-3, 0], [-3, 1], [-2, 0], [-2, 1], [-1, 1], [0, 1], [1,0], [1,1], [2,0], [2,1]],
+      
+      "anchors" : [ "bottom" ]
+    },{
+      "image" : "florancouch.png:<color>",
+      
+      "imagePosition" : [-24, 0],
+      "animationPosition" : [0, 0],
+      
+      "frames" : 1,
+      "animationCycle" : 1.0,
+
+      "spaces" : [[-3, 0], [-3, 1], [-2, 0], [-2, 1], [-1, 1], [0, 1], [1,0], [1,1], [2,0], [2,1]],
+      
+      "anchors" : [ "bottom" ]
+    }]
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/scripts",
+    "value" : ["/scripts/sexbound/twoactors.lua"]
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/sexboundConfig",
+    "value" : {
+      "requiredVersion" : "2.0.0",
+      
+      "animation" : {
+        "flipped" : true
+      },
+          
+      "nodePositions" : [[-1, 0], [0, 0]],
+      
+      "sitPositions"  : [[8, 20], [0, 20]],
+      
+      "position" : {
+        "idle" : [
+          "idle_laying"
+        ],
+        "sex" : [
+          "from_behind",
+          "doggy",
+          "cowgirl"
+        ]
+      }
+    }
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/animation",
+    "value" : "/artwork/humanoid/twoactors.animation"
+  },
+  
+  {
+    "op" : "add",
+    "path" : "/animationCustom",
+    "value" : {
+      "animatedParts" : {
+        "parts" : {
+          "couch" : {
+            "properties" : {
+              "centered" : true,
+              "offset" : [0, 1.5],
+              "zLevel" : -1,
+              "image" : "/objects/floran/florancouch/florancouch.png:default"
+            }
+          },
+          
+          "couchcover" : {
+            "properties" : {
+              "centered" : true,
+              "anchorPart" : "couch",
+              "zLevel" : 100,
+              "image" : "/objects/floran/florancouch/florancouchcover.png"
+            }
+          },
+          
+          "actors" : {
+            "properties" : {
+              "anchorPart" : "couch",
+              "offset" : [-0.5, 1.875]
+            },
+            
+            "partStates" : {
+              "actors" : {
+                "idle_laying" : {
+                  "properties" : {
+                    "offset" : [0.5, 1.875]
+                  }
+                },
+              
+                "position3" : {
+                  "properties" : {
+                    "offset" : [0.5, 1.875]
+                  }
+                },
+                
+                "position3-climax" : {
+                  "properties" : {
+                    "offset" : [0.5, 1.875]
+                  }
+                },
+                "position3-reset" : {
+                  "properties" : {
+                    "offset" : [0.5, 1.875]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

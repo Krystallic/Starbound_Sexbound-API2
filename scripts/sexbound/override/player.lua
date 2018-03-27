@@ -1,12 +1,12 @@
 --- Sexbound.Player Module.
 -- @module Sexbound.Player
 
-require "/scripts/vec2.lua" -- Chucklefish's vector script
-
-require "/scripts/sexbound/util.lua"
+require "/scripts/sexbound/override/common.lua"
 
 Sexbound.Player = {}
 Sexbound.Player_mt = { __index = Sexbound.Player }
+
+SexboundErrorCounter = 0
 
 --- Hook (init)
 Sexbound_Old_Init = init
@@ -25,15 +25,20 @@ Sexbound_Old_Update = update
 function update(dt)
   Sexbound_Old_Update(dt)
   
-  if not pcall(function()
-    self.sb_player:update(dt)
-  end) then
-    sb.logInfo("There was an error in the Sexbound file that overrides player.")
+  if SexboundErrorCounter < 5 then
+    if not pcall(function()
+      self.sb_player:update(dt)
+    end) then
+      SexboundErrorCounter = SexboundErrorCounter + 1
+    
+      sb.logInfo("There was an error in the Sexbound file that overrides player.")
+    end
   end
 end
 
 function Sexbound.Player:new()
   local self = setmetatable({
+    _common = Sexbound.Common:new(),
     _controllerId = nil,
     _hasSetupActor = false,
     _loungeId = nil,
@@ -47,6 +52,10 @@ function Sexbound.Player:new()
   self:restorePreviousStorage()
   
   return self
+end
+
+function Sexbound.Player:getCommon()
+  return self._common
 end
 
 function Sexbound.Player:update(dt)
@@ -102,12 +111,21 @@ function Sexbound.Player:abortPregnancy()
   
   storage.pregnant = nil
   
+  local common = self:getCommon()
+  
+  local notifications = common:getNotifications() or {}
+  
+  local plugins  = notifications.plugins or {}
+  local pregnant = plugins.pregnant or {}
+  
+  local message = pregnant.abortionMessage1 or ""
+  
   -- Send radio message to inform player of abortion
   if entity.entityType() == "player" then
     world.sendEntityMessage(entity.id(), "queueRadioMessage", {
       messageId = "Pregnant:Abort",
       unique    = false,
-      text      = "All vital scans indicate that you are no longer pregnant!"
+      text      = message
     })
   end
 end
@@ -255,19 +273,16 @@ end
 
 --- Spawns a new NPC as sexbound_familymember type.
 function Sexbound.Player:giveBirth(birthData)
-  -- Make sure the gender has been set to a random gender ('male' or 'female').
-  birthData.birthGender = birthData.birthGender or util.randomChoice({"male", "female"})
-  
   -- Make sure that the mother's name is set to the correct player's name.
   birthData.motherName = birthData.motherName or world.entityName( player.id() )
   
   -- Set the mother's player id
   birthData.playerId = player.id()
   
+  local level = 1
+  
   local parameters = {}
   
-  parameters.identity = {}
-  parameters.identity.gender = birthData.birthGender
   parameters.statusControllerSettings = {
     statusProperties = {
       sexbound_birthday = birthData
@@ -275,7 +290,7 @@ function Sexbound.Player:giveBirth(birthData)
   }
   parameters.uniqueId = sb.makeUuid()
 
-  world.spawnNpc(entity.position(), player.species(), "sexbound_familymember", -1, nil, parameters) -- level 1
+  world.spawnNpc(entity.position(), player.species(), "sexbound_familymember", level, nil, parameters) -- level 1
 end
 
 --- Attempt to restore this entity's previous storage parameters.

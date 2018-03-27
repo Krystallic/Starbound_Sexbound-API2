@@ -19,22 +19,39 @@ function Sexbound.Actor.Climax:new( parent, config )
     _soundEffects = {}
   }, Sexbound.Actor.Climax_mt)
   
-  self:init(parent, self._logPrefix, function()
-    self._cooldown = self:refreshCooldown()
-    
-    self._timer = {
-      shoot = self._cooldown
-    }
-    
-    -- Initialize climax sound effect.
-    if (animator.hasSound("climax")) then
-      self._soundEffects.climax = self._config.sounds
-      
-      animator.setSoundPool("climax", self._soundEffects.climax)
-    end
-  end)
+  self:init(parent, self._logPrefix)
 
+  self._cooldown = self:refreshCooldown()
+  
+  self._timer = {
+    shoot = self._cooldown
+  }
+  
+  if self:getConfig().enableNPCAutoClimax then
+    self._npcAutoClimaxThreshold = self:outputClimaxThreshold()
+  end
+  
+  if self:getConfig().enableClimaxSounds then
+    self:loadSoundEffects()
+  end
+  
   return self
+end
+
+function Sexbound.Actor.Climax:outputClimaxThreshold()
+  local threshold = self:getConfig().threshold
+  local maxPoints = self:getConfig().maxPoints
+  local range = {threshold, maxPoints}
+  
+  return util.randomInRange(range)
+end
+
+function Sexbound.Actor.Climax:loadSoundEffects()
+  if animator and animator.hasSound("climax") then
+    self._soundEffects.climax = self._config.sounds
+    
+    animator.setSoundPool("climax", self._soundEffects.climax)
+  end
 end
 
 function Sexbound.Actor.Climax:onMessage(message)
@@ -53,14 +70,22 @@ function Sexbound.Actor.Climax:onExitClimaxState()
   self:endClimax()
 end
 
+function Sexbound.Actor.Climax:playSoundEffect()
+  if self:getConfig().enableClimaxSounds then
+    if animator and animator.hasSound("climax") then
+      animator.playSound("climax")
+    end
+  end
+end
+
 function Sexbound.Actor.Climax:onUpdateClimaxState(dt)
   if not self._isClimaxing then return end
 
   self._timer.shoot = self._timer.shoot + dt
 
   if self._timer.shoot >= self._cooldown then
-    -- Play "cum sound" by default
-    animator.playSound("climax")
+    -- Play sound effect if enabled
+    self:playSoundEffect()
   
     -- Burst cum particles
     animator.burstParticleEmitter( self._particleEffect )
@@ -89,6 +114,16 @@ function Sexbound.Actor.Climax:onUpdateSexState(dt)
   local increase = util.randomInRange(self:getConfig().defaultIncrease)
 
   self._config.currentPoints = util.clamp(self:getConfig().currentPoints + increase * multiplier * dt, self:getConfig().minPoints, self:getConfig().maxPoints)
+  
+  local actor = self:getParent()
+  
+  if self:getConfig().enableNPCAutoClimax and actor:getEntityType() == "npc" then
+    if self:getConfig().currentPoints >= self._npcAutoClimaxThreshold then
+      self:beginClimax()
+      
+      self._npcAutoClimaxThreshold = self:outputClimaxThreshold()
+    end
+  end
 end
 
 --- Return the current climax points.
@@ -140,7 +175,7 @@ end
 
 -- Refreshes the cooldown time for this module.
 function Sexbound.Actor.Climax:refreshCooldown()
-  self._cooldown = util.randomInRange(self:getConfig().cooldown)
+  self._cooldown = util.randomInRange(self:getConfig().shotCooldown)
   
   return self._cooldown
 end

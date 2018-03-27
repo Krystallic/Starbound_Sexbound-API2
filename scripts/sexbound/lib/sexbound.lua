@@ -59,6 +59,12 @@ function Sexbound.new()
 
   self:initMessageHandlers()
   
+  local flipped = self:getConfig().animation.flipped or false
+  
+  if flipped and animator.hasTransformationGroup("actors") then
+    animator.scaleTransformationGroup("actors", {-1, 1}, {0, 0})
+  end
+  
   return self
 end
 
@@ -93,6 +99,10 @@ function Sexbound:update(dt, callback)
   -- Dispatch delayed messages on the 'main' channel
   Sexbound.Messenger.get("main"):dispatch()
 
+  for _,node in ipairs(self:getNodes()) do
+    node:update(dt)
+  end
+  
   -- Update the state machine
   self:getStateMachine():update(dt)
   
@@ -102,6 +112,9 @@ function Sexbound:update(dt, callback)
 end
 
 function Sexbound:addActor(actor, store)
+  -- Manually set max actors for now
+  if self._actorCount >= 2 then return end
+  
   self._actorCount = self._actorCount + 1
 
   local actor = Sexbound.Actor:new(self, actor)
@@ -115,15 +128,17 @@ function Sexbound:addActor(actor, store)
   Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:AddActor", {}, false)
 end
 
-function Sexbound:addNode(tilePosition)
-  table.insert(self._nodes, Sexbound.Node.new( self, tilePosition, true ))
+function Sexbound:addNode(tilePosition, sitPosition)
+  table.insert(self._nodes, Sexbound.Node.new( self, tilePosition, sitPosition, true ))
   
   self._nodeCount = self._nodeCount + 1
 end
 
 --- Adds new node and tracks it as being this object.
-function Sexbound:becomeNode()
-  table.insert(self._nodes, Sexbound.Node.new(self, {0, 0}, false))
+function Sexbound:becomeNode(sitPosition)
+  local tilePosition = {0, 0}
+
+  table.insert(self._nodes, Sexbound.Node.new( self, tilePosition, sitPosition, false ))
   
   self._nodeCount = self._nodeCount + 1
 end
@@ -195,6 +210,8 @@ function Sexbound:loadConfig()
 end
 
 function Sexbound:removeActor(entityId)
+  Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:PrepareRemoveActor", {}, true)
+
   for i,actor in ipairs(self._actors) do
     actor:resetTransformations()
   
@@ -286,8 +303,6 @@ end
 function Sexbound:uninit()
   for i,node in ipairs(self._nodes) do
     node:uninit()
-  
-    table.remove(self._nodes, i)
   end
 end
 
