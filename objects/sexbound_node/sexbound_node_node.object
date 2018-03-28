@@ -24,10 +24,10 @@
     "sexbound_sex"
   ],
 
-  "inventoryIcon" : "sexbound_test.png",
+  "inventoryIcon" : "sexbound_node.png",
   "orientations" : [
     {
-      "dualImage" : "sexbound_test.png:default.1",
+      "dualImage" : "sexbound_node.png:default.1",
 
       "imagePosition" : [0, 0],
       "animationPosition" : [0, 0],
