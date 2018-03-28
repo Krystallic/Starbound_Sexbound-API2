@@ -1,51 +1,59 @@
 require "/scripts/sexbound/util.lua"
 
 function init()
-  self.controllerCheck = {
-    timer   = 0,
-    timeout = 25
-  }
-
-  local ControllerId = config.getParameter("controllerId")
-
-  if not ControllerId or world.findUniqueEntity(ControllerId):result() == nil then
-    uninit()
+  -- A sex node should always smash itself on the subsequent init.
+  if storage.smashOnInit then
+    self.isSmashing = true
+    
+    object.smash(true)
+    return
   end
   
-  object.setInteractive(config.getParameter("interactive", false))
+  storage.smashOnInit = true
 
+  -- The 'controllerId' parameter has been set when this object is placed.
+  self.controllerId = config.getParameter("controllerId")
+  
+  self.sendEntityId = false
+  
+  -- Makes this object interactive when the 'interactive' parameter is true.
+  object.setInteractive(config.getParameter("interactive", false))
+  
   -- Handle Setup Actor
   message.setHandler("sexbound-setup-actor", function(_,_,args)
-    Sexbound.Util.sendMessage(ControllerId, "sexbound-setup-actor", args)
+    Sexbound.Util.sendMessage(self.controllerId, "sexbound-setup-actor", args)
   end)
   
   -- Handle Remove Actor
   message.setHandler("sexbound-remove-actor", function(_,_,args)
-    Sexbound.Util.sendMessage(ControllerId, "sexbound-remove-actor", args)
+    Sexbound.Util.sendMessage(self.controllerId, "sexbound-remove-actor", args)
   end)
   
     -- Handle Uninit Node
   message.setHandler("sexbound-node-uninit", function(_,_,args)
-    sb.logInfo("Recieved message to uninit.")
-  
-    uninit()
+    object.smash(true)
   end)
 end
 
 function update(dt)
-  self.controllerCheck.timer = self.controllerCheck.timer + dt
+  if self.isSmashing then return end
 
-  if self.controllerCheck.timer >= self.controllerCheck.timeout then
-    local ControllerId = config.getParameter("controllerId")
-
-    if not ControllerId or world.findUniqueEntity(ControllerId):result() == nil then
-      uninit()
-    end
+  if not self.sendEntityId then
+    Sexbound.Util.sendMessage(self.controllerId, "sexbound-node-init", {
+      entityId = entity.id(),
+      uniqueId = entity.uniqueId()
+    })
     
-    self.controllerCheck.timer = 0
+    self.sendEntityId = true
   end
 end
 
+-- The node is preparing to be removed from the world
+function die()
+  -- Placeholder
+end
+
+-- The node has been removed from the world
 function uninit()
-  object.smash(true)
+  -- Placeholder
 end

@@ -28,23 +28,15 @@ function Sexbound.new()
     _nodes = {},
     _nodeCount = 0
   }, Sexbound_mt)
-
-  if not storage.uuid then
-    storage.uuid = config.getParameter("uniqueId", storage.uuid) or sb.makeUuid()
-    
-    object.setUniqueId(storage.uuid)
-  end
-
-  object.setInteractive(config.getParameter("interactive", false))
   
-  self._uniqueId = storage.uuid
+  object.setInteractive(config.getParameter("interactive", false))
   
   -- Load global config
   self._config = self:loadConfig()
   
   -- Initialize new instance of Log
   self._log = Sexbound.Log:new ( self._logPrefix, self._config )
-
+  
   -- Create new messenger using 'main' channel
   Sexbound.Messenger.new("main")
   
@@ -64,6 +56,8 @@ function Sexbound.new()
   if flipped and animator.hasTransformationGroup("actors") then
     animator.scaleTransformationGroup("actors", {-1, 1}, {0, 0})
   end
+  
+  self:getLog():info("Init. Object: " .. object.name())
   
   return self
 end
@@ -129,9 +123,13 @@ function Sexbound:addActor(actor, store)
 end
 
 function Sexbound:addNode(tilePosition, sitPosition)
-  table.insert(self._nodes, Sexbound.Node.new( self, tilePosition, sitPosition, true ))
+  local node = Sexbound.Node.new( self, tilePosition, sitPosition, true )
+
+  table.insert(self._nodes, node)
   
   self._nodeCount = self._nodeCount + 1
+  
+  self._nodes[self._nodeCount]:create()
 end
 
 --- Adds new node and tracks it as being this object.
@@ -163,7 +161,19 @@ function Sexbound:initMessageHandlers()
   
     Sexbound.Messenger.get("main"):send(self, climaxPlugin, "Sexbound:Climax:BeginClimax", {})
   end)
-
+  
+  message.setHandler("sexbound-node-init", function(_,_,args)
+    local nodes    = self:getNodes()
+    local entityId = args.entityId
+    local uniqueId = args.uniqueId
+    
+    for _,node in ipairs(nodes) do
+      if node:getUniqueId() == uniqueId then
+        node:setEntityId(entityId)
+      end
+    end
+  end)
+  
   message.setHandler("sexbound-remove-actor", function(_,_,args)
     self:removeActor(args)
   end)
@@ -301,9 +311,24 @@ function Sexbound:updateAnimationRate(dt)
 end
 
 function Sexbound:uninit()
-  for i,node in ipairs(self._nodes) do
+  self:getLog():info("Uninit..")
+
+  local actors = self:getActors()
+  local nodes  = self:getNodes()
+
+  for _,actor in ipairs(actors) do
+    actor:uninit()
+  end
+  
+  self._actors = {}
+  self._actorCount = 0
+
+  for _,node in ipairs(nodes) do
     node:uninit()
   end
+  
+  self._nodes = {}
+  self._nodeCount = 0
 end
 
 -- Getters / Setters
@@ -378,8 +403,4 @@ end
 
 function Sexbound:getStateMachine()
   return self._stateMachine
-end
-
-function Sexbound:getUniqueId()
-  return self._uniqueId
 end

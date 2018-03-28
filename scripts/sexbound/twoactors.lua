@@ -16,7 +16,7 @@ function update(dt)
 end
 
 function onInteraction(args)
-  return Sexbound.API.handleInteract(args) or nil
+  return Sexbound.API.handleInteract(args)
 end
 
 function uninit()

@@ -12,12 +12,13 @@ Sexbound.Node_mt = {__index = Sexbound.Node}
 function Sexbound.Node.new(parent, tilePosition, sitPosition, placeObject)
   local self = setmetatable({
     _controllerId = parent:getEntityId(),
-    _controllerUniqueId = parent:getUniqueId(),
     _logPrefix    = "NODE",
     _name         = "sexbound_node_node",
     _sitPosition  = sitPosition or {4, 20},
     _parent       = parent,
-    _placeObject  = placeObject
+    _placeObject  = placeObject,
+    _respawnTimer = 0,
+    _respawnTime  = 5
   }, Sexbound.Node_mt)
 
   Sexbound.Messenger.get("main"):addBroadcastRecipient( self )
@@ -31,13 +32,27 @@ function Sexbound.Node.new(parent, tilePosition, sitPosition, placeObject)
 
   self._tilePosition = vec2.floor(vec2.add(entity.position(), tilePosition))
 
-  if self._placeObject then
-    self:create(self._tilePosition)
-  else
-    self._id = self._controllerId
+  if not self._placeObject then
+    self:setEntityId(self._controllerId) 
   end
   
-  return self
+  return self 
+end
+
+function Sexbound.Node:update(dt)
+  if not self._placeObject then return end
+  
+  self._respawnTimer = self._respawnTimer + dt
+  
+  if self._respawnTimer >= self._respawnTime then
+    local uniqueId = self:getUniqueId()
+
+    if not uniqueId or world.findUniqueEntity(uniqueId):result() == nil then
+      self:create()
+    end
+    
+    self._respawnTimer = 0
+  end
 end
 
 function Sexbound.Node:getLog()
@@ -52,58 +67,33 @@ function Sexbound.Node:getParent()
   return self._parent
 end
 
---- Updates this instance.
--- @param dt
-function Sexbound.Node:update(dt)
-  if self._placeObject and not self:exists() then
-    self:create(self._tilePosition)
-  end
-end
-
---- Attempt to place a new sexbound node object at specified tile position.
+--- Place a new sexbound node object at specified tile position.
 -- @param tilePosition
-function Sexbound.Node:create(tilePosition)
-  self._uniqueId = sb.makeUuid()
+function Sexbound.Node:create()
+  local uniqueId = sb.makeUuid()
 
   local params = {
     sitPosition  = self._sitPosition,
-    controllerId = self._controllerUniqueId,
-    uniqueId     = self._uniqueId
+    controllerId = self._controllerId,
+    uniqueId     = uniqueId
   }
   
-  if not self:exists() then
-    world.placeObject(self._name, tilePosition, object.direction(), params)
+  if world.placeObject(self._name, self._tilePosition, object.direction(), params) then
+    self._uniqueId = uniqueId
   end
-end
-
-function Sexbound.Node:exists()
-  local entityId = world.objectAt(self._tilePosition)
-  
-  if not entityId then return false end
-  
-  local entityType = world.entityType(entityId)
-  
-  if entityType == "sexbound_node_node" then
-    if world.entityUniqueId(entityId) == self._uniqueId then
-      return true
-    else
-      Sexbound.Util.sendMessage(entityId, "sexbound-node-uninit")
-      return true
-    end
-  end
-  
-  return false
 end
 
 --- Returns the entityId for this node.
-function Sexbound.Node:id()
-  local entityId = world.objectAt(self._tilePosition)
-  
-  if entityId and world.entityName(entityId) == self._name then
-    self._id = entityId
-  end
-  
-  return self._id
+function Sexbound.Node:getEntityId()
+  return self._entityId
+end
+
+function Sexbound.Node:setEntityId(entityId)
+  self._entityId = entityId
+end
+
+function Sexbound.Node:getControllerId()
+  return self._controllerId
 end
 
 --- Returns the uniqueId for this Node's object.
@@ -111,23 +101,40 @@ function Sexbound.Node:getUniqueId()
   return self._uniqueId
 end
 
+function Sexbound.Node:setUniqueId(uniqueId)
+  self._uniqueId = uniqueId
+end
+
 --- Sends "sexbound_lounge" message to interacting entity (player).
 -- @param entityId
 function Sexbound.Node:lounge(entityId)
-  Sexbound.Util.sendMessage(entityId, "sexbound-lounge", {
-    controllerId = entity.id(),
-    loungeId     = self:id()
-  })
+  local playerId = entityId
+  local entityId = self:getEntityId()
+  
+  if entityId then
+    local controllerId = self:getControllerId()
+  
+    Sexbound.Util.sendMessage(playerId, "sexbound-lounge", {
+      controllerId = controllerId,
+      loungeId     = entityId
+    })
+  end
 end
 
 --- Returns whether or not this node is occupied.
 function Sexbound.Node:occupied()
-  return world.loungeableOccupied(self:id())
+  local entityId = self:getEntityId()
+
+  if entityId and world.entityExists(entityId) then
+    return world.loungeableOccupied(entityId)
+  end
+  
+  return true
 end
 
 --- Uninitializes this instance.
 function Sexbound.Node:uninit()
-  local msgId = self:getUniqueId() or self:id()
+  local msgId = self:getUniqueId() or self:getEntityId()
   
   if msgId then
     Sexbound.Util.sendMessage(msgId, "sexbound-node-uninit")
