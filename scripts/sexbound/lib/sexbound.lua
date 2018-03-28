@@ -106,9 +106,6 @@ function Sexbound:update(dt, callback)
 end
 
 function Sexbound:addActor(actor, store)
-  -- Manually set max actors for now
-  if self._actorCount >= 2 then return end
-  
   self._actorCount = self._actorCount + 1
 
   local actor = Sexbound.Actor:new(self, actor)
