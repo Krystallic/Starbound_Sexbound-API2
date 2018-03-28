@@ -39,8 +39,9 @@ end
 function Sexbound.NPC:new()
   local self = setmetatable({
     _common = Sexbound.Common:new(),
+    _controllerId  = nil,
     _hasSetupActor = false,
-    _mindControl = {damageSourceKind = "sexbound_mind_control"}
+    _mindControl   = {damageSourceKind = "sexbound_mind_control"}
   }, Sexbound.NPC_mt)
 
   self:initMessageHandlers()
@@ -80,18 +81,20 @@ function Sexbound.NPC:update(dt)
   if status.statusProperty("sexbound_sex") == true and not self._hasStoredActor then
     if npc.isLounging() then
       self._loungeId = npc.loungingIn()
-    
+      
+      self._hasStoredActor = true
+      
       self:setupActor(false)
     end
   end
   
   -- If the status property 'sexbound_sex' is cleared.
-  if status.statusProperty("sexbound_sex") ~= true then
-    if self._hasStoredActor and not self._isTransformed then
-      Sexbound.Util.sendMessage( self._loungeId, "sexbound-remove-actor", entity.id() )
-      
-      self._hasStoredActor = false
-    end
+  if status.statusProperty("sexbound_sex") ~= true and self._hasStoredActor then
+    self._hasStoredActor = false
+  
+    local msgId = self._loungeId
+  
+    Sexbound.Util.sendMessage( msgId, "sexbound-remove-actor", entity.id() )
   end
   
     -- If the status property 'sexbound_birthday' is not 'default'
@@ -231,8 +234,6 @@ end
 --- Creates and sends actor data to the Sexbound API.
 -- @param store is a boolean
 function Sexbound.NPC:setupActor(store)
-  self._hasStoredActor = true
-  
   local actorData = {
     -- Store id.
     id = entity.id(),
