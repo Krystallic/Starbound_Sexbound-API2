@@ -1,10 +1,9 @@
  {
- "name" : "SexboundAPI",
- "version" : "2.4.1 (Beta)",
- "description" : "Adds the Sexbound API v2.",
- "friendlyName" : "SexboundAPI",
- "priority" : -1,
- "link" : "http://www.loverslab.com/files/file/4337-starbound-sexbound-api/",
- "steamContentId" : "",
- "author" : "Loxodon"
+   "name"         : "sexbound_v2",
+   "version"      : "2.4.1-beta",
+   "author"       : "Loxodon",
+   "description"  : "Adds Sexbound V2 Framework.",
+   "friendlyName" : "Sexbound V2",
+   "priority"     : -1,
+   "link"         : "http://www.loverslab.com/files/file/4337-starbound-sexbound-api/"
  }
