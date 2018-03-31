@@ -24,11 +24,11 @@ function Sexbound:new()
     _actors = {},
     _actorCount = 0,
     _animationRate = 1,
-    _entityId = entity.id(),
     _nodes = {},
     _nodeCount = 0
   }, Sexbound_mt)
   
+  -- Sets this object to be interactive when its interactive configuration parameter is set to true.
   object.setInteractive(config.getParameter("interactive", false))
   
   -- Load global config
@@ -65,12 +65,11 @@ end
 --- Updates this instance.
 -- @param dt The delta time.
 function Sexbound:update(dt)
-  -- Dispatch delayed messages on the 'main' channel
+  -- Dispatch queued messages on the 'main' channel
   Sexbound.Messenger.get("main"):dispatch()
 
-  for _,node in ipairs(self:getNodes()) do
-    node:update(dt)
-  end
+  -- Update each node 
+  self:updateNodes(dt)
   
   -- Update the state machine
   self:getStateMachine():update(dt)
@@ -317,6 +316,15 @@ function Sexbound:updateAnimationRate(dt)
   end
 end
 
+--- Updates each node in this instance's nodes table.
+function Sexbound:updateNodes(dt)
+  local nodes = self:getNodes()
+  
+  for _,node in ipairs(nodes) do
+    node:update(dt)
+  end
+end
+
 --- Uninitializes this instance.
 function Sexbound:uninit()
   self:getLog():info("Uniniting..")
@@ -356,74 +364,97 @@ end
 
 -- Getters / Setters
 
+--- Returns a reference to this instance's actors table.
 function Sexbound:getActors()
   return self._actors
 end
 
+--- Sets this instance's actors table to a specified table.
+-- @param newActors
 function Sexbound:setActors(newActors)
   self._actors = newActors
 end
 
+--- Returns the current count of actors in the actors table.
 function Sexbound:getActorCount()
   return self._actorCount
 end
 
+--- Sets this instances' current actor count.
+-- @param newCount
 function Sexbound:setActorCount(newCount)
   self.actorCount = newCount
 end
 
+--- Returns that current animation rate for this object's animator.
 function Sexbound:getAnimationRate()
   return self._animationRate
 end
 
+--- Sets the animation rate for this object's animator.
+-- @param value
 function Sexbound:setAnimationRate(value)
   self._animationRate = value
 end
 
+--- Returns a reference to this instance's running configuration.
 function Sexbound:getConfig()
   return self._config
 end
 
+--- Returns this object's entityId.
 function Sexbound:getEntityId()
-  return self._entityId
+  return entity.id()
 end
 
+--- Returns a reference to the current default langauge.
 function Sexbound:getLanguage()
   return self:getConfig().sex.defaultLanguage
 end
 
+--- Returns a reference to the current language settings.
 function Sexbound:getLanguageSettings()
   return self:getConfig().sex.supportedLanguages[self:getLanguage()]
 end
 
+--- Returns a reference to this instance's log utility.
 function Sexbound:getLog()
   return self._log
 end
 
+--- Returns this instance's log prefix.
 function Sexbound:getLogPrefix()
   return self._logPrefix
 end
 
+--- Returns a reference to this instance's nodes table.
 function Sexbound:getNodes()
   return self._nodes
 end
 
+--- Sets this instance's nodes table to a specified table.
+-- @param newNodes
 function Sexbound:setNodes(newNodes)
   self._nodes = newNodes
 end
 
+--- Returns the current count of nodes in the nodes table.
 function Sexbound:getNodeCount()
   return self._nodeCount
 end
 
+--- Sets this instances' current node count.
+-- @param newCount
 function Sexbound:setNodeCount(newCount)
   self._nodeCount = newCount
 end
 
+--- Returns a reference to this instance's Positions component.
 function Sexbound:getPositions()
   return self._positions
 end
 
+--- Returns a reference to this instance's State Machine component.
 function Sexbound:getStateMachine()
   return self._stateMachine
 end

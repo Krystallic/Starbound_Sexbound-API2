@@ -138,6 +138,10 @@
 	<td class="summary">Updates the animation rate of the animator based on the delta time.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Sexbound:updateNodes">Sexbound:updateNodes (dt)</a></td>
+	<td class="summary">Updates each node in this instance's nodes table.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Sexbound:uninit">Sexbound:uninit ()</a></td>
 	<td class="summary">Uninitializes this instance.</td>
 	</tr>
@@ -148,6 +152,78 @@
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound:uninitNodes">Sexbound:uninitNodes ()</a></td>
 	<td class="summary">Uninitializes each instance of Node in the nodes table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getActors">Sexbound:getActors ()</a></td>
+	<td class="summary">Returns a reference to this instance's actors table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:setActors">Sexbound:setActors (newActors)</a></td>
+	<td class="summary">Sets this instance's actors table to a specified table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getActorCount">Sexbound:getActorCount ()</a></td>
+	<td class="summary">Returns the current count of actors in the actors table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:setActorCount">Sexbound:setActorCount (newCount)</a></td>
+	<td class="summary">Sets this instances' current actor count.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getAnimationRate">Sexbound:getAnimationRate ()</a></td>
+	<td class="summary">Returns that current animation rate for this object's animator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:setAnimationRate">Sexbound:setAnimationRate (value)</a></td>
+	<td class="summary">Sets the animation rate for this object's animator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getConfig">Sexbound:getConfig ()</a></td>
+	<td class="summary">Returns a reference to this instance's running configuration.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getEntityId">Sexbound:getEntityId ()</a></td>
+	<td class="summary">Returns this object's entityId.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getLanguage">Sexbound:getLanguage ()</a></td>
+	<td class="summary">Returns a reference to the current default langauge.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getLanguageSettings">Sexbound:getLanguageSettings ()</a></td>
+	<td class="summary">Returns a reference to the current language settings.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getLog">Sexbound:getLog ()</a></td>
+	<td class="summary">Returns a reference to this instance's log utility.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getLogPrefix">Sexbound:getLogPrefix ()</a></td>
+	<td class="summary">Returns this instance's log prefix.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getNodes">Sexbound:getNodes ()</a></td>
+	<td class="summary">Returns a reference to this instance's nodes table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:setNodes">Sexbound:setNodes (newNodes)</a></td>
+	<td class="summary">Sets this instance's nodes table to a specified table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getNodeCount">Sexbound:getNodeCount ()</a></td>
+	<td class="summary">Returns the current count of nodes in the nodes table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:setNodeCount">Sexbound:setNodeCount (newCount)</a></td>
+	<td class="summary">Sets this instances' current node count.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getPositions">Sexbound:getPositions ()</a></td>
+	<td class="summary">Returns a reference to this instance's Positions component.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:getStateMachine">Sexbound:getStateMachine ()</a></td>
+	<td class="summary">Returns a reference to this instance's State Machine component.</td>
 	</tr>
 </table>
 
@@ -409,6 +485,26 @@
 
 </dd>
     <dt>
+    <a name = "Sexbound:updateNodes"></a>
+    <strong>Sexbound:updateNodes (dt)</strong>
+    </dt>
+    <dd>
+    Updates each node in this instance's nodes table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "Sexbound:uninit"></a>
     <strong>Sexbound:uninit ()</strong>
     </dt>
@@ -450,6 +546,288 @@
 
 
 </dd>
+    <dt>
+    <a name = "Sexbound:getActors"></a>
+    <strong>Sexbound:getActors ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to this instance's actors table.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:setActors"></a>
+    <strong>Sexbound:setActors (newActors)</strong>
+    </dt>
+    <dd>
+    Sets this instance's actors table to a specified table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">newActors</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getActorCount"></a>
+    <strong>Sexbound:getActorCount ()</strong>
+    </dt>
+    <dd>
+    Returns the current count of actors in the actors table.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:setActorCount"></a>
+    <strong>Sexbound:setActorCount (newCount)</strong>
+    </dt>
+    <dd>
+    Sets this instances' current actor count.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">newCount</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getAnimationRate"></a>
+    <strong>Sexbound:getAnimationRate ()</strong>
+    </dt>
+    <dd>
+    Returns that current animation rate for this object's animator.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:setAnimationRate"></a>
+    <strong>Sexbound:setAnimationRate (value)</strong>
+    </dt>
+    <dd>
+    Sets the animation rate for this object's animator.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getConfig"></a>
+    <strong>Sexbound:getConfig ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to this instance's running configuration.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getEntityId"></a>
+    <strong>Sexbound:getEntityId ()</strong>
+    </dt>
+    <dd>
+    Returns this object's entityId.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getLanguage"></a>
+    <strong>Sexbound:getLanguage ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to the current default langauge.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getLanguageSettings"></a>
+    <strong>Sexbound:getLanguageSettings ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to the current language settings.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getLog"></a>
+    <strong>Sexbound:getLog ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to this instance's log utility.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getLogPrefix"></a>
+    <strong>Sexbound:getLogPrefix ()</strong>
+    </dt>
+    <dd>
+    Returns this instance's log prefix.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getNodes"></a>
+    <strong>Sexbound:getNodes ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to this instance's nodes table.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:setNodes"></a>
+    <strong>Sexbound:setNodes (newNodes)</strong>
+    </dt>
+    <dd>
+    Sets this instance's nodes table to a specified table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">newNodes</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getNodeCount"></a>
+    <strong>Sexbound:getNodeCount ()</strong>
+    </dt>
+    <dd>
+    Returns the current count of nodes in the nodes table.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:setNodeCount"></a>
+    <strong>Sexbound:setNodeCount (newCount)</strong>
+    </dt>
+    <dd>
+    Sets this instances' current node count.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">newCount</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getPositions"></a>
+    <strong>Sexbound:getPositions ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to this instance's Positions component.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:getStateMachine"></a>
+    <strong>Sexbound:getStateMachine ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to this instance's State Machine component.
+
+
+
+
+
+
+
+</dd>
 </dl>
 
 
@@ -457,7 +835,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-03-31 21:18:15 </i>
+<i style="float:right;">Last updated 2018-03-31 21:51:35 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
