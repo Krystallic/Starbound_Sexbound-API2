@@ -1,13 +1,16 @@
 {
   "frameGrid" : {
     "size" : [43, 43],
-    "dimensions" : [5, 5],
+    "dimensions" : [5, 8],
     "names" : [
       [null, "idle.1", null, null, null],
       [null, "behind.1", "behind.2", "behind.3", "behind.4" ],
       [null, "doggy.1", "doggy.2", "doggy.3", "doggy.4" ],
       [null, "missionary.1", "missionary.2", "missionary.3", "missionary.4"],
-      [null, "cowgirl.1", "cowgirl.2", "cowgirl.3", "cowgirl.4"]
+      [null, "cowgirl.1", "cowgirl.2", "cowgirl.3", "cowgirl.4"],
+      [null, null, null, null, null],
+      [null, null, null, null, null],
+      [null, null, null, null, null]
     ]
   },
   "aliases" : {
