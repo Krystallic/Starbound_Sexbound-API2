@@ -243,6 +243,21 @@ function Sexbound.Actor.Pregnant:sendSuccessMessage(otherActor)
   end
 end
 
+function Sexbound.Actor.Pregnant:randomChance()
+  local fertility = self:getConfig().fertility
+  
+  local randomNumber = util.randomIntInRange({1, 100});
+  local randomFloat = randomNumber / 100;
+  
+  self:getLog():info("Random chance roll: " .. randomNumber)
+  
+  if (randomFloat <= fertility) then
+    return true
+  end
+  
+  return false
+end
+
 --- Attempts to make this actor become pregnant.
 function Sexbound.Actor.Pregnant:tryBecomePregnant(otherActor)
   -- Prevent actor from impregnating itself.
@@ -253,7 +268,9 @@ function Sexbound.Actor.Pregnant:tryBecomePregnant(otherActor)
   -- Check if mate must be compatible to become pregnant
   if self:isImpregnationPossible() and self:isOtherCompatible(otherActor) then
     if not self:isPregnant() or self:getConfig().allowMultipleImpregnations then
-      self:becomePregnant(otherActor)
+      if self:randomChance() then
+        self:becomePregnant(otherActor)
+      end
     end
   end
 end
