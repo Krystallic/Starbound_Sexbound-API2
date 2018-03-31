@@ -82,50 +82,6 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getActorNumber">Sexbound.Actor:getActorNumber ()</a></td>
-	<td class="summary">Returns this Actor's current number.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getEntityType">Sexbound.Actor:getEntityType ()</a></td>
-	<td class="summary">Returns this Actor's entity type.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialHairFolder">Sexbound.Actor:getFacialHairFolder ()</a></td>
-	<td class="summary">Returns a validated facial hair folder name.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialHairType">Sexbound.Actor:getFacialHairType ()</a></td>
-	<td class="summary">Returns a validated facial hair type.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialMaskFolder">Sexbound.Actor:getFacialMaskFolder ()</a></td>
-	<td class="summary">Returns a validated facial mask folder name.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialMaskType">Sexbound.Actor:getFacialMaskType ()</a></td>
-	<td class="summary">Returns a validated facial mask type.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getGender">Sexbound.Actor:getGender ()</a></td>
-	<td class="summary">Returns this Actor's gender.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getHairFolder">Sexbound.Actor:getHairFolder ()</a></td>
-	<td class="summary">Returns a validated hair folder name.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getHairType">Sexbound.Actor:getHairType ()</a></td>
-	<td class="summary">Returns a validated hair type.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getEntityId">Sexbound.Actor:getEntityId ()</a></td>
-	<td class="summary">Returns this Actor's id.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Sexbound.Actor:getRole">Sexbound.Actor:getRole ()</a></td>
-	<td class="summary">Returns this Actor's current role.</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getIdentity">Sexbound.Actor:getIdentity ([param])</a></td>
 	<td class="summary">Returns a reference to this Actor identifiers.</td>
 	</tr>
@@ -175,7 +131,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:syncStorage">Sexbound.Actor:syncStorage ()</a></td>
-	<td class="summary">Send message to update the Actor's storage.</td>
+	<td class="summary">Use the Actor's entityId to Send message to update its storage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:translatePart">Sexbound.Actor:translatePart (part, offset)</a></td>
@@ -193,6 +149,50 @@
 	<td class="name" nowrap><a href="#Sexbound.Actor:validateSpecies">Sexbound.Actor:validateSpecies (species)</a></td>
 	<td class="summary">Processes species value.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getActorNumber">Sexbound.Actor:getActorNumber ()</a></td>
+	<td class="summary">Returns this Actor's current number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getEntityType">Sexbound.Actor:getEntityType ()</a></td>
+	<td class="summary">Returns this Actor's entity type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialHairFolder">Sexbound.Actor:getFacialHairFolder ()</a></td>
+	<td class="summary">Returns a validated facial hair folder name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialHairType">Sexbound.Actor:getFacialHairType ()</a></td>
+	<td class="summary">Returns a validated facial hair type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialMaskFolder">Sexbound.Actor:getFacialMaskFolder ()</a></td>
+	<td class="summary">Returns a validated facial mask folder name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialMaskType">Sexbound.Actor:getFacialMaskType ()</a></td>
+	<td class="summary">Returns a validated facial mask type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getGender">Sexbound.Actor:getGender ()</a></td>
+	<td class="summary">Returns this Actor's gender.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getHairFolder">Sexbound.Actor:getHairFolder ()</a></td>
+	<td class="summary">Returns a validated hair folder name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getHairType">Sexbound.Actor:getHairType ()</a></td>
+	<td class="summary">Returns a validated hair type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getEntityId">Sexbound.Actor:getEntityId ()</a></td>
+	<td class="summary">Returns this Actor's id.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getRole">Sexbound.Actor:getRole ()</a></td>
+	<td class="summary">Returns this Actor's current role.</td>
+	</tr>
 </table>
 
 <br/>
@@ -202,160 +202,6 @@
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
-    <dt>
-    <a name = "Sexbound.Actor:getActorNumber"></a>
-    <strong>Sexbound.Actor:getActorNumber ()</strong>
-    </dt>
-    <dd>
-    Returns this Actor's current number.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getEntityType"></a>
-    <strong>Sexbound.Actor:getEntityType ()</strong>
-    </dt>
-    <dd>
-    Returns this Actor's entity type.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getFacialHairFolder"></a>
-    <strong>Sexbound.Actor:getFacialHairFolder ()</strong>
-    </dt>
-    <dd>
-    Returns a validated facial hair folder name.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getFacialHairType"></a>
-    <strong>Sexbound.Actor:getFacialHairType ()</strong>
-    </dt>
-    <dd>
-    Returns a validated facial hair type.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getFacialMaskFolder"></a>
-    <strong>Sexbound.Actor:getFacialMaskFolder ()</strong>
-    </dt>
-    <dd>
-    Returns a validated facial mask folder name.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getFacialMaskType"></a>
-    <strong>Sexbound.Actor:getFacialMaskType ()</strong>
-    </dt>
-    <dd>
-    Returns a validated facial mask type.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getGender"></a>
-    <strong>Sexbound.Actor:getGender ()</strong>
-    </dt>
-    <dd>
-    Returns this Actor's gender.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getHairFolder"></a>
-    <strong>Sexbound.Actor:getHairFolder ()</strong>
-    </dt>
-    <dd>
-    Returns a validated hair folder name.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getHairType"></a>
-    <strong>Sexbound.Actor:getHairType ()</strong>
-    </dt>
-    <dd>
-    Returns a validated hair type.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getEntityId"></a>
-    <strong>Sexbound.Actor:getEntityId ()</strong>
-    </dt>
-    <dd>
-    Returns this Actor's id.
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Sexbound.Actor:getRole"></a>
-    <strong>Sexbound.Actor:getRole ()</strong>
-    </dt>
-    <dd>
-    Returns this Actor's current role.
-
-
-
-
-
-
-
-</dd>
     <dt>
     <a name = "Sexbound.Actor:getIdentity"></a>
     <strong>Sexbound.Actor:getIdentity ([param])</strong>
@@ -578,7 +424,7 @@
     <strong>Sexbound.Actor:syncStorage ()</strong>
     </dt>
     <dd>
-    Send message to update the Actor's storage.
+    Use the Actor's entityId to Send message to update its storage.
 
 
 
@@ -664,6 +510,160 @@
 
 
 </dd>
+    <dt>
+    <a name = "Sexbound.Actor:getActorNumber"></a>
+    <strong>Sexbound.Actor:getActorNumber ()</strong>
+    </dt>
+    <dd>
+    Returns this Actor's current number.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getEntityType"></a>
+    <strong>Sexbound.Actor:getEntityType ()</strong>
+    </dt>
+    <dd>
+    Returns this Actor's entity type.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getFacialHairFolder"></a>
+    <strong>Sexbound.Actor:getFacialHairFolder ()</strong>
+    </dt>
+    <dd>
+    Returns a validated facial hair folder name.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getFacialHairType"></a>
+    <strong>Sexbound.Actor:getFacialHairType ()</strong>
+    </dt>
+    <dd>
+    Returns a validated facial hair type.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getFacialMaskFolder"></a>
+    <strong>Sexbound.Actor:getFacialMaskFolder ()</strong>
+    </dt>
+    <dd>
+    Returns a validated facial mask folder name.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getFacialMaskType"></a>
+    <strong>Sexbound.Actor:getFacialMaskType ()</strong>
+    </dt>
+    <dd>
+    Returns a validated facial mask type.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getGender"></a>
+    <strong>Sexbound.Actor:getGender ()</strong>
+    </dt>
+    <dd>
+    Returns this Actor's gender.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getHairFolder"></a>
+    <strong>Sexbound.Actor:getHairFolder ()</strong>
+    </dt>
+    <dd>
+    Returns a validated hair folder name.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getHairType"></a>
+    <strong>Sexbound.Actor:getHairType ()</strong>
+    </dt>
+    <dd>
+    Returns a validated hair type.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getEntityId"></a>
+    <strong>Sexbound.Actor:getEntityId ()</strong>
+    </dt>
+    <dd>
+    Returns this Actor's id.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getRole"></a>
+    <strong>Sexbound.Actor:getRole ()</strong>
+    </dt>
+    <dd>
+    Returns this Actor's current role.
+
+
+
+
+
+
+
+</dd>
 </dl>
 
 
@@ -671,7 +671,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-03-25 04:07:33 </i>
+<i style="float:right;">Last updated 2018-03-31 21:18:15 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

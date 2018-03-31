@@ -86,28 +86,68 @@
 	<td class="summary">Returns a reference to a new instance of this class.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Sexbound:update">Sexbound:update (dt)</a></td>
+	<td class="summary">Updates this instance.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Sexbound:onMessage">Sexbound:onMessage (message)</a></td>
 	<td class="summary">Handles message event.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Sexbound:becomeNode">Sexbound:becomeNode ()</a></td>
-	<td class="summary">Adds new node and tracks it as being this object.</td>
+	<td class="name" nowrap><a href="#Sexbound:addActor">Sexbound:addActor (actorConfig, store)</a></td>
+	<td class="summary">Adds a new instance of Actor to the actors table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:addNode">Sexbound:addNode (tilePosition, sitPosition)</a></td>
+	<td class="summary">Adds a new instance of Node to the nodes table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:becomeNode">Sexbound:becomeNode (sitPosition)</a></td>
+	<td class="summary">Adds a new instance of Node to the nodes table and tracks it as being this object.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound:handleInteract">Sexbound:handleInteract (args)</a></td>
 	<td class="summary">Handles a player interaction request.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Sexbound:initMessageHandlers">Sexbound:initMessageHandlers ()</a></td>
+	<td class="summary">Initializes message handlers.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Sexbound:loadConfig">Sexbound:loadConfig ()</a></td>
-	<td class="summary">Returns loaded global configuration as a table.</td>
+	<td class="summary">Returns a reference to the running configuration.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:removeActor">Sexbound:removeActor (entityId)</a></td>
+	<td class="summary">Removes the specified Actor instance from the actors table.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound:resetAllActors">Sexbound:resetAllActors ()</a></td>
-	<td class="summary">Resets all actors.</td>
+	<td class="summary">Resets all instances of Actor in the actors table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:respawnStoredActor">Sexbound:respawnStoredActor ()</a></td>
+	<td class="summary">Respawns the stored actor if it exists in this object's storage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound:switchActorRoles">Sexbound:switchActorRoles ()</a></td>
-	<td class="summary">Shifts all actors right by one element.</td>
+	<td class="summary">Shifts all actors in the actors table one element to the right.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:updateAnimationRate">Sexbound:updateAnimationRate (dt)</a></td>
+	<td class="summary">Updates the animation rate of the animator based on the delta time.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:uninit">Sexbound:uninit ()</a></td>
+	<td class="summary">Uninitializes this instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:uninitActors">Sexbound:uninitActors ()</a></td>
+	<td class="summary">Uninitializes each instance of Actor in the actors table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound:uninitNodes">Sexbound:uninitNodes ()</a></td>
+	<td class="summary">Uninitializes each instance of Node in the nodes table.</td>
 	</tr>
 </table>
 
@@ -126,6 +166,26 @@
     Returns a reference to a new instance of this class.
 
 
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:update"></a>
+    <strong>Sexbound:update (dt)</strong>
+    </dt>
+    <dd>
+    Updates this instance.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+         The delta time.
+        </li>
+    </ul>
 
 
 
@@ -153,13 +213,65 @@
 
 </dd>
     <dt>
-    <a name = "Sexbound:becomeNode"></a>
-    <strong>Sexbound:becomeNode ()</strong>
+    <a name = "Sexbound:addActor"></a>
+    <strong>Sexbound:addActor (actorConfig, store)</strong>
     </dt>
     <dd>
-    Adds new node and tracks it as being this object.
+    Adds a new instance of Actor to the actors table.
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actorConfig</span>
+
+        </li>
+        <li><span class="parameter">store</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:addNode"></a>
+    <strong>Sexbound:addNode (tilePosition, sitPosition)</strong>
+    </dt>
+    <dd>
+    Adds a new instance of Node to the nodes table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tilePosition</span>
+
+        </li>
+        <li><span class="parameter">sitPosition</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:becomeNode"></a>
+    <strong>Sexbound:becomeNode (sitPosition)</strong>
+    </dt>
+    <dd>
+    Adds a new instance of Node to the nodes table and tracks it as being this object.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sitPosition</span>
+
+        </li>
+    </ul>
 
 
 
@@ -184,10 +296,20 @@
 
 
 
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="keyword">function</span> onInteraction(args) Sexbound.handleInteract(args) <span class="keyword">end</span></pre>
-    </ul>
+
+</dd>
+    <dt>
+    <a name = "Sexbound:initMessageHandlers"></a>
+    <strong>Sexbound:initMessageHandlers ()</strong>
+    </dt>
+    <dd>
+    Initializes message handlers.
+
+
+
+
+
+
 
 </dd>
     <dt>
@@ -195,9 +317,29 @@
     <strong>Sexbound:loadConfig ()</strong>
     </dt>
     <dd>
-    Returns loaded global configuration as a table.
+    Returns a reference to the running configuration.
 
 
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:removeActor"></a>
+    <strong>Sexbound:removeActor (entityId)</strong>
+    </dt>
+    <dd>
+    Removes the specified Actor instance from the actors table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">entityId</span>
+
+        </li>
+    </ul>
 
 
 
@@ -209,7 +351,21 @@
     <strong>Sexbound:resetAllActors ()</strong>
     </dt>
     <dd>
-    Resets all actors.
+    Resets all instances of Actor in the actors table.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:respawnStoredActor"></a>
+    <strong>Sexbound:respawnStoredActor ()</strong>
+    </dt>
+    <dd>
+    Respawns the stored actor if it exists in this object's storage.
 
 
 
@@ -223,7 +379,69 @@
     <strong>Sexbound:switchActorRoles ()</strong>
     </dt>
     <dd>
-    Shifts all actors right by one element.
+    Shifts all actors in the actors table one element to the right.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:updateAnimationRate"></a>
+    <strong>Sexbound:updateAnimationRate (dt)</strong>
+    </dt>
+    <dd>
+    Updates the animation rate of the animator based on the delta time.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+         The delta time
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:uninit"></a>
+    <strong>Sexbound:uninit ()</strong>
+    </dt>
+    <dd>
+    Uninitializes this instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:uninitActors"></a>
+    <strong>Sexbound:uninitActors ()</strong>
+    </dt>
+    <dd>
+    Uninitializes each instance of Actor in the actors table.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound:uninitNodes"></a>
+    <strong>Sexbound:uninitNodes ()</strong>
+    </dt>
+    <dd>
+    Uninitializes each instance of Node in the nodes table.
 
 
 
@@ -239,7 +457,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-03-25 04:07:33 </i>
+<i style="float:right;">Last updated 2018-03-31 21:18:15 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
