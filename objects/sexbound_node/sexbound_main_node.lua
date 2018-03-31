@@ -19,19 +19,19 @@ end
 function update(dt)
   if self.isSmashing then return end
 
-  Sexbound.API.update(dt, function()
-    if storage.mindControl then
-      local worldTime = world.day() + world.timeOfDay()
-      
-      if not Sexbound.API.StateMachine:getStatus("havingSex") and worldTime >= storage.mindControl.timeout then
-        smash()
-      end
+  Sexbound.API.update(dt)
+  
+  if storage.mindControl then
+    local worldTime = world.day() + world.timeOfDay()
+    
+    if not Sexbound.API.StateMachine:getStatus("havingSex") and worldTime >= storage.mindControl.timeout then
+      smash()
     end
-  end)
+  end
 end
 
 function onInteraction(args)
-  return Sexbound.API.handleInteract(args) or nil
+  return Sexbound.API.handleInteract(args)
 end
 
 function smash()
@@ -43,7 +43,7 @@ function smash()
 end
 
 function die()
-  Sexbound.API.handleDie()
+  Sexbound.API.respawnStoredActor()
 end
 
 function uninit()

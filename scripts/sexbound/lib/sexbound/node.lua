@@ -8,19 +8,20 @@ Sexbound.Node_mt = {__index = Sexbound.Node}
 --- Instantiates a new instance of Node.
 -- @param parent
 -- @param tilePosition
+-- @param sitPosition
 -- @param placeObject
 function Sexbound.Node.new(parent, tilePosition, sitPosition, placeObject)
   local self = setmetatable({
     _controllerId = parent:getEntityId(),
     _logPrefix    = "NODE",
     _name         = "sexbound_node_node",
-    _sitPosition  = sitPosition or {4, 20},
+    _sitPosition  = sitPosition or {0, 0},
     _parent       = parent,
     _placeObject  = placeObject,
     _respawnTimer = 0,
     _respawnTime  = 5
   }, Sexbound.Node_mt)
-
+  
   Sexbound.Messenger.get("main"):addBroadcastRecipient( self )
   
   self._log = Sexbound.Log:new(self._logPrefix, self._parent:getConfig())

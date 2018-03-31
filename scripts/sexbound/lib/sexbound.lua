@@ -18,7 +18,7 @@ require "/scripts/sexbound/lib/sexbound/positions.lua"
 require "/scripts/sexbound/lib/sexbound/statemachine.lua"
 
 --- Returns a reference to a new instance of this class.
-function Sexbound.new()
+function Sexbound:new()
   local self = setmetatable({
     _logPrefix = "MAIN",
     _actors = {},
@@ -62,6 +62,20 @@ function Sexbound.new()
   return self
 end
 
+--- Updates this instance.
+-- @param dt The delta time.
+function Sexbound:update(dt)
+  -- Dispatch delayed messages on the 'main' channel
+  Sexbound.Messenger.get("main"):dispatch()
+
+  for _,node in ipairs(self:getNodes()) do
+    node:update(dt)
+  end
+  
+  -- Update the state machine
+  self:getStateMachine():update(dt)
+end
+
 --- Handles message event.
 -- @param message
 function Sexbound:onMessage(message)
@@ -89,26 +103,13 @@ function Sexbound:onMessage(message)
   end
 end
 
-function Sexbound:update(dt, callback)
-  -- Dispatch delayed messages on the 'main' channel
-  Sexbound.Messenger.get("main"):dispatch()
-
-  for _,node in ipairs(self:getNodes()) do
-    node:update(dt)
-  end
-  
-  -- Update the state machine
-  self:getStateMachine():update(dt)
-  
-  if type(callback) == "function" then
-    callback()
-  end
-end
-
-function Sexbound:addActor(actor, store)
+--- Adds a new instance of Actor to the actors table.
+-- @param actorConfig
+-- @param store
+function Sexbound:addActor(actorConfig, store)
   self._actorCount = self._actorCount + 1
 
-  local actor = Sexbound.Actor:new(self, actor)
+  local actor = Sexbound.Actor:new(self, actorConfig)
   
   if store then storage.actor = actor:getConfig() end
   
@@ -119,6 +120,9 @@ function Sexbound:addActor(actor, store)
   Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:AddActor", {}, false)
 end
 
+--- Adds a new instance of Node to the nodes table.
+-- @param tilePosition
+-- @param sitPosition
 function Sexbound:addNode(tilePosition, sitPosition)
   local node = Sexbound.Node.new( self, tilePosition, sitPosition, true )
 
@@ -129,7 +133,8 @@ function Sexbound:addNode(tilePosition, sitPosition)
   self._nodes[self._nodeCount]:create()
 end
 
---- Adds new node and tracks it as being this object.
+--- Adds a new instance of Node to the nodes table and tracks it as being this object.
+-- @param sitPosition
 function Sexbound:becomeNode(sitPosition)
   local tilePosition = {0, 0}
 
@@ -140,7 +145,6 @@ end
 
 --- Handles a player interaction request.
 -- @param args interact arguments
--- @usage function onInteraction(args) Sexbound.handleInteract(args) end
 function Sexbound:handleInteract(args)
   -- Lounge-in next available node.
   for _,node in ipairs(self._nodes) do
@@ -151,6 +155,7 @@ function Sexbound:handleInteract(args)
   end
 end
 
+--- Initializes message handlers.
 function Sexbound:initMessageHandlers()
   message.setHandler("sexbound-climax", function(_,_,args)
     local actor = self._actors[args.actorId]
@@ -204,7 +209,7 @@ function Sexbound:initMessageHandlers()
   end)
 end
 
---- Returns loaded global configuration as a table.
+--- Returns a reference to the running configuration.
 function Sexbound:loadConfig()
   local _globalConfig = {}
 
@@ -216,6 +221,8 @@ function Sexbound:loadConfig()
   return _globalConfig
 end
 
+--- Removes the specified Actor instance from the actors table.
+-- @param entityId
 function Sexbound:removeActor(entityId)
   Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:PrepareRemoveActor", {}, true)
 
@@ -238,7 +245,7 @@ function Sexbound:removeActor(entityId)
   end
 end
 
---- Resets all actors.
+--- Resets all instances of Actor in the actors table.
 function Sexbound:resetAllActors()
   for i,actor in ipairs(self._actors) do
     actor:setActorNumber(i)
@@ -249,6 +256,7 @@ function Sexbound:resetAllActors()
   end
 end
 
+--- Respawns the stored actor if it exists in this object's storage.
 function Sexbound:respawnStoredActor()
   -- Respawn stored actor.
   if storage.actor then
@@ -279,7 +287,7 @@ function Sexbound:respawnStoredActor()
   end
 end
 
---- Shifts all actors right by one element.
+--- Shifts all actors in the actors table one element to the right.
 function Sexbound:switchActorRoles()
   if not self:getStateMachine():isClimaxing() then
     self:getLog():info("Actors are switching roles.")
@@ -290,6 +298,8 @@ function Sexbound:switchActorRoles()
   end
 end
 
+--- Updates the animation rate of the animator based on the delta time.
+-- @param dt The delta time
 function Sexbound:updateAnimationRate(dt)
   self._animationRate = self._animationRate + ( self:getPositions():getMaxTempo() / (self:getPositions():getSustainedInterval() / dt))
   
@@ -307,19 +317,35 @@ function Sexbound:updateAnimationRate(dt)
   end
 end
 
+--- Uninitializes this instance.
 function Sexbound:uninit()
-  self:getLog():info("Uninit..")
+  self:getLog():info("Uniniting..")
+  
+  self:uninitActors()
+  
+  self:uninitNodes()
+end
+
+--- Uninitializes each instance of Actor in the actors table.
+function Sexbound:uninitActors()
+  self:getLog():info("Uniniting Actors.")
 
   local actors = self:getActors()
-  local nodes  = self:getNodes()
-
+  
   for _,actor in ipairs(actors) do
     actor:uninit()
   end
   
   self._actors = {}
   self._actorCount = 0
+end
 
+--- Uninitializes each instance of Node in the nodes table.
+function Sexbound:uninitNodes()
+  self:getLog():info("Uniniting Nodes.")
+
+  local nodes  = self:getNodes()
+  
   for _,node in ipairs(nodes) do
     node:uninit()
   end
