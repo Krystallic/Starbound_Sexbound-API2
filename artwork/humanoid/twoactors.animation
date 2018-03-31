@@ -50,7 +50,8 @@
   "animatedParts" : {
     "stateTypes" : {
       "props" : {
-        "default" : "none",
+        "default" : "idle",
+        
         "properties" : {
           "immediateSoundRangeMultiplier" : 0.2
         },
