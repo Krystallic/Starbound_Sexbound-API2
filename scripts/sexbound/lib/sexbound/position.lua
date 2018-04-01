@@ -5,6 +5,7 @@
 Sexbound.Position = {}
 Sexbound.Position_mt = {__index = Sexbound.Position}
 
+--- Returns a reference to a new instance of this class.
 function Sexbound.Position.new( positionConfig )
   local self = setmetatable({}, Sexbound.Position_mt)
   
@@ -17,10 +18,17 @@ function Sexbound.Position.new( positionConfig )
   return self
 end
 
+--- Returns a reference to this instance's running configuration.
 function Sexbound.Position:getConfig()
   return self._config
 end
 
+--- Returns the friendly name of this instance.
+function Sexbound.Position:getFriendlyName()
+  return self:getConfig().friendlyName
+end
+
+--- Returns the name of this instance.
 function Sexbound.Position:getName()
-  return self._config.name
+  return self:getConfig().name
 end
