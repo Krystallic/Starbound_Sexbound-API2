@@ -82,6 +82,14 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:new">Sexbound.Actor:new (parent, actorConfig)</a></td>
+	<td class="summary">Returns a reference to a new instance of this class.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onMessage">Sexbound.Actor:onMessage (message)</a></td>
+	<td class="summary">Processes received messages from the message queue</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getIdentity">Sexbound.Actor:getIdentity ([param])</a></td>
 	<td class="summary">Returns a reference to this Actor identifiers.</td>
 	</tr>
@@ -193,6 +201,58 @@
 	<td class="name" nowrap><a href="#Sexbound.Actor:getRole">Sexbound.Actor:getRole ()</a></td>
 	<td class="summary">Returns this Actor's current role.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:forEachPlugin">Sexbound.Actor:forEachPlugin (callback)</a></td>
+	<td class="summary">Executes the specifed callback function for each actor plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onEnterClimaxState">Sexbound.Actor:onEnterClimaxState ()</a></td>
+	<td class="summary">Calls onEnterClimaxState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onEnterExitState">Sexbound.Actor:onEnterExitState ()</a></td>
+	<td class="summary">Calls onEnterExitState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onEnterIdleState">Sexbound.Actor:onEnterIdleState ()</a></td>
+	<td class="summary">Calls onEnterIdleState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onEnterSexState">Sexbound.Actor:onEnterSexState ()</a></td>
+	<td class="summary">Calls onEnterSexState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onExitClimaxState">Sexbound.Actor:onExitClimaxState ()</a></td>
+	<td class="summary">Calls onExitClimaxState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onExitExitState">Sexbound.Actor:onExitExitState ()</a></td>
+	<td class="summary">Calls onExitExitState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onExitIdleState">Sexbound.Actor:onExitIdleState ()</a></td>
+	<td class="summary">Calls onExitIdleState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onExitSexState">Sexbound.Actor:onExitSexState ()</a></td>
+	<td class="summary">Calls onExitSexState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onUpdateExitState">Sexbound.Actor:onUpdateExitState (dt)</a></td>
+	<td class="summary">Calls onUpdateExitState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onUpdateClimaxState">Sexbound.Actor:onUpdateClimaxState (dt)</a></td>
+	<td class="summary">Calls onUpdateClimaxState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onUpdateIdleState">Sexbound.Actor:onUpdateIdleState (dt)</a></td>
+	<td class="summary">Calls onUpdateIdleState for every loaded plugin.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:onUpdateSexState">Sexbound.Actor:onUpdateSexState (dt)</a></td>
+	<td class="summary">Calls onUpdateSexState for every loaded plugin.</td>
+	</tr>
 </table>
 
 <br/>
@@ -202,6 +262,49 @@
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
+    <dt>
+    <a name = "Sexbound.Actor:new"></a>
+    <strong>Sexbound.Actor:new (parent, actorConfig)</strong>
+    </dt>
+    <dd>
+    Returns a reference to a new instance of this class.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parent</span>
+
+        </li>
+        <li><span class="parameter">actorConfig</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onMessage"></a>
+    <strong>Sexbound.Actor:onMessage (message)</strong>
+    </dt>
+    <dd>
+    Processes received messages from the message queue
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">message</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
     <dt>
     <a name = "Sexbound.Actor:getIdentity"></a>
     <strong>Sexbound.Actor:getIdentity ([param])</strong>
@@ -664,6 +767,218 @@
 
 
 </dd>
+    <dt>
+    <a name = "Sexbound.Actor:forEachPlugin"></a>
+    <strong>Sexbound.Actor:forEachPlugin (callback)</strong>
+    </dt>
+    <dd>
+    Executes the specifed callback function for each actor plugin.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">callback</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onEnterClimaxState"></a>
+    <strong>Sexbound.Actor:onEnterClimaxState ()</strong>
+    </dt>
+    <dd>
+    Calls onEnterClimaxState for every loaded plugin.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onEnterExitState"></a>
+    <strong>Sexbound.Actor:onEnterExitState ()</strong>
+    </dt>
+    <dd>
+    Calls onEnterExitState for every loaded plugin.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onEnterIdleState"></a>
+    <strong>Sexbound.Actor:onEnterIdleState ()</strong>
+    </dt>
+    <dd>
+    Calls onEnterIdleState for every loaded plugin.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onEnterSexState"></a>
+    <strong>Sexbound.Actor:onEnterSexState ()</strong>
+    </dt>
+    <dd>
+    Calls onEnterSexState for every loaded plugin.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onExitClimaxState"></a>
+    <strong>Sexbound.Actor:onExitClimaxState ()</strong>
+    </dt>
+    <dd>
+    Calls onExitClimaxState for every loaded plugin.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onExitExitState"></a>
+    <strong>Sexbound.Actor:onExitExitState ()</strong>
+    </dt>
+    <dd>
+    Calls onExitExitState for every loaded plugin.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onExitIdleState"></a>
+    <strong>Sexbound.Actor:onExitIdleState ()</strong>
+    </dt>
+    <dd>
+    Calls onExitIdleState for every loaded plugin.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onExitSexState"></a>
+    <strong>Sexbound.Actor:onExitSexState ()</strong>
+    </dt>
+    <dd>
+    Calls onExitSexState for every loaded plugin.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onUpdateExitState"></a>
+    <strong>Sexbound.Actor:onUpdateExitState (dt)</strong>
+    </dt>
+    <dd>
+    Calls onUpdateExitState for every loaded plugin.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onUpdateClimaxState"></a>
+    <strong>Sexbound.Actor:onUpdateClimaxState (dt)</strong>
+    </dt>
+    <dd>
+    Calls onUpdateClimaxState for every loaded plugin.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onUpdateIdleState"></a>
+    <strong>Sexbound.Actor:onUpdateIdleState (dt)</strong>
+    </dt>
+    <dd>
+    Calls onUpdateIdleState for every loaded plugin.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:onUpdateSexState"></a>
+    <strong>Sexbound.Actor:onUpdateSexState (dt)</strong>
+    </dt>
+    <dd>
+    Calls onUpdateSexState for every loaded plugin.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
 </dl>
 
 
@@ -671,7 +986,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-03-31 21:51:35 </i>
+<i style="float:right;">Last updated 2018-04-01 12:33:56 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
