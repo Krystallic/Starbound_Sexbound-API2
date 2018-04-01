@@ -87,7 +87,31 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:onMessage">Sexbound.Actor:onMessage (message)</a></td>
-	<td class="summary">Processes received messages from the message queue</td>
+	<td class="summary">Processes received messages from the message queue.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:addStatus">Sexbound.Actor:addStatus (name)</a></td>
+	<td class="summary">Adds a new status to this actor's status list.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:hasStatus">Sexbound.Actor:hasStatus (name)</a></td>
+	<td class="summary">Returns wether or not this actor has a specified status in its status list.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:findStatus">Sexbound.Actor:findStatus (name)</a></td>
+	<td class="summary">Returns a specified status name if it is found.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:removeStatus">Sexbound.Actor:removeStatus (name)</a></td>
+	<td class="summary">Removes a specified status from this actor's status list.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getStatusList">Sexbound.Actor:getStatusList ()</a></td>
+	<td class="summary">Returns a reference to this actor's status list as a table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:setRole">Sexbound.Actor:setRole (number)</a></td>
+	<td class="summary">Sets the role for this actor with the specifed number.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getIdentity">Sexbound.Actor:getIdentity ([param])</a></td>
@@ -159,47 +183,79 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getActorNumber">Sexbound.Actor:getActorNumber ()</a></td>
-	<td class="summary">Returns this Actor's current number.</td>
+	<td class="summary">Returns the actor number for this Actor instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:setActorNumber">Sexbound.Actor:setActorNumber (value)</a></td>
+	<td class="summary">Sets the actor number to the specified value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getConfig">Sexbound.Actor:getConfig ()</a></td>
+	<td class="summary">Returns the running configuration for this Actor instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getLogPrefix">Sexbound.Actor:getLogPrefix ()</a></td>
+	<td class="summary">Returns the log prefix for this Actor instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getLog">Sexbound.Actor:getLog ()</a></td>
+	<td class="summary">Returns a reference to the log for this Actor instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getName">Sexbound.Actor:getName ()</a></td>
+	<td class="summary">Returns the name of this Actor instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getParent">Sexbound.Actor:getParent ()</a></td>
+	<td class="summary">Returns the parent class of this Actor instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getPluginMgr">Sexbound.Actor:getPluginMgr ()</a></td>
+	<td class="summary">Returns the plugin manager of this Actor instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sexbound.Actor:getPlugins">Sexbound.Actor:getPlugins (pluginName)</a></td>
+	<td class="summary">Returns a reference to this Actor instance's plugins as a table.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getEntityType">Sexbound.Actor:getEntityType ()</a></td>
-	<td class="summary">Returns this Actor's entity type.</td>
+	<td class="summary">Returns the entity type of this Actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialHairFolder">Sexbound.Actor:getFacialHairFolder ()</a></td>
-	<td class="summary">Returns a validated facial hair folder name.</td>
+	<td class="summary">Returns the validated facial hair folder name for this Actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialHairType">Sexbound.Actor:getFacialHairType ()</a></td>
-	<td class="summary">Returns a validated facial hair type.</td>
+	<td class="summary">Returns the validated facial hair type for this Actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialMaskFolder">Sexbound.Actor:getFacialMaskFolder ()</a></td>
-	<td class="summary">Returns a validated facial mask folder name.</td>
+	<td class="summary">Returns the validated facial mask folder name for this Actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getFacialMaskType">Sexbound.Actor:getFacialMaskType ()</a></td>
-	<td class="summary">Returns a validated facial mask type.</td>
+	<td class="summary">Returns the validated facial mask type for this Actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getGender">Sexbound.Actor:getGender ()</a></td>
-	<td class="summary">Returns this Actor's gender.</td>
+	<td class="summary">Returns the gender of this actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getHairFolder">Sexbound.Actor:getHairFolder ()</a></td>
-	<td class="summary">Returns a validated hair folder name.</td>
+	<td class="summary">Returns the validated hair folder of this actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getHairType">Sexbound.Actor:getHairType ()</a></td>
-	<td class="summary">Returns a validated hair type.</td>
+	<td class="summary">Returns the validated hair type of this actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getEntityId">Sexbound.Actor:getEntityId ()</a></td>
-	<td class="summary">Returns this Actor's id.</td>
+	<td class="summary">Returns the id of this actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:getRole">Sexbound.Actor:getRole ()</a></td>
-	<td class="summary">Returns this Actor's current role.</td>
+	<td class="summary">Returns the role of this actor instance.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Sexbound.Actor:forEachPlugin">Sexbound.Actor:forEachPlugin (callback)</a></td>
@@ -290,12 +346,126 @@
     <strong>Sexbound.Actor:onMessage (message)</strong>
     </dt>
     <dd>
-    Processes received messages from the message queue
+    Processes received messages from the message queue.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">message</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:addStatus"></a>
+    <strong>Sexbound.Actor:addStatus (name)</strong>
+    </dt>
+    <dd>
+    Adds a new status to this actor's status list.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:hasStatus"></a>
+    <strong>Sexbound.Actor:hasStatus (name)</strong>
+    </dt>
+    <dd>
+    Returns wether or not this actor has a specified status in its status list.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:findStatus"></a>
+    <strong>Sexbound.Actor:findStatus (name)</strong>
+    </dt>
+    <dd>
+    Returns a specified status name if it is found.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:removeStatus"></a>
+    <strong>Sexbound.Actor:removeStatus (name)</strong>
+    </dt>
+    <dd>
+    Removes a specified status from this actor's status list.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getStatusList"></a>
+    <strong>Sexbound.Actor:getStatusList ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to this actor's status list as a table.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:setRole"></a>
+    <strong>Sexbound.Actor:setRole (number)</strong>
+    </dt>
+    <dd>
+    Sets the role for this actor with the specifed number.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">number</span>
 
         </li>
     </ul>
@@ -618,9 +788,133 @@
     <strong>Sexbound.Actor:getActorNumber ()</strong>
     </dt>
     <dd>
-    Returns this Actor's current number.
+    Returns the actor number for this Actor instance.
 
 
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:setActorNumber"></a>
+    <strong>Sexbound.Actor:setActorNumber (value)</strong>
+    </dt>
+    <dd>
+    Sets the actor number to the specified value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getConfig"></a>
+    <strong>Sexbound.Actor:getConfig ()</strong>
+    </dt>
+    <dd>
+    Returns the running configuration for this Actor instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getLogPrefix"></a>
+    <strong>Sexbound.Actor:getLogPrefix ()</strong>
+    </dt>
+    <dd>
+    Returns the log prefix for this Actor instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getLog"></a>
+    <strong>Sexbound.Actor:getLog ()</strong>
+    </dt>
+    <dd>
+    Returns a reference to the log for this Actor instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getName"></a>
+    <strong>Sexbound.Actor:getName ()</strong>
+    </dt>
+    <dd>
+    Returns the name of this Actor instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getParent"></a>
+    <strong>Sexbound.Actor:getParent ()</strong>
+    </dt>
+    <dd>
+    Returns the parent class of this Actor instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getPluginMgr"></a>
+    <strong>Sexbound.Actor:getPluginMgr ()</strong>
+    </dt>
+    <dd>
+    Returns the plugin manager of this Actor instance.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sexbound.Actor:getPlugins"></a>
+    <strong>Sexbound.Actor:getPlugins (pluginName)</strong>
+    </dt>
+    <dd>
+    Returns a reference to this Actor instance's plugins as a table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pluginName</span>
+
+        </li>
+    </ul>
 
 
 
@@ -632,7 +926,7 @@
     <strong>Sexbound.Actor:getEntityType ()</strong>
     </dt>
     <dd>
-    Returns this Actor's entity type.
+    Returns the entity type of this Actor instance.
 
 
 
@@ -646,7 +940,7 @@
     <strong>Sexbound.Actor:getFacialHairFolder ()</strong>
     </dt>
     <dd>
-    Returns a validated facial hair folder name.
+    Returns the validated facial hair folder name for this Actor instance.
 
 
 
@@ -660,7 +954,7 @@
     <strong>Sexbound.Actor:getFacialHairType ()</strong>
     </dt>
     <dd>
-    Returns a validated facial hair type.
+    Returns the validated facial hair type for this Actor instance.
 
 
 
@@ -674,7 +968,7 @@
     <strong>Sexbound.Actor:getFacialMaskFolder ()</strong>
     </dt>
     <dd>
-    Returns a validated facial mask folder name.
+    Returns the validated facial mask folder name for this Actor instance.
 
 
 
@@ -688,7 +982,7 @@
     <strong>Sexbound.Actor:getFacialMaskType ()</strong>
     </dt>
     <dd>
-    Returns a validated facial mask type.
+    Returns the validated facial mask type for this Actor instance.
 
 
 
@@ -702,7 +996,7 @@
     <strong>Sexbound.Actor:getGender ()</strong>
     </dt>
     <dd>
-    Returns this Actor's gender.
+    Returns the gender of this actor instance.
 
 
 
@@ -716,7 +1010,7 @@
     <strong>Sexbound.Actor:getHairFolder ()</strong>
     </dt>
     <dd>
-    Returns a validated hair folder name.
+    Returns the validated hair folder of this actor instance.
 
 
 
@@ -730,7 +1024,7 @@
     <strong>Sexbound.Actor:getHairType ()</strong>
     </dt>
     <dd>
-    Returns a validated hair type.
+    Returns the validated hair type of this actor instance.
 
 
 
@@ -744,7 +1038,7 @@
     <strong>Sexbound.Actor:getEntityId ()</strong>
     </dt>
     <dd>
-    Returns this Actor's id.
+    Returns the id of this actor instance.
 
 
 
@@ -758,7 +1052,7 @@
     <strong>Sexbound.Actor:getRole ()</strong>
     </dt>
     <dd>
-    Returns this Actor's current role.
+    Returns the role of this actor instance.
 
 
 
@@ -986,7 +1280,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-04-01 12:33:56 </i>
+<i style="float:right;">Last updated 2018-04-01 12:51:02 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
