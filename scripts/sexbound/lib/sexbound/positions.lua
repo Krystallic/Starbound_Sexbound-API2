@@ -171,6 +171,8 @@ function Sexbound.Positions:switchPosition(index)
   
   local stateName = stateMachine:stateDesc()
   
+  if not stateName or stateName == "" then return end
+  
   local animationState = self:getCurrentPosition():getAnimationState(stateName)
   
   stateName = animationState.stateName
