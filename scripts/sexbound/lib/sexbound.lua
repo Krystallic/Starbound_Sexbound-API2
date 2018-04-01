@@ -155,7 +155,18 @@ function Sexbound:handleInteract(args)
       local config = root.assetJson( "/interface/sexbound/default.config" )
     
       config.config.controllerId = self:getEntityId()
+    
+      local positions = self:getPositions():getPositions()
       
+      util.each(positions, function(index, position)
+        local name        = position:getFriendlyName()
+        local buttonImage = position:getButtonImage()
+        config.config.buttons[index].name = name
+        config.config.buttons[index].image = buttonImage
+      end)
+    
+      self:getLog():info(config)
+    
       return {"ScriptPane", config}
     end
   end

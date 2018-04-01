@@ -31,6 +31,11 @@ function Sexbound.Position:getConfig()
   return self._config
 end
 
+--- Returns the path to this position UI button image.
+function Sexbound.Position:getButtonImage()
+  return self:getConfig().buttonImage
+end
+
 --- Returns a reference to this instance's dialog config.
 -- @param speciesName
 function Sexbound.Position:getDialog(speciesName)
