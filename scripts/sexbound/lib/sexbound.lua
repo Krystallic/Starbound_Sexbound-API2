@@ -259,11 +259,13 @@ end
 function Sexbound:respawnStoredActor()
   -- Respawn stored actor.
   if storage.actor then
-    local position = vec2.add(object.position(), {0, 3})
+    local uniqueId = storage.actor.uniqueId
     
+    if uniqueId and world.findUniqueEntity(uniqueId):result() ~= nil then return end
+
     -- Message the actor's respawner that it is turning back into an NPC.
     if storage.actor.storage.respawner then
-      world.sendEntityMessage(storage.actor.storage.respawner, "transform-into-npc", {uniqueId = storage.actor.uniqueId})
+      world.sendEntityMessage(storage.actor.storage.respawner, "transform-into-npc", {uniqueId = uniqueId})
     end
     
     -- Initialize parameters to send to spawned NPC.
@@ -276,13 +278,19 @@ function Sexbound:respawnStoredActor()
     }
     
     -- Restore actor's unique ID.
-    if (storage.actor.uniqueId and not world.findUniqueEntity(storage.actor.uniqueId):result()) then
+    if (uniqueId) then
       parameters.scriptConfig = {
-        uniqueId = storage.actor.uniqueId
+        uniqueId = uniqueId
       }
     end
     
-    world.spawnNpc(position, storage.actor.identity.species, storage.actor.type, storage.actor.level, storage.actor.seed, parameters)
+    local position = vec2.add(object.position(), {0, 3})
+    local species = storage.actor.identity.species
+    local entityType = storage.actor.type
+    local level = storage.actor.level
+    local seed = storage.actor.seed
+    
+    world.spawnNpc(position, species, entityType, level, seed, parameters)
   end
 end
 
