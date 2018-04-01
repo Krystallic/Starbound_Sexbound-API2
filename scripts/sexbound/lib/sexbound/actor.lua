@@ -7,7 +7,10 @@ Sexbound.Actor_mt = {__index = Sexbound.Actor}
 
 require "/scripts/sexbound/lib/sexbound/actor/pluginmgr.lua"
 
-function Sexbound.Actor:new( parent, actor )
+--- Returns a reference to a new instance of this class.
+-- @param parent
+-- @param actorConfig
+function Sexbound.Actor:new( parent, actorConfig )
   local self = setmetatable({
     _logPrefix = "ACTR",
     _parent = parent
@@ -21,15 +24,14 @@ function Sexbound.Actor:new( parent, actor )
   self._config  = util.mergeTable({}, self._parent:getConfig().actor)
 
   -- Setup the actor.
-  self:setup(actor)
+  self:setup(actorConfig)
 
   self._pluginmgr = Sexbound.Actor.PluginMgr:new( self )
   
   return self
 end
 
--- Events
-
+--- Processes received messages from the message queue
 function Sexbound.Actor:onMessage(message)
 
 end
