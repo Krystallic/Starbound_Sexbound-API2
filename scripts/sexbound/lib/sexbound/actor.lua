@@ -26,92 +26,26 @@ function Sexbound.Actor:new( parent, actorConfig )
   -- Setup the actor.
   self:setup(actorConfig)
 
+  -- Create new plugin manager
   self._pluginmgr = Sexbound.Actor.PluginMgr:new( self )
   
   return self
 end
 
---- Processes received messages from the message queue
+--- Processes received messages from the message queue.
+-- @param message
 function Sexbound.Actor:onMessage(message)
 
 end
 
-function Sexbound.Actor:onEnterClimaxState()
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onEnterClimaxState()
-  end)
-end
-
-function Sexbound.Actor:onEnterExitState()
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onEnterExitState()
-  end)
-end
-
-function Sexbound.Actor:onEnterIdleState()
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onEnterIdleState()
-  end)
-end
-
-function Sexbound.Actor:onEnterSexState()
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onEnterSexState()
-  end)
-end
-
-function Sexbound.Actor:onExitClimaxState()
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onExitClimaxState()
-  end)
-end
-
-function Sexbound.Actor:onExitExitState()
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onExitExitState()
-  end)
-end
-
-function Sexbound.Actor:onExitIdleState()
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onExitIdleState()
-  end)
-end
-
-function Sexbound.Actor:onExitSexState()
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onExitSexState()
-  end)
-end
-
-function Sexbound.Actor:onUpdateExitState(dt)
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onUpdateExitState(dt)
-  end)
-end
-
-function Sexbound.Actor:onUpdateClimaxState(dt)
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onUpdateClimaxState(dt)
-  end)
-end
-
-function Sexbound.Actor:onUpdateIdleState(dt)
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onUpdateIdleState(dt)
-  end)
-end
-
-function Sexbound.Actor:onUpdateSexState(dt)
-  util.each(self:getPlugins(), function(index, plugin)
-    plugin:onUpdateSexState(dt)
-  end)
-end
-
+--- Adds a new status to this actor's status list.
+-- @param name
 function Sexbound.Actor:addStatus(name)
   table.insert(self._config.statusList, name)
 end
 
+--- Returns wether or not this actor has a specified status in its status list.
+-- @param name
 function Sexbound.Actor:hasStatus(name)
   for _,status in ipairs(self._config.statusList) do
     if (status == name) then
@@ -122,6 +56,8 @@ function Sexbound.Actor:hasStatus(name)
   return false
 end
 
+--- Returns a specified status name if it is found.
+-- @param name
 function Sexbound.Actor:findStatus(name)
   for _,status in ipairs(self._config.statusList) do
     if (status == name) then
@@ -130,6 +66,8 @@ function Sexbound.Actor:findStatus(name)
   end
 end
 
+--- Removes a specified status from this actor's status list.
+-- @param name
 function Sexbound.Actor:removeStatus(name)
   util.each(self._config.statusList, function(index, status)
     if (status == name) then
@@ -138,10 +76,13 @@ function Sexbound.Actor:removeStatus(name)
   end)
 end
 
+--- Returns a reference to this actor's status list as a table.
 function Sexbound.Actor:getStatusList()
   return self._config.statusList
 end
 
+--- Sets the role for this actor with the specifed number.
+-- @param number
 function Sexbound.Actor:setRole(number)
   self._role = "actor" .. number
 end
@@ -473,91 +414,197 @@ end
 
 -- Getters / Setters
 
---- Returns this Actor's current number.
+--- Returns the actor number for this Actor instance.
 function Sexbound.Actor:getActorNumber()
   return self._actorNumber
 end
 
+--- Sets the actor number to the specified value.
+-- @param value
 function Sexbound.Actor:setActorNumber(value)
   self._actorNumber = value
 end
 
+--- Returns the running configuration for this Actor instance.
 function Sexbound.Actor:getConfig()
   return self._config
 end
 
+--- Returns the log prefix for this Actor instance.
 function Sexbound.Actor:getLogPrefix()
   return self._logPrefix
 end
 
+--- Returns a reference to the log for this Actor instance.
 function Sexbound.Actor:getLog()
   return self._log
 end
 
+--- Returns the name of this Actor instance.
 function Sexbound.Actor:getName()
   return self:getConfig().identity.name
 end
 
+--- Returns the parent class of this Actor instance.
 function Sexbound.Actor:getParent()
   return self._parent
 end
 
+--- Returns the plugin manager of this Actor instance.
 function Sexbound.Actor:getPluginMgr()
   return self._pluginmgr
 end
 
-function Sexbound.Actor:getPlugins(name)
-  if name then return self:getPluginMgr():getPlugins(name) end
+--- Returns a reference to this Actor instance's plugins as a table.
+-- @param pluginName
+function Sexbound.Actor:getPlugins(pluginName)
+  if pluginName then return self:getPluginMgr():getPlugins(pluginName) end
 
   return self:getPluginMgr():getPlugins()
 end
 
---- Returns this Actor's entity type.
+--- Returns the entity type of this Actor instance.
 function Sexbound.Actor:getEntityType()
   return self:getConfig().entityType
 end
 
---- Returns a validated facial hair folder name.
+--- Returns the validated facial hair folder name for this Actor instance.
 function Sexbound.Actor:getFacialHairFolder()
   return self:getIdentity("facialHairFolder") or self:getIdentity("facialHairGroup") or ""
 end
 
---- Returns a validated facial hair type.
+--- Returns the validated facial hair type for this Actor instance.
 function Sexbound.Actor:getFacialHairType()
   return self:getIdentity("facialHairType") or "1"
 end
 
---- Returns a validated facial mask folder name.
+--- Returns the validated facial mask folder name for this Actor instance.
 function Sexbound.Actor:getFacialMaskFolder()
   return self:getIdentity("facialMaskFolder") or self:getIdentity("facialMaskGroup") or ""
 end
 
---- Returns a validated facial mask type.
+--- Returns the validated facial mask type for this Actor instance.
 function Sexbound.Actor:getFacialMaskType()
   return self:getIdentity("facialMaskType") or "1"
 end
 
---- Returns this Actor's gender.
+--- Returns the gender of this actor instance.
 function Sexbound.Actor:getGender()
   return self:getIdentity().gender
 end
 
---- Returns a validated hair folder name.
+--- Returns the validated hair folder of this actor instance.
 function Sexbound.Actor:getHairFolder()
   return self:getIdentity().hairFolder or self:getIdentity("hairGroup") or "hair"
 end
 
---- Returns a validated hair type.
+--- Returns the validated hair type of this actor instance.
 function Sexbound.Actor:getHairType()
   return self:getIdentity("hairType") or "1"
 end
 
---- Returns this Actor's id.
+--- Returns the id of this actor instance.
 function Sexbound.Actor:getEntityId()
   return self:getConfig().id
 end
 
---- Returns this Actor's current role.
+--- Returns the role of this actor instance.
 function Sexbound.Actor:getRole()
   return self._role
+end
+
+--- Executes the specifed callback function for each actor plugin.
+-- @param callback
+function Sexbound.Actor:forEachPlugin(callback)
+  util.each(self:getPlugins(), function(index, plugin)
+    callback(plugin)
+  end)
+end
+
+--- Calls onEnterClimaxState for every loaded plugin.
+function Sexbound.Actor:onEnterClimaxState()
+  self:forEachPlugin(function(plugin)
+    plugin:onEnterClimaxState()
+  end)
+end
+
+--- Calls onEnterExitState for every loaded plugin.
+function Sexbound.Actor:onEnterExitState()
+  self:forEachPlugin(function(plugin)
+    plugin:onEnterExitState()
+  end)
+end
+
+--- Calls onEnterIdleState for every loaded plugin.
+function Sexbound.Actor:onEnterIdleState()
+  self:forEachPlugin(function(plugin)
+    plugin:onEnterIdleState()
+  end)
+end
+
+--- Calls onEnterSexState for every loaded plugin.
+function Sexbound.Actor:onEnterSexState()
+  self:forEachPlugin(function(plugin)
+    plugin:onEnterSexState()
+  end)
+end
+
+--- Calls onExitClimaxState for every loaded plugin.
+function Sexbound.Actor:onExitClimaxState()
+  self:forEachPlugin(function(plugin)
+    plugin:onExitClimaxState()
+  end)
+end
+
+--- Calls onExitExitState for every loaded plugin.
+function Sexbound.Actor:onExitExitState()
+  self:forEachPlugin(function(plugin)
+    plugin:onExitExitState()
+  end)
+end
+
+--- Calls onExitIdleState for every loaded plugin.
+function Sexbound.Actor:onExitIdleState()
+  self:forEachPlugin(function(plugin)
+    plugin:onExitIdleState()
+  end)
+end
+
+--- Calls onExitSexState for every loaded plugin.
+function Sexbound.Actor:onExitSexState()
+  self:forEachPlugin(function(plugin)
+    plugin:onExitSexState()
+  end)
+end
+
+--- Calls onUpdateExitState for every loaded plugin.
+-- @param dt
+function Sexbound.Actor:onUpdateExitState(dt)
+  self:forEachPlugin(function(plugin)
+    plugin:onUpdateExitState(dt)
+  end)
+end
+
+--- Calls onUpdateClimaxState for every loaded plugin.
+-- @param dt
+function Sexbound.Actor:onUpdateClimaxState(dt)
+  self:forEachPlugin(function(plugin)
+    plugin:onUpdateClimaxState(dt)
+  end)
+end
+
+--- Calls onUpdateIdleState for every loaded plugin.
+-- @param dt
+function Sexbound.Actor:onUpdateIdleState(dt)
+  self:forEachPlugin(function(plugin)
+    plugin:onUpdateIdleState(dt)
+  end)
+end
+
+--- Calls onUpdateSexState for every loaded plugin.
+-- @param dt
+function Sexbound.Actor:onUpdateSexState(dt)
+  self:forEachPlugin(function(plugin)
+    plugin:onUpdateSexState(dt)
+  end)
 end
