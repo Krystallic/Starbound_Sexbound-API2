@@ -770,7 +770,7 @@
       "actor2" : {
         "properties" : {
           "centered" : true,
-          "anchorPart" : "actors"      
+          "anchorPart" : "actors"          
         }
       },
       
@@ -1178,7 +1178,7 @@
     "actor2Body"       : { "interpolated" : true },
     "actor2Head"       : { "interpolated" : true }
   },
-  
+
   "particleEmitters" : {
     "actor1-position1-climax-male" : {
       "anchorPart" : "actor1-body",

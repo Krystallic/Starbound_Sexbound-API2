@@ -35,20 +35,22 @@ end
 --- Processes received messages from the message queue.
 -- @param message
 function Sexbound.Actor:onMessage(message)
-
+  -- nothing to process yet
 end
 
 --- Adds a new status to this actor's status list.
--- @param name
-function Sexbound.Actor:addStatus(name)
-  table.insert(self._config.statusList, name)
+-- @param statusName
+function Sexbound.Actor:addStatus(statusName)
+  table.insert(self._config.statusList, statusName)
 end
 
 --- Returns wether or not this actor has a specified status in its status list.
--- @param name
-function Sexbound.Actor:hasStatus(name)
-  for _,status in ipairs(self._config.statusList) do
-    if (status == name) then
+-- @param statusName
+function Sexbound.Actor:hasStatus(statusName)
+  local statusList = self:getStatusList()
+
+  for _,status in ipairs(statusList) do
+    if (status == statusName) then
       return true
     end
   end
@@ -57,57 +59,30 @@ function Sexbound.Actor:hasStatus(name)
 end
 
 --- Returns a specified status name if it is found.
--- @param name
-function Sexbound.Actor:findStatus(name)
-  for _,status in ipairs(self._config.statusList) do
-    if (status == name) then
-      return name
+-- @param statusName
+function Sexbound.Actor:findStatus(statusName)
+  local statusList = self:getStatusList()
+
+  for _,status in ipairs(statusList) do
+    if (status == statusName) then
+      return statusName
     end
   end
 end
 
 --- Removes a specified status from this actor's status list.
--- @param name
-function Sexbound.Actor:removeStatus(name)
-  util.each(self._config.statusList, function(index, status)
-    if (status == name) then
+-- @param statusName
+function Sexbound.Actor:removeStatus(statusName)
+  local statusList = self:getStatusList()
+
+  for _,status in ipairs(statusList) do
+    if (status == statusName) then
       table.remove(self._config.statusList, index)
+      return true
     end
-  end)
-end
-
---- Returns a reference to this actor's status list as a table.
-function Sexbound.Actor:getStatusList()
-  return self._config.statusList
-end
-
---- Sets the role for this actor with the specifed number.
--- @param number
-function Sexbound.Actor:setRole(number)
-  self._role = "actor" .. number
-end
-
---- Returns a reference to this Actor identifiers.
--- @param[opt] param
-function Sexbound.Actor:getIdentity(param)
-  if param then return self:getConfig().identity[param] end
-
-  return self:getConfig().identity
-end
-
---- Returns the species value.
-function Sexbound.Actor:getSpecies()
-  return self:getIdentity().species
-end
-
---- Returns the actor's storage data or a specified parameter in the actor's storage.
--- @param name
-function Sexbound.Actor:getStorage(name)
-  if not self:getConfig().storage then return nil end
-
-  if name then return self:getConfig().storage[name] end
+  end
   
-  return self:getConfig().storage
+  return false
 end
 
 --- Applies transformations to animator parts.
@@ -125,17 +100,6 @@ function Sexbound.Actor:applyTransformations()
     if positionConfig["rotate" .. part] ~= nil then
       self:rotatePart(part, positionConfig["rotate" .. part][actorNumber])
     end
-  end
-end
-
---- Flips a specified part in the animator.
--- @param part
-function Sexbound.Actor:flipPart(part)
-  local role = self:getRole()
-  local group = role .. part
-  
-  if (animator.hasTransformationGroup(group)) then
-    animator.scaleTransformationGroup(group, {-1, 1}, {0, 0})
   end
 end
 
@@ -314,14 +278,16 @@ end
 
 --- Rotates a specified animator part.
 -- @param part
--- @param rotation
-function Sexbound.Actor:rotatePart(part, rotation)
+-- @param angle
+function Sexbound.Actor:rotatePart(part, angle)
   local role = self:getRole()
 
   local group = role .. part
+
+  if animator.hasTransformationGroup(group) then
+    local radians = util.toRadians(angle)
   
-  if (animator.hasTransformationGroup(group)) then
-    animator.rotateTransformationGroup(group, rotation)
+    animator.rotateTransformationGroup(group, radians)
   end
 end
 
@@ -413,6 +379,40 @@ function Sexbound.Actor:validateSpecies(species)
 end
 
 -- Getters / Setters
+
+--- Returns a reference to this actor's status list as a table.
+function Sexbound.Actor:getStatusList()
+  return self._config.statusList
+end
+
+--- Sets the role for this actor with the specifed number.
+-- @param number
+function Sexbound.Actor:setRole(number)
+  self._role = "actor" .. number
+end
+
+--- Returns a reference to this Actor identifiers.
+-- @param[opt] param
+function Sexbound.Actor:getIdentity(param)
+  if param then return self:getConfig().identity[param] end
+
+  return self:getConfig().identity
+end
+
+--- Returns the species value.
+function Sexbound.Actor:getSpecies()
+  return self:getIdentity().species
+end
+
+--- Returns the actor's storage data or a specified parameter in the actor's storage.
+-- @param name
+function Sexbound.Actor:getStorage(name)
+  if not self:getConfig().storage then return nil end
+
+  if name then return self:getConfig().storage[name] end
+  
+  return self:getConfig().storage
+end
 
 --- Returns the actor number for this Actor instance.
 function Sexbound.Actor:getActorNumber()
