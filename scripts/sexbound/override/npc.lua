@@ -11,28 +11,32 @@ SexboundErrorCounter = 0
 --- Hook (init)
 Sexbound_Old_Init = init
 function init()
-  Sexbound_Old_Init()
-
-  if not pcall(function()
+  xpcall(function()
+    Sexbound_Old_Init()
+  
     self.sb_npc = Sexbound.NPC:new()
-  end) then
-    sb.logInfo("There was an error in the Sexbound file that overrides NPC.")
-  end
+  end, function(err)
+    sb.logError(err)
+  end)
 end
 
 --- Hook (update)
 Sexbound_Old_Update = update
 function update(dt)
-  Sexbound_Old_Update(dt)
+  xpcall(function()
+    Sexbound_Old_Update(dt)
+  end, function(err)
+    sb.logError(err)
+  end)
   
   if SexboundErrorCounter < 5 then
-    if not pcall(function()
+    xpcall(function()
       self.sb_npc:update(dt)
-    end) then
+    end, function(err)
       SexboundErrorCounter = SexboundErrorCounter + 1
       
-      sb.logInfo("There was an error in the Sexbound file that overrides NPC.")
-    end
+      sb.logError(err)
+    end)
   end
 end
 
