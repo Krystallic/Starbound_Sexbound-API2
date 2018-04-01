@@ -65,14 +65,14 @@ end
 --- Updates this instance.
 -- @param dt The delta time.
 function Sexbound:update(dt)
+  -- Update the state machine
+  self:getStateMachine():update(dt)
+
   -- Dispatch queued messages on the 'main' channel
   Sexbound.Messenger.get("main"):dispatch()
 
   -- Update each node 
   self:updateNodes(dt)
-  
-  -- Update the state machine
-  self:getStateMachine():update(dt)
 end
 
 --- Handles message event.
@@ -110,13 +110,15 @@ function Sexbound:addActor(actorConfig, store)
 
   local actor = Sexbound.Actor:new(self, actorConfig)
   
+  actor:setRole(self._actorCount)
+  
   if store then storage.actor = actor:getConfig() end
   
   self:getLog():info("Adding Actor: " .. actor:getName())
   
   table.insert(self._actors, actor)
 
-  Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:AddActor", {}, false)
+  Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:AddActor", {}, true)
 end
 
 --- Adds a new instance of Node to the nodes table.
@@ -149,7 +151,12 @@ function Sexbound:handleInteract(args)
   for _,node in ipairs(self._nodes) do
     if not node:occupied() then
       node:lounge(args.sourceId)
-      return
+      
+      local config = root.assetJson( "/interface/sexbound/default.config" )
+    
+      config.config.controllerId = self:getEntityId()
+      
+      return {"ScriptPane", config}
     end
   end
 end
@@ -245,13 +252,14 @@ function Sexbound:removeActor(entityId)
 end
 
 --- Resets all instances of Actor in the actors table.
-function Sexbound:resetAllActors()
+-- @param stateName
+function Sexbound:resetAllActors(stateName)
   for i,actor in ipairs(self._actors) do
     actor:setActorNumber(i)
     
     actor:setRole(i)
     
-    actor:reset()
+    actor:reset(stateName)
   end
 end
 

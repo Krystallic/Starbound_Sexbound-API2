@@ -49,19 +49,22 @@
     "position3.6" : "cowgirl.2",
     "position3.7" : "cowgirl.1",
     
-    "position1-climax.default" : "behind.4",
-    "position1-climax.1" : "behind.4",
-    "position1-reset.default" : "behind.4",
-    "position1-reset.1"  : "behind.4",
+    "position1-idle.1" : "behind.1",
+    "position1-climax.default" : "behind.1",
+    "position1-climax.1" : "behind.1",
+    "position1-reset.default" : "behind.1",
+    "position1-reset.1"  : "behind.1",
     
-    "position2-climax.default" : "doggy.4",
-    "position2-climax.1" : "doggy.4",
-    "position2-reset.default" : "doggy.4",
-    "position2-reset.1" : "doggy.4",
+    "position2-idle.1" : "doggy.1",
+    "position2-climax.default" : "doggy.1",
+    "position2-climax.1" : "doggy.1",
+    "position2-reset.default" : "doggy.1",
+    "position2-reset.1" : "doggy.1",
     
-    "position3-climax.default" : "cowgirl.4",
-    "position3-climax.1" : "cowgirl.4",
-    "position3-reset.default" : "cowgirl.4",
-    "position3-reset.1" : "cowgirl.4"
+    "position3-idle.1" : "cowgirl.1",
+    "position3-climax.default" : "cowgirl.1",
+    "position3-climax.1" : "cowgirl.1",
+    "position3-reset.default" : "cowgirl.1",
+    "position3-reset.1" : "cowgirl.1"
   }
 }

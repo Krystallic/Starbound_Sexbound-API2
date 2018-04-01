@@ -123,18 +123,35 @@ function Sexbound.Actor:overwriteStorage(name, value)
 end
 
 --- Resets a specified actor.
-function Sexbound.Actor:reset()
+function Sexbound.Actor:reset(stateName)
   local defaultPath = "/artwork/humanoid/default.png:default"
   
   local position = self:getParent():getPositions():getCurrentPosition()
   local positionConfig = position:getConfig()
   
+  local stateMachine = self:getParent():getStateMachine()
+  
+  stateName = stateName or stateMachine:stateDesc()
+  
+  if not stateName or stateName == "" then return end 
+  
+  local actorNumber = self:getActorNumber()
+  local role = self:getRole()
+  
+  local animationState = position:getAnimationState(stateName)
+  
+  local frameName = animationState.frameName
+  
   self:resetGlobalAnimatorTags()
   
   self:resetTransformations()
   
-  self:applyTransformations()
+  local rotateHead = animationState.rotateHead[actorNumber]
+  self:rotatePart("Head", rotateHead)
   
+  local rotateBody = animationState.rotateBody[actorNumber]
+  self:rotatePart("Body", rotateBody)
+
   if self.sextalk then
     -- Refresh sextalk dialog pool.
     self.sextalk:refreshDialogPool()
@@ -158,9 +175,6 @@ function Sexbound.Actor:reset()
   directives.body = directives.body .. directives.hair
   directives.head = directives.head .. directives.hair
   
-  local actorNumber = self:getActorNumber()
-  local role = self:getRole()
-  
   -- Apply flip to head directives
   if type(positionConfig.flipHead) == "table" and positionConfig.flipHead[actorNumber] == true then
     util.each({"head", "emote", "hair", "facialHair", "facialMask"}, function(index, directive)
@@ -180,14 +194,10 @@ function Sexbound.Actor:reset()
   
   -- Validate and set the actor's species.
   local species = self:validateSpecies(self:getSpecies())
-
-  local animationName = positionConfig.animationName
-
+  
   local parts = {}
   
-  parts.climax = "/artwork/humanoid/climax/climax-" .. animationName .. ".png:climax"
-  
-  parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. ".png:" .. animationName
+  parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. ".png:" .. frameName
   
   local plugins = self:getConfig().plugins
   
@@ -198,15 +208,15 @@ function Sexbound.Actor:reset()
     local canShow = pregnantConfig.enablePregnancyFetish
     
     if canShow and pregnant:isPregnant() then
-      parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. "_pregnant.png:" .. animationName
+      parts.body = "/artwork/humanoid/" .. role .. "/" .. species  .. "/body_" .. gender .. "_pregnant.png:" .. frameName
     end
   end
   
   parts.head     = "/artwork/humanoid/" .. role .. "/" .. species .. "/head_" .. gender .. ".png:normal" .. directives.head
   
-  parts.armFront = "/artwork/humanoid/" .. role .. "/" .. species .. "/arm_front.png:" .. animationName
+  parts.armFront = "/artwork/humanoid/" .. role .. "/" .. species .. "/arm_front.png:" .. frameName
   
-  parts.armBack  = "/artwork/humanoid/" .. role .. "/" .. species .. "/arm_back.png:"  .. animationName
+  parts.armBack  = "/artwork/humanoid/" .. role .. "/" .. species .. "/arm_back.png:"  .. frameName
   
   if self:getIdentity("facialHairType") ~= "" then
     parts.facialHair = "/humanoid/" .. species .. "/" .. self:getIdentity("facialHairFolder") .. "/" .. self:getIdentity("facialHairType") .. ".png:normal" .. directives.facialHair
@@ -230,7 +240,6 @@ function Sexbound.Actor:reset()
   animator.setGlobalTag(role .. "-species", species)
   
   animator.setGlobalTag("part-" .. role .. "-body", parts.body)
-  animator.setGlobalTag("part-" .. role .. "-climax", parts.climax)
   animator.setGlobalTag("part-" .. role .. "-head", parts.head)
   animator.setGlobalTag("part-" .. role .. "-arm-front", parts.armFront)
   animator.setGlobalTag("part-" .. role .. "-arm-back", parts.armBack)
@@ -310,14 +319,6 @@ function Sexbound.Actor:setup(actor)
   self._config.identity.facialMaskType   = self:getFacialMaskType()
   
   self._config.statusList = {"default"}
-  
-  if self:getEntityType() == "player" then
-    local entityId = self:getEntityId()
-  
-    Sexbound.Util.sendMessage(entityId, "sexbound-show-ui", {
-      controllerId = self:getParent():getEntityId()
-    })
-  end
   
   self:setActorNumber(self:getParent():getActorCount())
 end
