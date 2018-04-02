@@ -193,6 +193,18 @@ function Sexbound:initMessageHandlers()
     end
   end)
   
+  message.setHandler("sexbound-node-uninit", function(_,_,args)
+    local nodes    = self:getNodes()
+    local entityId = args.entityId
+    local uniqueId = args.uniqueId
+  
+    util.each(self:getNodes(), function(index, node)
+      if node:getUniqueId() == uniqueId then
+        node:uninit()
+      end
+    end)
+  end)
+  
   message.setHandler("sexbound-remove-actor", function(_,_,args)
     self:removeActor(args)
   end)
