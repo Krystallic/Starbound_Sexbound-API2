@@ -35,7 +35,7 @@ function Sexbound.Positions:initMessageHandler()
   message.setHandler("sexbound-switch-position", function(_,_,args)
     local stateMachine = self:getParent():getStateMachine()
   
-    if stateMachine:isHavingSex() and not stateMachine:isClimaxing() and not stateMachine:isReseting() then
+    if not stateMachine:isClimaxing() and not stateMachine:isReseting() then
       self:switchPosition( args.positionId )
     end
   end)

@@ -176,14 +176,14 @@ function Sexbound.Actor:reset(stateName)
   directives.head = directives.head .. directives.hair
   
   -- Apply flip to head directives
-  if type(positionConfig.flipHead) == "table" and positionConfig.flipHead[actorNumber] == true then
+  if type(animationState.flipHead) == "table" and animationState.flipHead[actorNumber] == true then
     util.each({"head", "emote", "hair", "facialHair", "facialMask"}, function(index, directive)
       directives[directive] = directives[directive] .. "?flipx"
     end)
   end
   
   -- Apply flip to body directives
-  if type(positionConfig.flipBody) == "table" and positionConfig.flipBody[actorNumber] == true then
+  if type(animationState.flipBody) == "table" and animationState.flipBody[actorNumber] == true then
     util.each({"body"}, function(index, directive)
       directives[directive] = directives[directive] .. "?flipx"
     end)
