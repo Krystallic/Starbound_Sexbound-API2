@@ -175,15 +175,39 @@ function Sexbound.Actor:reset(stateName)
   directives.body = directives.body .. directives.hair
   directives.head = directives.head .. directives.hair
   
+  local flipHead = nil
+  
+  -- Try to get specific flip head value for the animator state
+  if animationState.flipHead and animationState.flipHead[actorNumber] then
+    flipHead = animationState.flipHead[actorNumber]
+  end
+  
+  -- Else try to get global flip head value for the position
+  if flipHead == nil and positionConfig.flipHead and positionConfig.flipHead[actorNumber] then
+    flipHead = positionConfig.flipHead[actorNumber]
+  end
+  
   -- Apply flip to head directives
-  if type(animationState.flipHead) == "table" and animationState.flipHead[actorNumber] == true then
+  if flipHead == true then
     util.each({"head", "emote", "hair", "facialHair", "facialMask"}, function(index, directive)
       directives[directive] = directives[directive] .. "?flipx"
     end)
   end
   
+  local flipBody = nil
+  
+  -- Try to get specific flip body value for the animator state
+  if animationState.flipBody and animationState.flipBody[actorNumber] then
+    flipBody = animationState.flipBody[actorNumber]
+  end
+  
+  -- Else try to get global flip body value for the position
+  if flipBody == nil and positionConfig.flipBody and positionConfig.flipBody[actorNumber] then
+    flipBody = positionConfig.flipBody[actorNumber]
+  end
+  
   -- Apply flip to body directives
-  if type(animationState.flipBody) == "table" and animationState.flipBody[actorNumber] == true then
+  if flipBody == true then
     util.each({"body"}, function(index, directive)
       directives[directive] = directives[directive] .. "?flipx"
     end)
@@ -350,6 +374,10 @@ end
 
 --- Uninitializes this instance.
 function Sexbound.Actor:uninit()
+  self:resetGlobalAnimatorTags()
+  
+  self:resetTransformations()
+  
   util.each(self:getPlugins(), function(index, plugin)
     plugin:uninit()
   end)

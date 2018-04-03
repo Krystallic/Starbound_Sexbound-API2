@@ -164,9 +164,7 @@ function Sexbound:handleInteract(args)
         config.config.buttons[index].name = name
         config.config.buttons[index].image = buttonImage
       end)
-    
-      self:getLog():info(config)
-    
+
       return {"ScriptPane", config}
     end
   end
@@ -376,7 +374,9 @@ end
 --- Uninitializes each instance of Actor in the actors table.
 function Sexbound:uninitActors()
   self:getLog():info("Uniniting Actors.")
-
+  
+  Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:PrepareRemoveActor", {}, true)
+  
   local actors = self:getActors()
   
   for _,actor in ipairs(actors) do

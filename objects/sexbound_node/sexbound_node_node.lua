@@ -55,8 +55,10 @@ end
 
 -- The node has been removed from the world
 function uninit()
-  Sexbound.Util.sendMessage(self.controllerId, "sexbound-node-uninit", {
-    entityId = entity.id(),
-    uniqueId = entity.uniqueId()
-  })
+  if self.controllerId then
+    Sexbound.Util.sendMessage(self.controllerId, "sexbound-node-uninit", {
+      entityId = entity.id(),
+      uniqueId = entity.uniqueId()
+    })
+  end
 end
