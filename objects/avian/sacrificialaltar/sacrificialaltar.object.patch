@@ -51,13 +51,12 @@
       "animationPosition" : [0, 0],
       
       "frames" : 1,
-      "animationCycle" : 0.5,
+      "animationCycle" : 1,
 
       "spaces" : [[-3, 0], [-3, 1], [-2, 0], [-2, 1], [-1, 1], [0, 1], [1,0], [1,1], [2,0], [2,1]],
       
       "anchors" : [ "bottom" ],
       "collision" : "platform"
-
     }]
   },
   
@@ -82,13 +81,10 @@
       "sitPositions"  : [[8, 20], [0, 20]],
       
       "position" : {
-        "idle" : [
-          "idle_laying"
-        ],
         "sex" : [
-          "from_behind",
-          "doggy",
-          "cowgirl"
+          "from_behind_in_bed",
+          "doggy_in_bed",
+          "cowgirl_in_bed"
         ]
       }
     }
@@ -106,24 +102,18 @@
     "value" : {
       "animatedParts" : {
         "parts" : {
-          "bed" : {
+          "altar" : {
             "properties" : {
               "centered" : true,
               "offset" : [0, 1.0],
               "zLevel" : -1,
               "image" : "/objects/avian/sacrificialaltar/sacrificialaltar.png:<color>"
-            },
-            
-            "partStates" : {
-              "props" : {
-
-              }
             }
           },
           
           "actors" : {
             "properties" : {
-              "anchorPart" : "bed",
+              "anchorPart" : "altar",
               "offset" : [-0.5, 3.375]
             },
             

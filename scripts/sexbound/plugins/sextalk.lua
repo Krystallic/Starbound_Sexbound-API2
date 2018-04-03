@@ -224,7 +224,7 @@ function Sexbound.Actor.SexTalk:targetRandomActor()
   
   -- Populate actor data with all actors that are not the parent actor.
   for i,actor in ipairs(self:getRoot():getActors()) do
-    if self:getParent():getEntityId() ~= actor:getEntityId() then
+    if self:getParent():getId() ~= actor:getId() then
       table.insert(otherActors, actor)
     end
   end

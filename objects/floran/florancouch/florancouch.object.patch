@@ -74,13 +74,9 @@
       "sitPositions"  : [[8, 20], [0, 20]],
       
       "position" : {
-        "idle" : [
-          "idle_laying"
-        ],
         "sex" : [
-          "from_behind",
-          "doggy",
-          "cowgirl"
+          "doggy_in_bed",
+          "cowgirl_in_bed"
         ]
       }
     }

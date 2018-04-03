@@ -328,7 +328,7 @@ function Sexbound.Player:setupActor()
   
   local actorData = {
     -- Store id
-    id = player.id(),
+    entityId = player.id(),
     
     -- Store the Player's current storage table
     storage = storage,

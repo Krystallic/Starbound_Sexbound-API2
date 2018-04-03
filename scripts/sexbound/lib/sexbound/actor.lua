@@ -345,6 +345,8 @@ function Sexbound.Actor:setup(actor)
   self._config.statusList = {"default"}
   
   self:setActorNumber(self:getParent():getActorCount())
+  
+  self:setId(self:getParent():getActorCount())
 end
 
 --- Use the Actor's entityId to Send message to update its storage.
@@ -448,6 +450,10 @@ function Sexbound.Actor:getActorNumber()
   return self._actorNumber
 end
 
+function Sexbound.Actor:setId(value)
+  self._id = value
+end
+
 --- Sets the actor number to the specified value.
 -- @param value
 function Sexbound.Actor:setActorNumber(value)
@@ -533,8 +539,13 @@ function Sexbound.Actor:getHairType()
 end
 
 --- Returns the id of this actor instance.
+function Sexbound.Actor:getId()
+  return self._id
+end
+
+--- Returns the entity id of this actor instance.
 function Sexbound.Actor:getEntityId()
-  return self:getConfig().id
+  return self:getConfig().entityId
 end
 
 --- Returns the role of this actor instance.

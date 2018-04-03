@@ -240,7 +240,7 @@ end
 function Sexbound.NPC:setupActor(store)
   local actorData = {
     -- Store id.
-    id = entity.id(),
+    entityId = entity.id(),
     
     uniqueId = entity.uniqueId(),
     
