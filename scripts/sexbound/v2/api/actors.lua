@@ -14,3 +14,21 @@ Sexbound.API.Actors.addActor = function( actorConfig, store )
     self._sexbound:addActor( actorConfig, store )
   end
 end
+
+Sexbound.API.Actors.getActors = function()
+  if self._sexbound then
+    return self._sexbound:getActors()
+  end
+end
+
+Sexbound.API.Actors.getActorCount = function()
+  if self._sexbound then
+    return self._sexbound:getActorCount()
+  end
+end
+
+Sexbound.API.Actors.uninitActors = function()
+  if self._sexbound then
+    return self._sexbound:uninitActors()
+  end
+end

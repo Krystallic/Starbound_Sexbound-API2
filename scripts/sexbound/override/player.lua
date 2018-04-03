@@ -45,10 +45,15 @@ function Sexbound.Player:new()
     _common = Sexbound.Common:new(),
     _controllerId = nil,
     _hasSetupActor = false,
+    _hasInteract = false,
     _loungeId = nil,
     _mindControl = { damageSourceKind = "sexbound_mind_control" }
   }, Sexbound.Player_mt)
 
+  if type(player.interact) == "function" then
+    self._hasInteract = true
+  end
+  
   self:initMessageHandlers()
   
   self:initStatusProperties()
@@ -56,6 +61,10 @@ function Sexbound.Player:new()
   self:restorePreviousStorage()
   
   return self
+end
+
+function Sexbound.Player:getHasInteract()
+  return self._hasInteract
 end
 
 function Sexbound.Player:getCommon()
@@ -151,7 +160,9 @@ function Sexbound.Player:initMessageHandlers()
   
     config.config.controllerId = self._controllerId
     
-    player.interact("ScriptPane", config)
+    if self:getHasInteract() then
+      player.interact("ScriptPane", config)
+    end
   end)
   
   message.setHandler("sexbound-sync-storage", function(_,_,args)
@@ -317,7 +328,7 @@ function Sexbound.Player:setupActor()
   
   local actorData = {
     -- Store id
-    id = player.id(),
+    entityId = player.id(),
     
     -- Store the Player's current storage table
     storage = storage,

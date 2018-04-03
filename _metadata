@@ -1,6 +1,6 @@
  {
-   "name"         : "sexbound_v2",
-   "version"      : "2.4.1-beta",
+   "name"         : "lox_sexbound",
+   "version"      : "2.5.0-beta",
    "author"       : "Loxodon",
    "description"  : "Adds Sexbound V2 Framework.",
    "friendlyName" : "Sexbound V2",

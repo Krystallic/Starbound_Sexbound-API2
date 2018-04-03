@@ -261,7 +261,7 @@ end
 --- Attempts to make this actor become pregnant.
 function Sexbound.Actor.Pregnant:tryBecomePregnant(otherActor)
   -- Prevent actor from impregnating itself.
-  if otherActor:getEntityId() == self:getParent():getEntityId() then return end
+  if otherActor:getId() == self:getParent():getId() then return end
   
   self:getLog():info("Actor is attempting to become pregnant: " .. self:getParent():getName())
   

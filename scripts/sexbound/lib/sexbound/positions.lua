@@ -14,6 +14,7 @@ function Sexbound.Positions.new( parent )
     _minTempo = 1,
     _logPrefix = "POSI",
     _parent = parent,
+    _positionCount = 0,
     _sustainedInterval = 10
   }, Sexbound.Positions_mt)
   
@@ -23,10 +24,7 @@ function Sexbound.Positions.new( parent )
   
   self._config = self:loadConfig( self._parent:getConfig() )
   
-  self._positions = {
-    idle = self:loadIdlePositions( self._parent:getConfig() ),
-    sex  = self:loadSexPositions( self._parent:getConfig() )
-  }
+  self._positions = self:loadPositions( self._parent:getConfig() )
   
   self:initMessageHandler()
   
@@ -37,7 +35,7 @@ function Sexbound.Positions:initMessageHandler()
   message.setHandler("sexbound-switch-position", function(_,_,args)
     local stateMachine = self:getParent():getStateMachine()
   
-    if stateMachine:isHavingSex() and not stateMachine:isClimaxing() and not stateMachine:isReseting() then
+    if not stateMachine:isClimaxing() and not stateMachine:isReseting() then
       self:switchPosition( args.positionId )
     end
   end)
@@ -62,11 +60,7 @@ end
 
 --- Returns a reference to the Current Position.
 function Sexbound.Positions:getCurrentPosition()
-  if self:getParent():getStateMachine():isHavingSex() then
-    return self._positions.sex.positions[self._index]
-  else
-    return self._positions.idle.positions[self._index]
-  end
+  return self._positions[self._index]
 end
 
 function Sexbound.Positions:getParent()
@@ -74,9 +68,7 @@ function Sexbound.Positions:getParent()
 end
 
 --- Returns a reference to the Positions.
-function Sexbound.Positions:getPositions(name)
-  if name then return self._positions[name] end
-  
+function Sexbound.Positions:getPositions()
   return self._positions
 end
 
@@ -101,34 +93,9 @@ function Sexbound.Positions:loadConfig(sexboundConfig)
   return _positionsConfig
 end
 
---- Returns loaded Idle Positions as a table.
-function Sexbound.Positions:loadIdlePositions(sexboundConfig)
-  local _idlePositions = {
-    count = 0,
-    positions = {}
-  }
-
-  for _,v in ipairs(sexboundConfig.position.idle or {}) do
-    local _configFileName = self._config[v].configFile or "/positions/idle.config"
-  
-    local _config = root.assetJson(_configFileName)
-    
-    if type(_config) == "table" then
-      table.insert(_idlePositions.positions, Sexbound.Position.new(_config))
-      
-      _idlePositions.count = _idlePositions.count + 1
-    end
-  end
-  
-  return _idlePositions
-end
-
 --- Returns loaded Sex Positions as a table.
-function Sexbound.Positions:loadSexPositions(sexboundConfig)
-  local _sexPositions = {
-    count = 0,
-    positions = {}
-  }
+function Sexbound.Positions:loadPositions(sexboundConfig)
+  local _sexPositions = {}
 
   for _,v in ipairs(sexboundConfig.position.sex or {}) do
     local _configFileName = self._config[v].configFile or "/positions/from_behind.config"
@@ -136,9 +103,9 @@ function Sexbound.Positions:loadSexPositions(sexboundConfig)
     local _config = root.assetJson(_configFileName)
   
     if type(_config) == "table" then
-      table.insert(_sexPositions.positions, Sexbound.Position.new(_config))
+      table.insert(_sexPositions, Sexbound.Position.new(_config))
       
-      _sexPositions.count = _sexPositions.count + 1
+      self._positionCount = self._positionCount + 1
     end
   end
   
@@ -182,7 +149,7 @@ function Sexbound.Positions:nextPosition()
 end
 
 function Sexbound.Positions:switchRandomSexPosition()
-  local randomIndex = util.randomIntInRange({1, self._positions.sex.count})
+  local randomIndex = util.randomIntInRange({1, self._positionCount})
   
   self:switchPosition(randomIndex)
 end
@@ -190,7 +157,7 @@ end
 --- Switches to the specified position.
 -- @param index
 function Sexbound.Positions:switchPosition(index)
-  self._index = util.wrap(index, 1, self._positions.sex.count)
+  self._index = util.wrap(index, 1, self._positionCount)
   
   self:getLog():info("Switch Position: " .. self:getCurrentPosition():getConfig().name)
   
@@ -200,9 +167,19 @@ function Sexbound.Positions:switchPosition(index)
   
   self:nextSustainedInterval()
   
+  local stateMachine = self:getParent():getStateMachine()
+  
+  local stateName = stateMachine:stateDesc()
+  
+  if not stateName or stateName == "" then return end
+  
+  local animationState = self:getCurrentPosition():getAnimationState(stateName)
+  
+  stateName = animationState.stateName
+  
   -- Set new animation state to match the position.
-  animator.setAnimationState("props", self._positions.sex.positions[self._index]:getConfig().animationState)
-  animator.setAnimationState("actors", self._positions.sex.positions[self._index]:getConfig().animationState)
+  animator.setAnimationState("props",  stateName, true)
+  animator.setAnimationState("actors", stateName, true)
   
   -- Send undelayed broadcast
   Sexbound.Messenger.get("main"):broadcast(self, "Sexbound:Positions:SwitchPosition", self:getCurrentPosition(), false)
