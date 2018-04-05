@@ -168,22 +168,43 @@ function Sexbound.Actor.SexTalk:sayRandom(statusPriorityForActor, statusPriority
     actorStatus = statusPriorityForActor
   end
 
-  dialog = dialog[actorNumber]  or {}
-  dialog = dialog[actorStatus]  or dialog["default"] or dialog
-  dialog = dialog[otherSpecies] or dialog["default"] or dialog
-  dialog = dialog[otherGender]  or dialog["default"] or dialog
-  dialog = dialog[otherStatus]  or dialog["default"] or {}
+  -- Get species dialog from specific dialog
+  dialog1 = dialog
   
-  defaultDialog = defaultDialog[actorNumber] or {}
-  defaultDialog = defaultDialog[actorStatus] or defaultDialog["default"] or defaultDialog
-  defaultDialog = defaultDialog["default"]   or defaultDialog
-  defaultDialog = defaultDialog[otherGender] or defaultDialog["default"] or defaultDialog
-  defaultDialog = defaultDialog[otherStatus] or defaultDialog["default"] or {}
+  dialog1 = dialog1[actorNumber]  or {}
+  dialog1 = dialog1[actorStatus]  or dialog1["default"] or dialog1
+  dialog1 = dialog1[otherSpecies] or dialog1["default"] or dialog1
+  dialog1 = dialog1[otherGender]  or dialog1["default"] or dialog1
+  dialog1 = dialog1[otherStatus]  or dialog1["default"] or {}
   
-  dialog = util.mergeTable(defaultDialog, dialog)
+  -- Get default dialog from specific dialog file
+  dialog2 = dialog
   
-  if not isEmpty(dialog) and type(dialog) == "table" then
-    dialog = util.randomChoice(dialog)
+  dialog2 = dialog2[actorNumber]  or {}
+  dialog2 = dialog2[actorStatus]  or dialog2["default"] or dialog2
+  dialog2 = dialog2["default"]    or dialog2
+  dialog2 = dialog2[otherGender]  or dialog2["default"] or dialog2
+  dialog2 = dialog2[otherStatus]  or dialog2["default"] or {}
+  
+  local dialogPool = util.mergeTable(dialog1, dialog2)
+  
+  local speciesList = self:getConfig().skipMergeDefaultDialog.species
+  
+  local _,skipMergeDefault = util.find(speciesList, function(s) return s == self:getParent():getSpecies() end)
+  
+  if not skipMergeDefault then
+    -- Merge default species dialog file
+    defaultDialog = defaultDialog[actorNumber] or {}
+    defaultDialog = defaultDialog[actorStatus] or defaultDialog["default"] or defaultDialog
+    defaultDialog = defaultDialog["default"]   or defaultDialog
+    defaultDialog = defaultDialog[otherGender] or defaultDialog["default"] or defaultDialog
+    defaultDialog = defaultDialog[otherStatus] or defaultDialog["default"] or {}
+    
+    dialogPool = util.mergeTable(defaultDialog, dialogPool)
+  end
+  
+  if not isEmpty(dialogPool) and type(dialogPool) == "table" then
+    dialog = util.randomChoice(dialogPool)
   end
 
   if type(dialog) == "string" then
