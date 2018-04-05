@@ -1,0 +1,139 @@
+{
+  "objectName" : "sexbound_apexbed",
+  "colonyTags" : ["apex","apexvillage", "sexbound"],
+  "rarity" : "Uncommon",
+  "category" : "furniture",
+  "price" : 250,
+  "description" : "A cheaply-manufactured bed made specifically for having sex.",
+  "shortdescription" : "Standard Issue Sex Bed",
+  "race" : "apex",
+
+  "apexDescription" : "We Apex are afraid of an entirely different kind of bed bug.",
+  "avianDescription" : "Such comfort is rare amongst the Avian, our furniture is stone and straw.",
+  "floranDescription" : "Sssuch uncomfortable bedding. No match for Floran fursss.",
+  "glitchDescription" : "Observant. A useful station for recharging one's batteries.",
+  "humanDescription" : "A simple bed, lacks any real charm.",
+  "hylotlDescription" : "How does one close one's eyes when surrounded by such ugliness?",
+  "novakidDescription" : "A simple bed. It does the job.",
+
+  "interactive" : true,
+  
+  "mouthPosition" : [0, 4],
+  
+  "inventoryIcon" : "apexbedicon.png",
+  "orientations" : [
+    {
+      "image" : "apexbed.png:<color>",
+      "sitCoverImage" : "/objects/apex/apexbed/apexbedcover.png",
+      "flipImages" : true,
+      "imagePosition" : [-24, 0],
+      "spaces" : [[-3, 0], [-3, 1], [-2, 0], [-2, 1], [-1, 1], [0, 1], [1,0], [1,1], [2,0], [2,1]],
+      "anchors" : [ "bottom" ]
+    },
+    {
+      "image" : "apexbed.png:<color>",
+      "sitCoverImage" : "/objects/apex/apexbed/apexbedcover.png",
+      "imagePosition" : [-24, 0],
+      "direction" : "right",
+      "spaces" : [[-3, 0], [-3, 1], [-2, 0], [-2, 1], [-1, 1], [0, 1], [1,0], [1,1], [2,0], [2,1]],
+      "anchors" : [ "bottom" ]
+    }
+  ],
+  
+  "scripts" : ["/scripts/sexbound/twoactors.lua"],
+  
+  "sexboundConfig" : {
+    "requiredVersion" : "2.0.0",
+    
+    "animation" : {
+      "flipped" : true
+    },
+    
+    "nodePositions" : [[-1, 0], [0, 0]],
+    
+    "sitPositions"  : [[8, 20], [0, 20]],
+    
+    "position" : {
+      "sex" : [
+        "doggy_in_bed",
+        "cowgirl_in_bed"
+      ]
+    }
+  },
+  
+  "animation" : "/artwork/humanoid/twoactors.animation",
+  
+  "animationCustom" : {
+    "animatedParts" : {
+      "stateTypes" : {
+        "props" : {
+          "states" : {
+            "position3" : {
+              "properties" : {
+                "immediateSoundRangeMultiplier" : 0.2
+              },
+              "frameProperties" : {
+                "immediateSound" : ["", "", "", "/sfx/sexbound/thud.ogg"]
+              }
+            }
+          }
+        }
+      },
+    
+      "parts" : {
+        "bed" : {
+          "properties" : {
+            "centered" : true,
+            "offset" : [0, 1.5],
+            "zLevel" : -1,
+            "image" : "/objects/apex/apexbed/apexbed.png:default"
+          },
+          
+          "partStates" : {
+            "props" : {
+              "position1" : {
+                "frameProperties" : {
+                  "offset" : [[0, 1.5], [-0.125, 1.5], [-0.25, 1.5], [-0.25, 1.5], [-0.25, 1.5], [-0.125, 1.5], [0, 1.5]]
+                }
+              },
+              
+              "position2" : {
+                "properties" : {
+                  "zLevel" : 100
+                },
+                "frameProperties" : {
+                  "offset" : [[0, 1.5], [-0.125, 1.5], [-0.25, 1.5], [-0.25, 1.5], [-0.25, 1.5], [-0.125, 1.5], [0, 1.5]]
+                }
+              },
+              
+              "position2-climax" : {
+                "properties" : {
+                  "zLevel" : 100
+                }
+              },
+              
+              "position2-reset" : {
+                "properties" : {
+                  "zLevel" : 100
+                }
+              },
+              
+              "position3" : {
+                "frameProperties" : {
+                  "offset" : [[0, 1.75], [0, 1.625], [0, 1.5], [0, 1.5], [0, 1.5], [0, 1.625], [0, 1.75]]
+                }
+              }
+            }
+          }
+        },
+        
+        "actors" : {
+          "properties" : {
+            "anchorPart" : "bed",
+            "offset" : [0.25, 2.375]
+          }
+        }
+      }
+    }
+  }
+}
