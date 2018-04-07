@@ -98,7 +98,7 @@ function Sexbound.Positions:loadPositions(sexboundConfig)
   local _sexPositions = {}
 
   for _,v in ipairs(sexboundConfig.position.sex or {}) do
-    local _configFileName = self._config[v].configFile or "/positions/from_behind.config"
+    local _configFileName = self._config[v].configFile or "/positions/standing.config"
   
     local _config = root.assetJson(_configFileName)
   
