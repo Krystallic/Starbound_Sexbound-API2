@@ -71,7 +71,7 @@
           },
           
           "position1" : {
-            "frames" : 7,
+            "frames" : 5,
             "cycle"  : 1,
             "mode"   : "loop"
           },
@@ -89,7 +89,7 @@
           },
           
           "position2" : {
-            "frames" : 7,
+            "frames" : 5,
             "cycle"  : 1,
             "mode"   : "loop"
           },
@@ -107,7 +107,7 @@
           },
           
           "position3" : {
-            "frames" : 7,
+            "frames" : 5,
             "cycle"  : 1,
             "mode"   : "loop"
           },
@@ -122,7 +122,61 @@
             "frames" : 1,
             "cycle"  : 1,
             "mode"   : "loop"
-          }
+          },
+		  
+          "position4" : {
+            "frames" : 5,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position4-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position4-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+		  
+          "position5" : {
+            "frames" : 5,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position5-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position5-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+		  
+          "position6" : {
+            "frames" : 5,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position6-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position6-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+		  }
         }
       },
       
@@ -147,11 +201,11 @@
           },
                 
           "position1" : {
-            "frames" : 7,
+            "frames" : 5,
             "cycle"  : 1,
             "mode"   : "loop",
             "frameProperties" : {
-              "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
+              "immediateSound" : ["/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
@@ -168,11 +222,11 @@
           },
           
           "position2" : {
-            "frames" : 7,
+            "frames" : 5,
             "cycle"  : 1,
             "mode"   : "loop",
             "frameProperties" : {
-              "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
+              "immediateSound" : ["/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
@@ -189,11 +243,11 @@
           },
           
           "position3" : {
-            "frames" : 7,
+            "frames" : 5,
             "cycle"  : 1,
             "mode"   : "loop",
             "frameProperties" : {
-              "immediateSound" : ["", "", "", "/sfx/sexbound/thrusts/splat.ogg"]
+              "immediateSound" : ["/sfx/sexbound/thrusts/splat.ogg"]
             }
           },
           
@@ -204,6 +258,69 @@
           },
           
           "position3-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+		  
+		  "position4" : {
+            "frames" : 5,
+            "cycle"  : 1,
+            "mode"   : "loop",
+            "frameProperties" : {
+              "immediateSound" : ["/sfx/sexbound/thrusts/splat.ogg"]
+            }
+          },
+          
+          "position4-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position4-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+		  
+		  "position5" : {
+            "frames" : 5,
+            "cycle"  : 1,
+            "mode"   : "loop",
+            "frameProperties" : {
+              "immediateSound" : ["/sfx/sexbound/thrusts/splat.ogg"]
+            }	
+          },
+		  
+          "position5-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position5-reset" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+		  
+		  "position6" : {
+            "frames" : 5,
+            "cycle"  : 1,
+            "mode"   : "loop",
+            "frameProperties" : {
+              "immediateSound" : ["/sfx/sexbound/thrusts/splat.ogg"]
+            }
+          },
+          
+          "position6-climax" : {
+            "frames" : 1,
+            "cycle"  : 1,
+            "mode"   : "loop"
+          },
+          
+          "position6-reset" : {
             "frames" : 1,
             "cycle"  : 1,
             "mode"   : "loop"
@@ -373,11 +490,7 @@
           "actors" : {
             "idle" : {},
             
-            "idle_laying" : {
-              "properties" : {
-                "offset" : [-0.5, 0]
-              }
-            },
+            "idle_laying" : {},
             
             "position1" : {
               "properties" : {
@@ -399,37 +512,91 @@
             
             "position2" : {
               "properties" : {
-                "offset" : [-0.75, 0]
+                "offset" : [-1.125, 0]
               }
             },
             
             "position2-climax" : {
               "properties" : {
-                "offset" : [-0.75, 0]
+                "offset" : [-1.125, 0]
               }
             },
             
             "position2-reset" : {
               "properties" : {
-                "offset" : [-0.75, 0]
+                "offset" : [-1.125, 0]
               }
             },
             
             "position3" : {
               "properties" : {
-                "offset" : [-0.5, 0]
+                "offset" : [-1.375, 0]
               }
             },
             
             "position3-climax" : {
               "properties" : {
-                "offset" : [-0.5, 0]
+                "offset" : [-1.375, 0]
               }
             },
             
             "position3-reset" : {
               "properties" : {
+                "offset" : [-1.375, 0]
+              }
+            },
+			
+            "position4" : {
+              "properties" : {
+                "offset" : [0.375, 0]
+              }
+            },
+            
+            "position4-climax" : {
+              "properties" : {
+                "offset" : [0.375, 0]
+              }
+            },
+            
+            "position4-reset" : {
+              "properties" : {
+                "offset" : [0.375, 0]
+              }
+            },
+			
+            "position5" : {
+              "properties" : {
                 "offset" : [-0.5, 0]
+              }
+            },
+            
+            "position5-climax" : {
+              "properties" : {
+                "offset" : [-0.5, 0]
+              }
+            },
+            
+            "position5-reset" : {
+              "properties" : {
+                "offset" : [-0.5, 0]
+              }
+            },
+			
+            "position6" : {
+              "properties" : {
+                "offset" : [-0.75, 0]
+              }
+            },
+            
+            "position6-climax" : {
+              "properties" : {
+                "offset" : [-0.75, 0]
+              }
+            },
+            
+            "position6-reset" : {
+              "properties" : {
+                "offset" : [-0.75, 0]
               }
             }
           }
@@ -467,7 +634,25 @@
             
             "position3-climax" : {},
             
-            "position3-reset" : {}
+            "position3-reset" : {},
+			
+            "position4" : {},
+			
+            "position4-climax" : {},
+            
+            "position4-reset" : {},
+			
+            "position5" : {},
+			
+            "position5-climax" : {},
+            
+            "position5-reset" : {},
+			
+            "position6" : {},
+			
+            "position6-climax" : {},
+            
+            "position6-reset" : {}
           }
         }
       },
@@ -494,58 +679,109 @@
             
             "position1" : {
               "frameProperties" : {
-                "offset" : [[0,0], [0,0], [0.125, 0], [0.125, 0], [0.125, 0], [0,0], [0,0]]
+                "offset" : [[-0.125,0], [-0.125,0], [0, -0.125], [0, -0.125], [0, -0.125]]
               }
             },
             
             "position1-climax" : {
               "properties" : {
-                "offset" : [0,0]
+                "offset" : [-0.125,0]
               }
             },
             
             "position1-reset" : {
               "properties" : {
-                "offset" : [0,0]
+                "offset" : [-0.125,0]
               }
             },
             
             "position2" : {
-              "properties" : {
-                "offset" : [0.125, -0.5]
-              },
               "frameProperties" : {
-                "offset" : [[0.125, -0.5], [0.125, -0.5], [0.25, -0.5], [0.25, -0.5], [0.25, -0.5], [0.125, -0.5], [0.125, -0.5]]
+                "offset" : [[-0.125, -0.375], [-0.125, -0.375], [0, -0.375], [0, -0.375], [0, -0.375]]
               }
             },
             
             "position2-climax" : {
               "properties" : {
-                "offset" : [0.125, -0.5]
+                "offset" : [-0.125, -0.375]
               }
             },
             
             "position2-reset" : {
               "properties" : {
-                "offset" : [0.125, -0.5]
+                "offset" : [-0.125, -0.375]
               }
             },
             
             "position3" : {
-              "properties" : {
-                "offset" : [-2, 0.75]
+              "frameProperties" : {
+                "offset" : [[0.25, -0.625], [0.25, -0.625], [0.375, -0.625], [0.375, -0.5], [0.375, -0.625]]
               }
             },
             
             "position3-climax" : {
               "properties" : {
-                "offset" : [-2, 0.75]
+                "offset" : [0.25, -0.625]
               }
             },
             
             "position3-reset" : {
               "properties" : {
-                "offset" : [-2, 0.75]
+                "offset" : [0.25, -0.625]
+              }
+            },
+			
+            "position4" : {
+              "properties" : {
+                "offset" : [-2.0, 1.291666]
+              }
+            },
+            
+            "position4-climax" : {
+              "properties" : {
+                "offset" : [-2.0, 1.291666]
+              }
+            },
+            
+            "position4-reset" : {
+              "properties" : {
+                "offset" : [-2.0, 1.291666]
+              }
+            },
+			
+            "position5" : {
+              "frameProperties" : {
+                "offset" : [[0, 0], [0, 0], [0.125, 0], [0.125, 0], [0.125, 0]]
+              }
+            },
+            
+            "position5-climax" : {
+              "properties" : {
+                "offset" : [0, 0]
+              }
+            },
+            
+            "position5-reset" : {
+              "properties" : {
+                "offset" : [0, 0]
+              }
+            },
+			
+            "position6" : {
+              "properties" : {
+                "offset" : [0, 0]
+              }
+            },
+            
+            "position6-climax" : {
+              "properties" : {
+                "offset" : [0, 0]
+              }
+            },
+            
+            "position6-reset" : {
+              "properties" : {
+                "offset" : [0, 0]
               }
             }
           }
@@ -760,13 +996,30 @@
             
             "position3-climax" : {},
             
-            "position3-reset" : {}
+            "position3-reset" : {},
+			
+            "position4" : {},
+			
+            "position4-climax" : {},
+            
+            "position4-reset" : {},
+			
+            "position5" : {},
+			
+            "position5-climax" : {},
+            
+            "position5-reset" : {},
+			
+            "position6" : {},
+			
+            "position6-climax" : {},
+            
+            "position6-reset" : {}
           }
         }
       },
 
       /* Actor 2 */
-      
       "actor2" : {
         "properties" : {
           "centered" : true,
@@ -792,55 +1045,109 @@
             
             "position1" : {
               "properties" : {
-                "offset" : [0.5, 0]
+                "offset" : [0.125, 0]
               }
             },
             
             "position1-climax" : {
               "properties" : {
-                "offset" : [0.5, 0]
+                "offset" : [0.125, 0]
               }
             },
             
             "position1-reset" : {
               "properties" : {
-                "offset" : [0.5, 0]
+                "offset" : [0.125, 0]
               }
             },
             
             "position2" : {
               "properties" : {
-                "offset" : [0.5, 0]
+                "offset" : [0, 0]
               }
             },
             
             "position2-climax" : {
               "properties" : {
-                "offset" : [0.5, 0]
+                "offset" : [0, 0]
               }
             },
             
             "position2-reset" : {
               "properties" : {
-                "offset" : [0.5, 0]
+                "offset" : [0, 0]
               }
             },
             
             "position3" : {
               "properties" : {
-                "offset" : [0, 0]
+                "offset" : [-0.25, 0]
               }
             },
             
             "position3-climax" : {
               "properties" : {
-                "offset" : [0, 0]
+                "offset" : [-0.25, 0]
               }
             },
             
             "position3-reset" : {
               "properties" : {
+                "offset" : [-0.25, 0]
+              }
+            },
+			
+            "position4" : {
+              "properties" : {
+                "offset" : [0.5, 0]
+              }
+            },
+            
+            "position4-climax" : {
+              "properties" : {
+                "offset" : [0.5, 0]
+              }
+            },
+            
+            "position4-reset" : {
+              "properties" : {
+                "offset" : [0.5, 0]
+              }
+            },
+			
+            "position5" : {
+              "properties" : {
                 "offset" : [0, 0]
+              }
+            },
+            
+            "position5-climax" : {
+              "properties" : {
+                "offset" : [0, 0]
+              }
+            },
+            
+            "position5-reset" : {
+              "properties" : {
+                "offset" : [0, 0]
+              }
+            },
+			
+            "position6" : {
+              "properties" : {
+                "offset" : [0.5, 0]
+              }
+            },
+            
+            "position6-climax" : {
+              "properties" : {
+                "offset" : [0.5, 0]
+              }
+            },
+            
+            "position6-reset" : {
+              "properties" : {
+                "offset" : [0.5, 0]
               }
             }
           }
@@ -853,7 +1160,7 @@
           "centered"   : true,
           "anchorPart" : "actor2-body",
           "image"      : "<part-actor2-arm-front>.<frame><actor2-bodyDirectives>",
-          "zLevel"     : 17
+          "zLevel"     : 18
         },
         
         "partStates" : {
@@ -878,7 +1185,25 @@
             
             "position3-climax" : {},
             
-            "position3-reset" : {}
+            "position3-reset" : {},
+			
+            "position4" : {},
+			
+            "position4-climax" : {},
+            
+            "position4-reset" : {},
+			
+            "position5" : {},
+			
+            "position5-climax" : {},
+            
+            "position5-reset" : {},
+			
+            "position6" : {},
+			
+            "position6-climax" : {},
+            
+            "position6-reset" : {}
           }
         }
       },
@@ -901,55 +1226,109 @@
             
             "position1" : {
               "frameProperties" : {
-                "offset" : [[0.625, -0.125], [0.625, -0.125], [0.75, -0.125], [0.875, -0.125], [0.75, -0.125], [0.625, -0.125], [0.625, -0.125]]
+                "offset" : [[0.375, -0.25], [0.25, -0.25], [0.125, -0.25], [0.125, -0.25], [0.125, -0.25]]
               }
             },
             
             "position1-climax" : {
               "properties" : {
-                "offset" : [0.625, -0.125]
+                "offset" : [0.375, -0.25]
               }
             },
             
             "position1-reset" : {
               "properties" : {
-                "offset" : [0.625, -0.125]
+                "offset" : [0.375, -0.25]
               }
             },
             
             "position2" : {
               "frameProperties" : {
-                "offset" : [[0.5, -1.25], [0.5, -1.25], [0.625, -1.25], [0.625, -1.25], [0.625, -1.25], [0.5, -1.25], [0.5, -1.25]]
+                "offset" : [[0.625, -1.5], [0.75, -1.5], [0.875, -1.375], [1, -1.375], [0.875, -1.5]]
               }
             },
             
             "position2-climax" : {
               "properties" : {
-                "offset" : [0.5, -1.25]
+                "offset" : [0.625, -1.5]
               }
             },
             
             "position2-reset" : {
               "properties" : {
-                "offset" : [0.5, -1.25]
+                "offset" : [0.625, -1.5]
               }
             },
             
             "position3" : {
               "frameProperties" : {
-                "offset" : [[0, -0.5], [-0.125, -0.5], [-0.125, -0.5], [-0.125, -0.625], [-0.125, -0.5], [-0.125, -0.5], [0, -0.5]]
+                "offset" : [[2.041666, 1.25], [2.041666, 1.25], [2.041666, 1.125], [2.041666, 1.125], [2.041666, 1.125]]
               }
             },
             
             "position3-climax" : {
               "properties" : {
-                "offset" : [0, -0.5]
+                "offset" : [2.041666, 1.25]
               }
             },
             
             "position3-reset" : {
               "properties" : {
-                "offset" : [0, -0.5]
+                "offset" : [2.041666, 1.25]
+			  }
+            },
+			  
+	        "position4" : {
+              "frameProperties" : {
+                "offset" : [[0.25, -0.5], [0.125, -0.375], [0.25, -0.375], [0.25, -0.25], [0.25, -0.375]]
+              }
+            },
+            
+            "position4-climax" : {
+              "properties" : {
+                "offset" : [0.25, -0.5]
+              }
+            },
+            
+            "position4-reset" : {
+              "properties" : {
+                "offset" : [0.25, -0.5]
+              }
+			},
+			
+	        "position5" : {
+              "frameProperties" : {
+                "offset" : [[-0.25, 0.25], [-0.25, 0.375], [-0.125, 0.5], [-0.125, 0.625], [-0.125, 0.5]]
+              }
+            },
+            
+            "position5-climax" : {
+              "properties" : {
+                "offset" : [-0.25, 0.25]
+              }
+            },
+            
+            "position5-reset" : {
+              "properties" : {
+                "offset" : [-0.25, 0.25]
+              }
+            },
+			
+	        "position6" : {
+              "frameProperties" : {
+                "offset" : [[-0.625, -1.375], [-0.5, -1.375], [-0.375, -1.25], [-0.25, -1.25], [-0.5, -1.375]]
+              }
+            },
+            
+            "position6-climax" : {
+              "properties" : {
+                "offset" : [-0.625, -1.375]
+              }
+            },
+            
+            "position6-reset" : {
+              "properties" : {
+                "offset" : [-0.625, -1.375]
               }
             }
           }
@@ -1133,7 +1512,7 @@
         }
       },
       
-      /* Actor 2 Arm Back */
+      /* Actor 2 Back Arm */
       "actor2-arm-back" : {
         "properties" : {
           "centered"   : true,
@@ -1164,7 +1543,25 @@
             
             "position3-climax" : {},
             
-            "position3-reset" : {}
+            "position3-reset" : {},
+			
+            "position4" : {},
+			
+            "position4-climax" : {},
+            
+            "position4-reset" : {},
+			
+            "position5" : {},
+			
+            "position5-climax" : {},
+            
+            "position5-reset" : {},
+			
+            "position6" : {},
+			
+            "position6-climax" : {},
+            
+            "position6-reset" : {}
           }
         }
       }
